@@ -54,54 +54,57 @@ class patienthomePagescreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const AppointmentScreen()),
-                          );
-                        },
-                        child: Container(
-                          width: size.height * 45 / 932,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
+                  Center(
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AppointmentScreen()),
+                            );
+                          },
+                          child: Container(
+                            width: size.height * 45 / 932,
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ], color: Colors.white, shape: BoxShape.circle),
+                            child: Center(
+                              child:
+                                  SvgPicture.asset('assets/icons/wallet.svg'),
                             ),
-                          ], color: Colors.white, shape: BoxShape.circle),
-                          child: Center(
-                            child: SvgPicture.asset('assets/icons/wallet.svg'),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      GestureDetector(
-                        child: Container(
-                          width: size.height * 45 / 932,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ], color: Colors.white, shape: BoxShape.circle),
-                          child: Center(
-                            child: SvgPicture.asset('assets/icons/bell.svg'),
-                          ),
+                        const SizedBox(
+                          width: 10,
                         ),
-                      )
-                    ],
+                        GestureDetector(
+                          child: Container(
+                            width: size.height * 45 / 932,
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ], color: Colors.white, shape: BoxShape.circle),
+                            child: Center(
+                              child: SvgPicture.asset('assets/icons/bell.svg'),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
