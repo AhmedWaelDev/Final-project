@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../CustomWidgets/logbtn.dart';
 import '../../CustomWidgets/socialCards.dart';
 import '../../CustomWidgets/textForm.dart';
+import '../homePage/patienthomePage.dart';
 
 class logIn extends StatelessWidget {
   const logIn({super.key});
@@ -112,7 +113,18 @@ class logIn extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const logbtn(mainColor: mainColor, text: "Sign in"),
+                    logbtn(
+                      mainColor: mainColor,
+                      text: "Sign in",
+                      onTapFun: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const patienthomePagescreen()),
+                        );
+                      },
+                    ),
                     Container(
                       margin: EdgeInsets.symmetric(
                           vertical: size.height * 18 / 932),
