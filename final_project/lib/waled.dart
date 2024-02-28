@@ -73,7 +73,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 "Upcoming",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 20 / 430,
+                                  fontSize: size.width * 18 / 430,
                                   color: _selectedIndex == 0
                                       ? Colors.white
                                       : Colors.black,
@@ -101,7 +101,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 "Complete",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 20 / 430,
+                                  fontSize: size.width * 18 / 430,
                                   color: _selectedIndex == 1
                                       ? Colors.white
                                       : Colors.black,
@@ -129,7 +129,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 "Cancelled",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 20 / 430,
+                                  fontSize: size.width * 18 / 430,
                                   color: _selectedIndex == 2
                                       ? Colors.white
                                       : Colors.black,
@@ -496,7 +496,7 @@ class DoctorCard extends StatelessWidget {
                                 Text(
                                   'Open Chat',
                                   style: TextStyle(
-                                      fontSize: size.width * 18 / 430,
+                                      fontSize: size.width * 17 / 430,
                                       color: const Color(
                                         0xff757575,
                                       )),
@@ -663,7 +663,7 @@ class _cardCompleteState extends State<cardComplete> {
                                 Text(
                                   'Open Chat',
                                   style: TextStyle(
-                                      fontSize: size.width * 18 / 430,
+                                      fontSize: size.width * 17 / 430,
                                       color: const Color(
                                         0xff757575,
                                       )),
