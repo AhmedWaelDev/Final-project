@@ -1,5 +1,6 @@
 import 'package:final_project/screens/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:final_project/Profile/profile.dart';
 
 const Color primeColor = Color(0xFF50B7C5);
 
