@@ -1,9 +1,13 @@
+import 'package:final_project/Profile/Personal.dart';
 import 'package:flutter/material.dart';
 
-void main() {}
+void main() {
+  runApp(Profile());
+}
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  const Profile({Key? key});
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -27,38 +31,42 @@ class Profile extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 120),
-                  child: Icon(
-                    Icons.edit_note_sharp,
-                    size: 30,
-                    color: Colors.black,
+                  padding: EdgeInsets.only(left: 50),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.edit_note_sharp,
+                      size: 30,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => App()),
+                      );
+                    },
                   ),
                 ),
               ],
             ),
           ),
-
           leading: Padding(
             padding: const EdgeInsets.only(left: 16),
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              // تغيير لون خلفية الدائرة إلى الأبيض
               child: IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new),
-                color: Colors.black, // تغيير لون الأيقونة
+                color: Colors.black,
                 onPressed: () {
-                  Navigator.of(context).pop(); // للرجوع للشاشة السابقة
+                  Navigator.of(context).pop();
                 },
               ),
             ),
           ),
           backgroundColor: const Color(0xffe5e9f0),
-          // shadowColor: Colors.white,
         ),
         backgroundColor: Color(0xffe5e9f0),
         body: Stack(
           children: [
-            // الصورة
             Positioned(
               top: size.height * 40 / 932,
               left: 0,
@@ -66,19 +74,18 @@ class Profile extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 child: CircleAvatar(
-                  radius: 100, //
-                  //  backgroundImage: AssetImage(''), // مسار الصورة
+                  radius: 100,
+                  backgroundImage: AssetImage('Mask group.png'),
                 ),
               ),
             ),
-            //
             Positioned(
               top: size.height * 230 / 932,
               right: size.width * 130 / 430,
               child: FloatingActionButton(
                 backgroundColor: Color(0xffFFFFFF),
                 onPressed: () {
-                  // تنفيذ إجراء عند الضغط على زر الكاميرا
+                  // Handle camera button press
                 },
                 child: Icon(
                   Icons.camera_alt_outlined,
@@ -89,6 +96,42 @@ class Profile extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Name extends StatelessWidget {
+  final String name;
+  final String age;
+
+  const Name({Key? key, required this.name, required this.age})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            name,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: size.width * 24 / 430,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: size.height * 7 / 932),
+          Text(
+            age,
+            style: TextStyle(
+              color: Color(0xff757575),
+              fontSize: size.width * 15 / 430,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
     );
   }

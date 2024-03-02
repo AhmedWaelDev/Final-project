@@ -1,3 +1,4 @@
+import 'package:final_project/Profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -89,7 +90,7 @@ class myAppBar extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AppointmentScreen()),
+                            builder: (context) => const Profile()),
                       );
                     },
                     child: Container(
