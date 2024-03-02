@@ -8,11 +8,12 @@ class upcomingForPatientContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    const mainColor = Color(0xFF50B7C5);
     return Container(
       padding: EdgeInsets.only(
         top: size.height * 20 / 932,
         right: size.height * 20 / 932,
-        bottom: size.height * 30 / 932,
+        bottom: size.height * 20 / 932,
         left: size.height * 40 / 932,
       ),
       decoration: BoxDecoration(
@@ -64,7 +65,24 @@ class upcomingForPatientContainer extends StatelessWidget {
                       )
                     ],
                   ),
-                  ElevatedButton(onPressed: () {}, child: const Text("data"))
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(mainColor)),
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          const Icon(Icons.video_call_outlined,
+                              color: Colors.white),
+                          SizedBox(
+                            width: size.width * 5 / 320,
+                          ),
+                          const Text(
+                            "Join Call",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ))
                 ],
               )
             ]),

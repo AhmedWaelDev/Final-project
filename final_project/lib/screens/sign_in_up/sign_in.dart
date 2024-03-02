@@ -117,8 +117,7 @@ class logIn extends StatelessWidget {
                       mainColor: mainColor,
                       text: "Sign in",
                       onTapFun: () {
-                        Navigator.push(
-                          context,
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                               builder: (context) =>
                                   const patienthomePagescreen()),
