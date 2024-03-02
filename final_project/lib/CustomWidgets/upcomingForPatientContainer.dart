@@ -43,6 +43,7 @@ class upcomingForPatientContainer extends StatelessWidget {
                 ],
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
