@@ -38,6 +38,8 @@ dependencies:
   flutter_svg: ^2.0.10
   smooth_page_indicator: ^1.1.0
   lottie: ^2.6.0
+  flutter_swiper_view: ^1.1.8
+
 
 dev_dependencies:
   flutter_test:
