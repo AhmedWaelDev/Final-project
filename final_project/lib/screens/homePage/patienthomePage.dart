@@ -1,3 +1,4 @@
+import 'package:final_project/waled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
@@ -71,7 +72,14 @@ class patienthomePagescreen extends StatelessWidget {
                                 fontSize: size.height * 22 / 932),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AppointmentScreen()),
+                              );
+                            },
                             child: Text(
                               "See all",
                               style: TextStyle(
