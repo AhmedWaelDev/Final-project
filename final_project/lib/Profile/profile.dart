@@ -75,13 +75,13 @@ class Profile extends StatelessWidget {
                 alignment: Alignment.center,
                 child: CircleAvatar(
                   radius: 100,
-                  backgroundImage: AssetImage('Mask group.png'),
+                  backgroundImage: AssetImage("assets/photo/Mask group.png"),
                 ),
               ),
             ),
             Positioned(
-              top: size.height * 230 / 932,
-              right: size.width * 130 / 430,
+              top: size.height * 215 / 932,
+              right: size.width * 120 / 430,
               child: FloatingActionButton(
                 backgroundColor: Color(0xffFFFFFF),
                 onPressed: () {
@@ -132,6 +132,56 @@ class Name extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Contain extends StatelessWidget {
+  IconData currentIcon;
+  final String teext;
+
+  Contain({
+    super.key,
+    required this.teext,
+    required this.currentIcon,
+  });
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    return Padding(
+      padding: const EdgeInsets.all(40),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: size.width * 348 / 430,
+          height: size.height * 55 / 932,
+          color: Colors.white,
+          child: Container(
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    teext,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: size.width * 170 / 430,
+                ),
+                IconButton(onPressed: () {}, icon: Icon(currentIcon)),
+              ],
+            ),
+          ),
+        ),
+
+        // child: TextButton(onPressed: () {  }, child: Text(teext,style: TextStyle(color: Colors.black,fontSize: 24,fontWeight: FontWeight.bold,),),),
       ),
     );
   }
