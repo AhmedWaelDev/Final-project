@@ -1,3 +1,4 @@
+import 'package:final_project/Setting/setting.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF50B7C5)),
         useMaterial3: true,
       ),
-      home: const splash(),
+      home: const Setting(),
     );
   }
 }
