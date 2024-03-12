@@ -1,4 +1,4 @@
-import 'package:final_project/waled.dart';
+import 'package:final_project/screens/AppointmentScreen/AppointmentScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
@@ -93,9 +93,9 @@ class patienthomePagescreen extends StatelessWidget {
                             child: Text(
                               "See all",
                               style: TextStyle(
-                                  fontFamily: 'Inter',
-                                  fontSize: size.height * 20 / 932,
-                                  color: const Color(0xff7269D2)),
+                                fontFamily: 'Inter',
+                                fontSize: size.height * 20 / 932,
+                              ),
                             ),
                           ),
                         ],

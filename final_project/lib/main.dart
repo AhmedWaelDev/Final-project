@@ -1,4 +1,3 @@
-import 'package:final_project/Setting/setting.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:flutter/material.dart';
 

@@ -133,11 +133,11 @@ class Name extends StatelessWidget {
   }
 }
 
-class Contain extends StatelessWidget {
+class myContain extends StatelessWidget {
   IconData currentIcon;
   final String teext;
 
-  Contain({
+  myContain({
     super.key,
     required this.teext,
     required this.currentIcon,

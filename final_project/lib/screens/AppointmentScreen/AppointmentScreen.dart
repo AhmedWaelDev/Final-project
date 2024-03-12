@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'CustomWidgets/DoctorCard.dart';
-import 'CustomWidgets/cardComplete.dart';
+import '../../CustomWidgets/DoctorCard.dart';
+import '../../CustomWidgets/cardComplete.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({super.key});
