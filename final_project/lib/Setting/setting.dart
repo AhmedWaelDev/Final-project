@@ -40,8 +40,12 @@ class _SettingState extends State<Setting> {
         backgroundColor: Color(0xffe5e9f0),
         // shadowColor: Colors.white,
       ),
-      body: Column(
+      body: 
+      
+      Column(
+        
         children: [
+        
           TextSetting(
             teext: "Change password",
             currentIcon: Icons.lock,
