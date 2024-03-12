@@ -11,9 +11,7 @@ class upcomingForPatientContainer extends StatelessWidget {
     const mainColor = Color(0xFF50B7C5);
     return Container(
       padding: EdgeInsets.only(
-        top: size.height * 20 / 932,
         right: size.height * 20 / 932,
-        bottom: size.height * 20 / 932,
         left: size.height * 40 / 932,
       ),
       decoration: BoxDecoration(
@@ -28,64 +26,16 @@ class upcomingForPatientContainer extends StatelessWidget {
           ),
         ],
       ),
-      child: SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(size.height * 20 / 932),
-                    child: Image.asset(
-                      "assets/images/dr.jpg",
-                      height: size.height * 100 / 932,
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 10,
-                        width: 10,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xff757575)),
-                      ),
-                      SizedBox(
-                        width: size.width * 10 / 320,
-                      ),
-                      Text(
-                        "Starts in 2 minute",
-                        style: TextStyle(
-                            fontSize: size.height * 20 / 932,
-                            color: const Color(0xff757575)),
-                      )
-                    ],
-                  ),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(mainColor)),
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          const Icon(Icons.video_call_outlined,
-                              color: Colors.white),
-                          SizedBox(
-                            width: size.width * 5 / 320,
-                          ),
-                          const Text(
-                            "Join Call",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ))
-                ],
-              )
-            ]),
+      child: const SingleChildScrollView(
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Row(
+            children: [Text("data")],
+          ),
+          Row(
+            children: [Text("data")],
+          )
+        ]),
       ),
     );
   }

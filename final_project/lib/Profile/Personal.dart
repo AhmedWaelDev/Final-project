@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatefulWidget {
@@ -17,10 +17,10 @@ class _AppState extends State<App> {
     var size = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color(0xffe5e9f0),
+        backgroundColor: const Color(0xffe5e9f0),
         appBar: AppBar(
           elevation: 0,
-          title: Text(
+          title: const Text(
             "Personal Information",
             style: TextStyle(
                 fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
@@ -34,7 +34,7 @@ class _AppState extends State<App> {
               backgroundColor:
                   Colors.white, // تغيير لون خلفية الدائرة إلى الأبيض
               child: IconButton(
-                icon: Icon(Icons.arrow_back_ios_new),
+                icon: const Icon(Icons.arrow_back_ios_new),
                 color: Colors.black, // تغيير لون الأيقونة
                 onPressed: () {
                   Navigator.of(context).pop(); // للرجوع للشاشة السابقة
@@ -43,7 +43,7 @@ class _AppState extends State<App> {
             ),
           ),
 
-          backgroundColor: Color(0xffe5e9f0),
+          backgroundColor: const Color(0xffe5e9f0),
           // shadowColor: Colors.white,
         ),
         body: SingleChildScrollView(
@@ -56,7 +56,7 @@ class _AppState extends State<App> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: size.width * 48 / 430),
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       "Name",
@@ -76,7 +76,7 @@ class _AppState extends State<App> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: "Enter your name",
-                    suffixStyle: TextStyle(color: Color(0xffB2AAAA)),
+                    suffixStyle: const TextStyle(color: Color(0xffB2AAAA)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -91,7 +91,7 @@ class _AppState extends State<App> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: size.width * 48 / 430),
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       "Data of birth",
@@ -111,7 +111,7 @@ class _AppState extends State<App> {
                   keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
                     hintText: "Enter your birth data ",
-                    suffixStyle: TextStyle(color: Color(0xffB2AAAA)),
+                    suffixStyle: const TextStyle(color: Color(0xffB2AAAA)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -126,7 +126,7 @@ class _AppState extends State<App> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: size.width * 48 / 430),
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       "Gender",
@@ -146,7 +146,7 @@ class _AppState extends State<App> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: "Enter your gender",
-                    suffixStyle: TextStyle(color: Color(0xffB2AAAA)),
+                    suffixStyle: const TextStyle(color: Color(0xffB2AAAA)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -161,7 +161,7 @@ class _AppState extends State<App> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: size.width * 48 / 430),
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       "Blood groub",
@@ -181,7 +181,7 @@ class _AppState extends State<App> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: "Enter your blood groub",
-                    suffixStyle: TextStyle(color: Color(0xffB2AAAA)),
+                    suffixStyle: const TextStyle(color: Color(0xffB2AAAA)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -196,7 +196,7 @@ class _AppState extends State<App> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: size.width * 48 / 430),
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       "Phone number",
@@ -216,7 +216,7 @@ class _AppState extends State<App> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     hintText: "Enter your phone number",
-                    suffixStyle: TextStyle(color: Color(0xffB2AAAA)),
+                    suffixStyle: const TextStyle(color: Color(0xffB2AAAA)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -231,7 +231,7 @@ class _AppState extends State<App> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: size.width * 48 / 430),
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       "E-mail",
@@ -251,7 +251,7 @@ class _AppState extends State<App> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: "Enter your email",
-                    suffixStyle: TextStyle(color: Color(0xffB2AAAA)),
+                    suffixStyle: const TextStyle(color: Color(0xffB2AAAA)),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -266,18 +266,18 @@ class _AppState extends State<App> {
               SizedBox(
                 height: size.height * 100 / 932,
               ),
-              Container(
+              SizedBox(
                 width: size.width * 330 / 430,
                 height: size.height * 50 / 932,
                 child: MaterialButton(
                   onPressed: () {},
-                  child: Text(
-                    'Save',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: Color(0xff50b7c5),
+                  color: const Color(0xff50b7c5),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(13),
+                  ),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),

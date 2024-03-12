@@ -5,6 +5,7 @@ import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import '../../CustomWidgets/appBar.dart';
 import '../../CustomWidgets/medicalAdvice.dart';
 import '../../CustomWidgets/upcomingForPatientContainer.dart';
+import '../../Profile/profile.dart';
 
 class patienthomePagescreen extends StatelessWidget {
   const patienthomePagescreen({super.key});
@@ -42,7 +43,7 @@ class patienthomePagescreen extends StatelessWidget {
                   fillColor: Colors.white,
                   prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.0),
+                    borderRadius: BorderRadius.circular(size.height * 25 / 932),
                     borderSide: const BorderSide(color: Colors.black),
                   ),
                 ),
@@ -53,6 +54,15 @@ class patienthomePagescreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile()),
+                          );
+                        },
+                        child: const Text("Profile")),
                     SizedBox(
                       height: size.height * 20 / 932,
                     ),

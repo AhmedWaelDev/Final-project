@@ -1,12 +1,8 @@
 import 'package:final_project/Profile/Personal.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(Profile());
-}
-
 class Profile extends StatelessWidget {
-  const Profile({Key? key});
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +14,10 @@ class Profile extends StatelessWidget {
           title: Center(
             child: Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     "My Profile",
                     style: TextStyle(
@@ -31,9 +27,9 @@ class Profile extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 50),
+                  padding: const EdgeInsets.only(left: 50),
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.edit_note_sharp,
                       size: 30,
                       color: Colors.black,
@@ -41,7 +37,7 @@ class Profile extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => App()),
+                        MaterialPageRoute(builder: (context) => const App()),
                       );
                     },
                   ),
@@ -64,7 +60,7 @@ class Profile extends StatelessWidget {
           ),
           backgroundColor: const Color(0xffe5e9f0),
         ),
-        backgroundColor: Color(0xffe5e9f0),
+        backgroundColor: const Color(0xffe5e9f0),
         body: Stack(
           children: [
             Positioned(
@@ -73,7 +69,7 @@ class Profile extends StatelessWidget {
               right: 0,
               child: Container(
                 alignment: Alignment.center,
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   radius: 100,
                   backgroundImage: AssetImage("assets/photo/Mask group.png"),
                 ),
@@ -83,7 +79,7 @@ class Profile extends StatelessWidget {
               top: size.height * 215 / 932,
               right: size.width * 120 / 430,
               child: FloatingActionButton(
-                backgroundColor: Color(0xffFFFFFF),
+                backgroundColor: const Color(0xffFFFFFF),
                 onPressed: () {
                   // Handle camera button press
                 },
@@ -126,7 +122,7 @@ class Name extends StatelessWidget {
           Text(
             age,
             style: TextStyle(
-              color: Color(0xff757575),
+              color: const Color(0xff757575),
               fontSize: size.width * 15 / 430,
               fontWeight: FontWeight.bold,
             ),
@@ -165,7 +161,7 @@ class Contain extends StatelessWidget {
                   onPressed: () {},
                   child: Text(
                     teext,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

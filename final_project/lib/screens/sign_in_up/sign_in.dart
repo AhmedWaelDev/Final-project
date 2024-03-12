@@ -135,10 +135,11 @@ class logIn extends StatelessWidget {
                           )),
                           Container(
                               margin: const EdgeInsets.symmetric(horizontal: 5),
-                              child: const Text(
+                              child: Text(
                                 "Or Login with",
                                 style: TextStyle(
-                                    color: Color(0xffB2AAAA), fontSize: 16),
+                                    color: const Color(0xffB2AAAA),
+                                    fontSize: size.height * 20 / 932),
                               )),
                           const Expanded(
                               child: Divider(
@@ -169,12 +170,12 @@ class logIn extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             "Don’t have an account!  ",
                             style: TextStyle(
                                 fontFamily: "INTER",
-                                fontSize: 16,
-                                color: Color(
+                                fontSize: size.height * 16 / 932,
+                                color: const Color(
                                   0xff757575,
                                 )),
                           ),
@@ -186,11 +187,11 @@ class logIn extends StatelessWidget {
                                     builder: (context) => const sginUp()),
                               );
                             },
-                            child: const Text(
+                            child: Text(
                               "Sign up",
                               style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(
+                                  fontSize: size.height * 16 / 932,
+                                  color: const Color(
                                     0xff716ACB,
                                   )),
                             ),

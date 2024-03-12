@@ -26,6 +26,7 @@ class _splashState extends State<splash> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       body: Container(
@@ -37,25 +38,27 @@ class _splashState extends State<splash> {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/Logo/Logo.svg', // Replace 'your_logo.svg' with your SVG file
-                // Adjust size as needed
-                height: 200,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  "EClinic",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontWeight: FontWeight.w800),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/Logo/Logo.svg', // Replace 'your_logo.svg' with your SVG file
+                  // Adjust size as needed
+                  height: size.height * 200 / 932,
                 ),
-              )
-            ],
+                Padding(
+                  padding: EdgeInsets.all(size.height * 20 / 932),
+                  child: Text(
+                    "EClinic",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: size.height * 50 / 932,
+                        fontWeight: FontWeight.w800),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

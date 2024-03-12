@@ -37,6 +37,7 @@ class _onbording_screenState extends State<onbording_screen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
         child: Column(
@@ -58,58 +59,63 @@ class _onbording_screenState extends State<onbording_screen> {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    _controller.jumpToPage(boardingPages.length);
-                  },
-                  child: const Text(
-                    "skip",
-                    style: TextStyle(
-                        color: Color(0xFF50B7C5),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500),
+            SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _controller.jumpToPage(boardingPages.length);
+                    },
+                    child: Text(
+                      "skip",
+                      style: TextStyle(
+                          color: const Color(0xFF50B7C5),
+                          fontSize: size.height * 18 / 932,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
-                ),
-                SmoothPageIndicator(
-                  controller: _controller,
-                  count: boardingPages.length,
-                  effect: const ExpandingDotsEffect(
-                      activeDotColor: Color(0xFF50B7C5)),
-                ),
-                onlastpage
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) => const logIn()),
-                          );
-                        },
-                        child: const Text(
-                          "finish",
-                          style: TextStyle(
-                              color: Color(0xFF50B7C5),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
+                  SizedBox(
+                    width: size.width * 0.2,
+                    child: SmoothPageIndicator(
+                      controller: _controller,
+                      count: boardingPages.length,
+                      effect: const ExpandingDotsEffect(
+                          activeDotColor: Color(0xFF50B7C5)),
+                    ),
+                  ),
+                  onlastpage
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const logIn()),
+                            );
+                          },
+                          child: Text(
+                            "finish",
+                            style: TextStyle(
+                                color: const Color(0xFF50B7C5),
+                                fontSize: size.height * 18 / 932,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            _controller.nextPage(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.easeInOut);
+                          },
+                          child: Text(
+                            "next",
+                            style: TextStyle(
+                                color: const Color(0xFF50B7C5),
+                                fontSize: size.height * 18 / 932,
+                                fontWeight: FontWeight.w500),
+                          ),
                         ),
-                      )
-                    : GestureDetector(
-                        onTap: () {
-                          _controller.nextPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut);
-                        },
-                        child: const Text(
-                          "next",
-                          style: TextStyle(
-                              color: Color(0xFF50B7C5),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
