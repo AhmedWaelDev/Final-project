@@ -5,7 +5,6 @@ import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import '../../CustomWidgets/appBar.dart';
 import '../../CustomWidgets/medicalAdvice.dart';
 import '../../CustomWidgets/upcomingForPatientContainer.dart';
-import '../../Profile/profile.dart';
 
 class patienthomePagescreen extends StatelessWidget {
   const patienthomePagescreen({super.key});
@@ -54,15 +53,6 @@ class patienthomePagescreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()),
-                          );
-                        },
-                        child: const Text("Profile")),
                     SizedBox(
                       height: size.height * 20 / 932,
                     ),
@@ -114,7 +104,7 @@ class patienthomePagescreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return const upcomingForPatientContainer();
                       },
-                    )
+                    ),
                   ],
                 ),
               ),

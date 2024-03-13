@@ -7,7 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../CustomWidgets/logbtn.dart';
 import '../../CustomWidgets/socialCards.dart';
 import '../../CustomWidgets/textForm.dart';
-import '../homePage/patienthomePage.dart';
+import '../homePage/navBar.dart';
 
 class logIn extends StatelessWidget {
   const logIn({super.key});
@@ -119,8 +119,7 @@ class logIn extends StatelessWidget {
                       onTapFun: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const patienthomePagescreen()),
+                              builder: (context) => const myNavBar()),
                         );
                       },
                     ),
