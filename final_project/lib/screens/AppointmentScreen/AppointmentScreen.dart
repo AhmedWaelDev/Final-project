@@ -25,25 +25,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         backgroundColor: const Color(0xffe5e9f0),
         appBar: AppBar(
           elevation: 0,
-          title: const Center(
-              child: Text(
-            "Appointment",
-            style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
-          )),
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              // تغيير لون خلفية الدائرة إلى الأبيض
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new),
-                color: Colors.black, // تغيير لون الأيقونة
-                onPressed: () {
-                  Navigator.of(context).pop(); // للرجوع للشاشة السابقة
-                },
-              ),
+          title: Padding(
+            padding: EdgeInsets.only(
+              top: size.width * 20 / 320,
             ),
+            child: const Center(
+                child: Text(
+              "Appointment",
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            )),
           ),
 
           backgroundColor: const Color(0xffe5e9f0),
@@ -56,7 +49,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               padding: EdgeInsets.only(
                   left: size.width * 35 / 430,
                   right: size.width * 35 / 430,
-                  top: size.height * 10 / 932),
+                  top: size.height * 20 / 932),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(25),
                 child: Container(

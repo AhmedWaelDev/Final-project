@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../CustomWidgets/screensappbar.dart';
+
 class profile extends StatelessWidget {
   const profile({super.key});
 
@@ -10,37 +12,12 @@ class profile extends StatelessWidget {
       body: Container(
         color: const Color(0xffe5e9f0),
         padding: EdgeInsets.only(
-            top: size.width * 35 / 320,
+            top: size.width * 20 / 320,
             right: size.width * 10 / 320,
             left: size.width * 10 / 320),
         child: Column(
           children: [
-            Row(
-              children: [
-                MaterialButton(
-                  onPressed: () {},
-                  color: Colors.white,
-                  minWidth: size.height * 40 / 932,
-                  height: size.height * 40 / 932,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(size.height * 13 / 932),
-                  ),
-                  child: const Icon(Icons.arrow_back_ios_new),
-                ),
-                const Spacer(
-                  flex: 1,
-                ),
-                Text(
-                  "Personal Information",
-                  style: TextStyle(
-                      fontSize: size.height * 25 / 932,
-                      fontWeight: FontWeight.bold),
-                ),
-                const Spacer(
-                  flex: 2,
-                )
-              ],
-            ),
+            const screensappbar(name: "Personal Information"),
             SizedBox(height: size.height * 10 / 932),
             Expanded(
               child: SingleChildScrollView(

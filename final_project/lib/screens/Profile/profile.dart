@@ -13,7 +13,7 @@ class Profile extends StatelessWidget {
       body: Container(
         color: const Color(0xffe5e9f0),
         padding: EdgeInsets.only(
-            top: size.width * 35 / 320,
+            top: size.width * 20 / 320,
             right: size.width * 10 / 320,
             left: size.width * 10 / 320),
         height: size.height,

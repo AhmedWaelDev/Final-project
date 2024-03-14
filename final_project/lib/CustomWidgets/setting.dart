@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TextSetting extends StatelessWidget {
   final String teext;
   IconData currentIcon;
@@ -20,7 +21,7 @@ class TextSetting extends StatelessWidget {
         child: Container(
           width: size.width * 370 / 430,
           height: size.height * 80 / 932,
-          color: Color(0xffe5e9f0),
+          color: const Color(0xffe5e9f0),
           child: Container(
             child: Row(
               children: [
@@ -31,7 +32,7 @@ class TextSetting extends StatelessWidget {
                       onPressed: () {},
                       child: Text(
                         teext,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -44,7 +45,8 @@ class TextSetting extends StatelessWidget {
                   width: size.width * 100 / 430,
                 ),
                 IconButton(
-                    onPressed: () {}, icon: Icon(Icons.arrow_right_sharp)),
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_right_sharp)),
               ],
             ),
           ),
