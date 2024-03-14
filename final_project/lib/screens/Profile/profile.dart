@@ -95,7 +95,7 @@ class Profile extends StatelessWidget {
             SizedBox(
               height: size.height * 30 / 932,
             ),
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
                 child: Column(children: [
                   profileContainer(
@@ -103,24 +103,28 @@ class Profile extends StatelessWidget {
                     color: Colors.white,
                     text: "Settings",
                     itemColor: Colors.black,
+                    onTap: () {},
                   ),
                   profileContainer(
                     icon: Icons.arrow_forward_ios_outlined,
                     color: Colors.white,
                     text: "Settings",
                     itemColor: Colors.black,
+                    onTap: () {},
                   ),
                   profileContainer(
                     icon: Icons.arrow_forward_ios_outlined,
                     color: Colors.white,
                     text: "Settings",
                     itemColor: Colors.black,
+                    onTap: () {},
                   ),
                   profileContainer(
                     icon: Icons.exit_to_app_outlined,
-                    color: Color(0xffE6C9CE),
+                    color: const Color(0xffE6C9CE),
                     text: "Settings",
-                    itemColor: Color(0xffD23A2D),
+                    itemColor: const Color(0xffD23A2D),
+                    onTap: () {},
                   ),
                 ]),
               ),

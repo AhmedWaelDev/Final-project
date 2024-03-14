@@ -7,11 +7,13 @@ class profileContainer extends StatelessWidget {
     required this.color,
     required this.itemColor,
     required this.icon,
+    required this.onTap,
   });
   final String text;
   final Color? itemColor;
   final Color color;
   final IconData icon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class profileContainer extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: size.height * 15 / 932),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           padding: EdgeInsets.all(size.height * 20 / 932),
           height: size.height * 80 / 932,
