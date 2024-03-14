@@ -52,6 +52,7 @@ class patienthomePagescreen extends StatelessWidget {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       height: size.height * 20 / 932,
@@ -104,6 +105,15 @@ class patienthomePagescreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return const upcomingForPatientContainer();
                       },
+                    ),
+                    SizedBox(
+                      height: size.height * 20 / 932,
+                    ),
+                    Text(
+                      "Account",
+                      style: TextStyle(
+                          fontSize: size.height * 20 / 932,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

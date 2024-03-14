@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:final_project/CustomWidgets/appbarWaleed.dart';
-import 'package:final_project/CustomWidgets/setting.dart';
+
+import '../../CustomWidgets/screensappbar.dart';
+import '../../CustomWidgets/settingsContainer.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -12,57 +13,74 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          "Setting",
-          style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-
-        leading: Padding(
-          padding: const EdgeInsets.only(
-            left: 15.5,
-          ),
-          child: CircleAvatar(
-            backgroundColor: Colors.white, // تغيير لون خلفية الدائرة إلى الأبيض
-            child: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new),
-              color: Colors.black, // تغيير لون الأيقونة
-              onPressed: () {
-                Navigator.of(context).pop(); // للرجوع للشاشة السابقة
-              },
+      body: Container(
+        color: const Color(0xffe5e9f0),
+        padding: EdgeInsets.only(
+            top: size.width * 20 / 320,
+            right: size.width * 10 / 320,
+            left: size.width * 10 / 320),
+        height: size.height,
+        width: size.width,
+        child: Column(
+          children: [
+            const screensappbar(
+              name: "Setting",
             ),
-          ),
+            SizedBox(
+              width: double.infinity,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: size.height * 30 / 932,
+                    ),
+                    Text(
+                      "Account",
+                      style: TextStyle(
+                          fontSize: size.height * 20 / 932,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: size.height * 20 / 932,
+                    ),
+                    const settingsContainer(
+                      color: Colors.black,
+                      icon: Icons.lock_outlined,
+                      text: "Change password",
+                    ),
+                    const settingsContainer(
+                      color: Colors.black,
+                      icon: Icons.notifications,
+                      text: "Notifications",
+                    ),
+                    const settingsContainer(
+                      color: Colors.black,
+                      icon: Icons.privacy_tip_sharp,
+                      text: "Privacy Setting",
+                    ),
+                    const settingsContainer(
+                      color: Color(0xffC00000),
+                      icon: Icons.delete,
+                      text: "Delate Account",
+                    ),
+                    SizedBox(
+                      height: size.height * 50 / 932,
+                    ),
+                    Text(
+                      "Options",
+                      style: TextStyle(
+                          fontSize: size.height * 20 / 932,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
-
-        backgroundColor: Color(0xffe5e9f0),
-        // shadowColor: Colors.white,
-      ),
-      body: 
-      
-      Column(
-        
-        children: [
-        
-          TextSetting(
-            teext: "Change password",
-            currentIcon: Icons.lock,
-          ),
-          TextSetting(
-            teext: "Notifications",
-            currentIcon: Icons.notification_add,
-          ),
-          TextSetting(
-            teext: "Privacy Setting",
-            currentIcon: Icons.private_connectivity,
-          ),
-          TextSetting(
-            teext: "Delate Account",
-            currentIcon: Icons.delete,
-          ),
-        ],
       ),
     );
   }

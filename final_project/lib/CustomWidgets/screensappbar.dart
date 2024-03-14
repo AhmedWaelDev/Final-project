@@ -29,7 +29,7 @@ class screensappbar extends StatelessWidget {
         Text(
           name,
           style: TextStyle(
-              fontSize: size.height * 25 / 932, fontWeight: FontWeight.bold),
+              fontSize: size.height * 30 / 932, fontWeight: FontWeight.bold),
         ),
         const Spacer(
           flex: 2,

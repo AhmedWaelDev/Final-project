@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/profileContainer.dart';
+import '../Setting/setting.dart';
 import 'Personal.dart';
 
 class Profile extends StatelessWidget {
@@ -103,7 +104,13 @@ class Profile extends StatelessWidget {
                     color: Colors.white,
                     text: "Settings",
                     itemColor: Colors.black,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Setting()),
+                      );
+                    },
                   ),
                   profileContainer(
                     icon: Icons.arrow_forward_ios_outlined,

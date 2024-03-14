@@ -1,4 +1,3 @@
-import 'package:final_project/screens/Profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -85,13 +84,7 @@ class myAppBar extends StatelessWidget {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Profile()),
-                        );
-                      },
+                      onTap: () {},
                       child: Container(
                         width: size.height * 45 / 932,
                         decoration: BoxDecoration(boxShadow: [
