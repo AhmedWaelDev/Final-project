@@ -1,4 +1,4 @@
-import 'package:final_project/Profile/profile.dart';
+import 'package:final_project/screens/Profile/profile.dart';
 import 'package:final_project/screens/homePage/patienthomePage.dart';
 import 'package:flutter/material.dart';
 
