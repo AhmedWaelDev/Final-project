@@ -39,6 +39,7 @@ class _cardCompleteState extends State<DoctorsAppoint> {
         borderRadius: BorderRadius.all(Radius.circular(size.height * 25 / 932)),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
