@@ -147,7 +147,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ),
           ),
           SizedBox(
-            height: size.width * 32 / 932,
+            height: size.height * 32 / 932,
           ),
           if (_selectedIndex == 0)
             SizedBox(
