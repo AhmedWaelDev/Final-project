@@ -153,7 +153,7 @@ class _DoctorsState extends State<Doctors> {
                       },
                     )
                   : ListView.builder(
-                      itemCount: 10,
+                      itemCount: 20,
                       itemBuilder: (context, index) {
                         return DoctorsAppoint(
                           name: "alex",
