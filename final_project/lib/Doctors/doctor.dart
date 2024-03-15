@@ -1,4 +1,5 @@
 import 'package:final_project/CustomWidgets/DoctorCard.dart';
+import 'package:final_project/CustomWidgets/DoctorsAppoint.dart';
 import 'package:final_project/CustomWidgets/cardComplete.dart';
 import 'package:flutter/material.dart';
 
@@ -157,13 +158,12 @@ class _DoctorsState extends State<Doctors> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        DoctorCard(
+                        DoctorsAppoint(
                           name: " DR Noha",
                           rating: 3.5,
                           specialty: "Pediatricain",
                           onChatPressed: () {},
                           onVideoCallPressed: () {},
-                          video: 'Video call',
                         ),
                         SizedBox(
                           height: size.height * 19 / 932,
