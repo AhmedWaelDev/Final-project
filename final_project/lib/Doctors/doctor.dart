@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/screensappbar.dart';
+import '../CustomWidgets/DoctorsAppoint.dart';
 
 class Doctors extends StatefulWidget {
   const Doctors({super.key});
@@ -142,13 +143,25 @@ class _DoctorsState extends State<Doctors> {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       itemCount: 2,
                       itemBuilder: (context, index) {
-                        return const Text("hi");
+                        return DoctorsAppoint(
+                          name: "alex",
+                          onChatPressed: () {},
+                          onVideoCallPressed: () {},
+                          rating: 5,
+                          specialty: "hi",
+                        );
                       },
                     )
                   : ListView.builder(
                       itemCount: 10,
                       itemBuilder: (context, index) {
-                        return const Text("no");
+                        return DoctorsAppoint(
+                          name: "alex",
+                          onChatPressed: () {},
+                          onVideoCallPressed: () {},
+                          rating: 5,
+                          specialty: "hi",
+                        );
                       },
                     ))
         ]),
