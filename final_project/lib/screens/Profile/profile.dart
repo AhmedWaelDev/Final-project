@@ -1,3 +1,5 @@
+import 'package:final_project/screens/onBoardingPage/onbording_screen.dart';
+import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/profileContainer.dart';
@@ -131,7 +133,12 @@ class Profile extends StatelessWidget {
                     color: const Color(0xffE6C9CE),
                     text: "Logout",
                     itemColor: const Color(0xffD23A2D),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const logIn()),
+                      );
+                    },
                   ),
                 ]),
               ),
