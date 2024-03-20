@@ -80,7 +80,7 @@ class _DoctorsState extends State<Doctors> {
                                   : Colors.white,
                               child: TextButton(
                                 child: Text(
-                                  "All",
+                                  "Online",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.width * 18 / 430,
@@ -109,7 +109,7 @@ class _DoctorsState extends State<Doctors> {
                                   : Colors.white,
                               child: TextButton(
                                 child: Text(
-                                  "Online",
+                                  "All",
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.width * 18 / 430,

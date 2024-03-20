@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class myAppBar extends StatelessWidget {
   const myAppBar({
@@ -83,44 +82,39 @@ class myAppBar extends StatelessWidget {
                       ),
                 Row(
                   children: [
-                    GestureDetector(
+                    InkWell(
                       onTap: () {},
                       child: Container(
                         width: size.height * 45 / 932,
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
+                        height: size.height * 45 / 932,
+                        decoration: const BoxDecoration(
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: const Center(
+                          child: Icon(
+                            Icons.account_balance_wallet_outlined,
+                            color: Color(0xff757575),
                           ),
-                        ], color: Colors.white, shape: BoxShape.circle),
-                        child: Center(
-                          child: SvgPicture.asset('assets/icons/wallet.svg'),
                         ),
                       ),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
-                    GestureDetector(
+                    InkWell(
+                      onTap: () {},
                       child: Container(
                         width: size.height * 45 / 932,
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
+                        height: size.height * 45 / 932,
+                        decoration: const BoxDecoration(
+                            color: Colors.white, shape: BoxShape.circle),
+                        child: const Center(
+                          child: Icon(
+                            Icons.notifications_none,
+                            color: Color(0xff757575),
                           ),
-                        ], color: Colors.white, shape: BoxShape.circle),
-                        child: Center(
-                          child: SvgPicture.asset('assets/icons/bell.svg'),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 )
               ],

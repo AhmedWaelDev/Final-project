@@ -25,6 +25,7 @@ class upcomingForPatientContainer extends StatelessWidget {
           ],
         ),
         child: CustomScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,

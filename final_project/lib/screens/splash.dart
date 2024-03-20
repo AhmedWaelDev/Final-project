@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'onbording_screen.dart';
+import 'onBoardingPage/onbording_screen.dart';
 
 class splash extends StatefulWidget {
   const splash({super.key});

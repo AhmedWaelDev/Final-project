@@ -1,10 +1,13 @@
 import 'package:final_project/Doctors/doctor.dart';
+import 'package:final_project/screens/AppointmentScreen/AppointmentScreen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
+import '../../CustomWidgets/DoctorsAppoint.dart';
 import '../../CustomWidgets/appBar.dart';
 import '../../CustomWidgets/medicalAdvice.dart';
+import '../../CustomWidgets/patientPill.dart';
 import '../../CustomWidgets/upcomingForPatientContainer.dart';
 
 class patienthomePagescreen extends StatelessWidget {
@@ -66,25 +69,22 @@ class patienthomePagescreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Upcoming appointment",
-                            style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                                fontSize: size.height * 22 / 932),
-                          ),
+                          Text("Upcoming appointment",
+                              style: TextStyle(
+                                  fontSize: size.height * 20 / 932,
+                                  fontWeight: FontWeight.bold)),
                           TextButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Doctors()),
+                                    builder: (context) =>
+                                        const AppointmentScreen()),
                               );
                             },
                             child: Text(
                               "See all",
                               style: TextStyle(
-                                fontFamily: 'Inter',
                                 fontSize: size.height * 20 / 932,
                               ),
                             ),
@@ -110,11 +110,154 @@ class patienthomePagescreen extends StatelessWidget {
                       height: size.height * 20 / 932,
                     ),
                     Text(
-                      "Account",
+                      "Our services",
                       style: TextStyle(
                           fontSize: size.height * 20 / 932,
                           fontWeight: FontWeight.bold),
                     ),
+                    SizedBox(
+                      height: size.height * 10 / 932,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {},
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/schedule.png",
+                                height: size.height * 50 / 932,
+                              ),
+                              SizedBox(
+                                height: size.height * 5 / 932,
+                              ),
+                              Text(
+                                "Book App",
+                                style: TextStyle(
+                                    color: const Color(0xff757575),
+                                    fontSize: size.height * 17 / 932,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/Reminder.png",
+                                height: size.height * 50 / 932,
+                              ),
+                              SizedBox(
+                                height: size.height * 5 / 932,
+                              ),
+                              Text(
+                                "Add  Medicine Reminder",
+                                style: TextStyle(
+                                    color: const Color(0xff757575),
+                                    fontSize: size.height * 17 / 932,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {},
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/chat.png",
+                                height: size.height * 50 / 932,
+                              ),
+                              SizedBox(
+                                height: size.height * 5 / 932,
+                              ),
+                              Text(
+                                "chat",
+                                style: TextStyle(
+                                    fontSize: size.height * 17 / 932,
+                                    color: const Color(0xff757575),
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 20 / 932,
+                    ),
+                    Text(
+                      "Today’s medicine",
+                      style: TextStyle(
+                          fontSize: size.height * 20 / 932,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: size.height * 10 / 932,
+                    ),
+                    SizedBox(
+                      height: size.height * 150 / 932,
+                      width: double.infinity,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          pill(size: size),
+                          pill(size: size),
+                          pill(size: size),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 10 / 320,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Available Doctors",
+                          style: TextStyle(
+                              fontSize: size.height * 20 / 932,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Doctors()),
+                              );
+                            },
+                            child: Text(
+                              "See all",
+                              style:
+                                  TextStyle(fontSize: size.height * 20 / 932),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 10 / 320,
+                    ),
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return DoctorsAppoint(
+                          name: "Dr. Nada Matani",
+                          onChatPressed: () {},
+                          onVideoCallPressed: () {},
+                          rating: 5,
+                          specialty: "Pediatricain",
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

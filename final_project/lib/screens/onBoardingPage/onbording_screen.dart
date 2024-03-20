@@ -3,7 +3,7 @@ import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'onBoardingPage/onBoardingPages.dart';
+import 'onBoardingPages.dart';
 
 class onbording_screen extends StatefulWidget {
   const onbording_screen({super.key});
@@ -65,7 +65,9 @@ class _onbording_screenState extends State<onbording_screen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      _controller.jumpToPage(boardingPages.length);
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => const logIn()),
+                      );
                     },
                     child: Text(
                       "skip",
