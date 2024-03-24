@@ -1,4 +1,3 @@
-import 'package:final_project/CustomWidgets/backButton.dart';
 import 'package:final_project/screens/sign_in_up/forgetPass.dart';
 import 'package:final_project/screens/sign_in_up/sginUp.dart';
 import 'package:flutter/material.dart';
@@ -203,7 +202,6 @@ class logIn extends StatelessWidget {
               ],
             ),
           ),
-          Container(alignment: Alignment.topLeft, child: const backBtn()),
         ],
       ),
     ));

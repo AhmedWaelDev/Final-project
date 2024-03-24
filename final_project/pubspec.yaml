@@ -39,6 +39,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   lottie: ^2.6.0
   flutter_swiper_view: ^1.1.8
+  date_picker_timeline: ^1.2.5
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:

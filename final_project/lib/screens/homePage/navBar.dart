@@ -1,9 +1,12 @@
 import 'package:final_project/screens/Profile/profile.dart';
 import 'package:final_project/screens/homePage/patienthomePage.dart';
 import 'package:flutter/material.dart';
-
-import '../AppointmentScreen/AppointmentScreen.dart';
+import '../AppointmentScreen/doctorAppointment.dart';
+import '../AppointmentScreen/patientAppointmentScreen.dart';
 import '../chat/chat.dart';
+import 'doctorHomePage.dart';
+
+const bool ispatient = false;
 
 class myNavBar extends StatefulWidget {
   const myNavBar({super.key});
@@ -15,13 +18,16 @@ class myNavBar extends StatefulWidget {
 class _myNavBarState extends State<myNavBar> {
   int currentTab = 0;
   final List<Widget> screens = [
-    const patienthomePagescreen(),
     const Chat(),
     const AppointmentScreen(),
-    const Profile()
+    const Profile(),
+    const doctorHomePage(),
+    const patienthomePagescreen(),
+    const doctorAppointment()
   ];
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = const patienthomePagescreen();
+  Widget currentScreen =
+      ispatient ? const patienthomePagescreen() : const doctorHomePage();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +65,9 @@ class _myNavBarState extends State<myNavBar> {
                     minWidth: size.width * 40 / 320,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const patienthomePagescreen();
+                        currentScreen = ispatient
+                            ? const patienthomePagescreen()
+                            : const doctorHomePage();
                         currentTab = 0;
                       });
                     },
@@ -122,7 +130,9 @@ class _myNavBarState extends State<myNavBar> {
                     minWidth: size.width * 40 / 320,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const AppointmentScreen();
+                        currentScreen = ispatient
+                            ? const AppointmentScreen()
+                            : const doctorAppointment();
                         currentTab = 2;
                       });
                     },

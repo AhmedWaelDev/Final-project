@@ -1,14 +1,12 @@
-import 'package:final_project/Doctors/doctor.dart';
-import 'package:final_project/screens/AppointmentScreen/AppointmentScreen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
-
 import '../../CustomWidgets/DoctorsAppoint.dart';
 import '../../CustomWidgets/appBar.dart';
 import '../../CustomWidgets/medicalAdvice.dart';
 import '../../CustomWidgets/patientPill.dart';
 import '../../CustomWidgets/upcomingForPatientContainer.dart';
+import '../../customers/doctor.dart';
+import '../AppointmentScreen/patientAppointmentScreen.dart';
 
 class patienthomePagescreen extends StatelessWidget {
   const patienthomePagescreen({super.key});
