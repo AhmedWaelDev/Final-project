@@ -1,7 +1,5 @@
-import 'package:final_project/screens/onBoardingPage/onbording_screen.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
-
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'Personal.dart';

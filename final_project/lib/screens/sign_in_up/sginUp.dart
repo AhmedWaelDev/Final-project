@@ -4,6 +4,7 @@ import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/backButton.dart';
+import '../../CustomWidgets/passwordTextField.dart';
 import '../../CustomWidgets/socialCards.dart';
 
 class sginUp extends StatelessWidget {
@@ -14,6 +15,7 @@ class sginUp extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     const bgCOlor = Color(0xffe5e9f0);
     const mainColor = Color(0xFF50B7C5);
+    bool obsecure = true;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(
@@ -84,15 +86,37 @@ class sginUp extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const myTextFrom(
-                      label: "Password",
-                      hint: "Enter password",
-                      suf: Icon(Icons.visibility),
+                    StatefulBuilder(
+                      builder: (context, setState) {
+                        return passwordTextField(
+                            label: "Password",
+                            hint: "Enter your password",
+                            fun: () {
+                              setState(
+                                () {
+                                  obsecure = !obsecure;
+                                },
+                              );
+                            },
+                            size: size,
+                            obsecure: obsecure);
+                      },
                     ),
-                    const myTextFrom(
-                      label: "Confirm Password",
-                      hint: "Enter password",
-                      suf: Icon(Icons.visibility),
+                    StatefulBuilder(
+                      builder: (context, setState) {
+                        return passwordTextField(
+                            label: "Confirm Password",
+                            hint: "Enter password",
+                            fun: () {
+                              setState(
+                                () {
+                                  obsecure = !obsecure;
+                                },
+                              );
+                            },
+                            size: size,
+                            obsecure: obsecure);
+                      },
                     ),
                     const logbtn(mainColor: mainColor, text: "Sign up"),
                     Container(

@@ -33,8 +33,10 @@ class _myNavBarState extends State<myNavBar> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PageStorage(bucket: bucket, child: currentScreen),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF50B7C5),
         onPressed: () {},
         child: const Icon(
           Icons.add_ic_call,
@@ -43,7 +45,7 @@ class _myNavBarState extends State<myNavBar> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shadowColor: Colors.blue,
+        shadowColor: const Color(0xFF50B7C5),
         color: Colors.white,
         shape: const CircularNotchedRectangle(),
         notchMargin: size.height * 10 / 932,

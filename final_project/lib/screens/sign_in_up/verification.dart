@@ -1,10 +1,10 @@
 import 'package:final_project/CustomWidgets/logbtn.dart';
+import 'package:final_project/screens/sign_in_up/confirmPass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../CustomWidgets/backButton.dart';
 import '../../CustomWidgets/otpTextForm.dart';
-import 'congrats.dart';
 
 class verification extends StatelessWidget {
   const verification({super.key});
@@ -77,7 +77,7 @@ class verification extends StatelessWidget {
                     onTapFun: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                            builder: (context) => const congrats()),
+                            builder: (context) => const confirmPass()),
                       );
                     },
                   ),

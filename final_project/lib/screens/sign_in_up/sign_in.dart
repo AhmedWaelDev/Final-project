@@ -2,8 +2,8 @@ import 'package:final_project/screens/sign_in_up/forgetPass.dart';
 import 'package:final_project/screens/sign_in_up/sginUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../CustomWidgets/logbtn.dart';
+import '../../CustomWidgets/passwordTextField.dart';
 import '../../CustomWidgets/socialCards.dart';
 import '../../CustomWidgets/textForm.dart';
 import '../homePage/navBar.dart';
@@ -16,6 +16,8 @@ class logIn extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     const bgCOlor = Color(0xffe5e9f0);
     const mainColor = Color(0xFF50B7C5);
+    bool obsecure = true;
+    bool check = false;
     return Scaffold(
         body: Container(
       padding: EdgeInsets.only(
@@ -69,30 +71,59 @@ class logIn extends StatelessWidget {
                       label: "Email / Phone",
                       hint: "Enter your email or phone number",
                     ),
-                    const myTextFrom(
-                      suf: Icon(Icons.visibility),
-                      label: "Password",
-                      hint: "Enter password",
+                    StatefulBuilder(
+                      builder: (context, setState) {
+                        return passwordTextField(
+                            label: "Password",
+                            hint: "Enter your password",
+                            fun: () {
+                              setState(
+                                () {
+                                  obsecure = !obsecure;
+                                },
+                              );
+                            },
+                            size: size,
+                            obsecure: obsecure);
+                      },
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SingleChildScrollView(
                           physics: const NeverScrollableScrollPhysics(),
-                          child: Row(
-                            children: [
-                              Radio(
-                                value: false,
-                                groupValue: 'option0',
-                                onChanged: (value) {},
-                              ),
-                              Text(
-                                "Remember me",
-                                style: TextStyle(
-                                    color: const Color(0xffB2AAAA),
-                                    fontSize: size.width * 14 / 320),
-                              ),
-                            ],
+                          child: StatefulBuilder(
+                            builder: (context, setState) {
+                              return InkWell(
+                                onTap: () {
+                                  setState(
+                                    () {
+                                      check = !check;
+                                    },
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Checkbox(
+                                      value: check,
+                                      onChanged: (value) {
+                                        setState(
+                                          () {
+                                            check = !check;
+                                          },
+                                        );
+                                      },
+                                    ),
+                                    Text(
+                                      "Remember me",
+                                      style: TextStyle(
+                                          color: const Color(0xffB2AAAA),
+                                          fontSize: size.width * 14 / 320),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         ),
                         GestureDetector(
