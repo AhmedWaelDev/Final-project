@@ -1,3 +1,4 @@
+import 'package:final_project/Payment/payment.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 import '../../CustomWidgets/profileContainer.dart';
@@ -117,7 +118,13 @@ class Profile extends StatelessWidget {
                     color: Colors.white,
                     text: "Payment",
                     itemColor: Colors.black,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Payment()),
+                      );
+                    },
                   ),
                   profileContainer(
                     icon: Icons.arrow_forward_ios_outlined,

@@ -39,6 +39,8 @@ class Chat extends StatelessWidget {
           SizedBox(
             height: size.height * 20 / 932,
           ),
+
+          
         ]),
       ),
     );
