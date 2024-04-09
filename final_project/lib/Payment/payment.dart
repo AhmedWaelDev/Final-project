@@ -1,5 +1,6 @@
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
+import 'package:final_project/Payment/Starter.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatefulWidget {
@@ -69,7 +70,13 @@ class _PaymentState extends State<Payment> {
                 textColor: Color(0xff46abf6),
                 textColorContainr: Color(0xff4342be),
                 // تحديد لون النص
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const StarterPayment()),
+                  );
+                },
               ),
             ),
             SizedBox(
