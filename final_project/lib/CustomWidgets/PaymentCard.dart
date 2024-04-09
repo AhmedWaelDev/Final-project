@@ -19,19 +19,13 @@ class PaymentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(bottom: size.height * 100 / 932),
+      margin: EdgeInsets.only(bottom: size.height * 20 / 932),
       child: Container(
         padding: const EdgeInsets.only(top: 7),
         child: SizedBox(
           height: size.height * 50 / 932,
           child: Column(
             children: [
-              Text(
-                text,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: size.width * 20 / 430),
-              ),
               SizedBox(
                 height: size.height * 20 / 932,
               ),
