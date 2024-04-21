@@ -5,14 +5,14 @@ import 'package:final_project/CustomWidgets/screensappbar.dart';
 import 'package:final_project/CustomWidgets/textForm.dart';
 import 'package:final_project/Payment/payment.dart';
 
-class StarterPayment extends StatefulWidget {
-  const StarterPayment({super.key});
+class BigPayment extends StatefulWidget {
+  const BigPayment({super.key});
 
   @override
-  State<StarterPayment> createState() => _StarterPaymentState();
+  State<BigPayment> createState() => _BigPaymentState();
 }
 
-class _StarterPaymentState extends State<StarterPayment> {
+class _BigPaymentState extends State<BigPayment> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -34,19 +34,19 @@ class _StarterPaymentState extends State<StarterPayment> {
             ),
             Container(
               child: CustomPayment(
-                  txt: "Starter",
-                  txt1: "500 pts",
-                  txt2: "Most popular",
+                  txt: "Big",
+                  txt1: "1000 pts",
+                  txt2: "Save 5%",
                   txt3: "10 Ep",
-                  rectColor: Color(0xffcfcef1),
+                  rectColor: Color(0xffEBC6D9), // تحديد لون المستطيل
                   textColor: Color(0xff46abf6),
-                  textColorContainr: Color(0xff4342be),
+                  textColorContainr: Color(0xffE25392),
                   onTap: () {}),
             ),
             detailsPayment(
               subtotal: "Ep 10",
-              discount: "Ep 0",
-              Total: "Ep 10",
+              discount: "5%",
+              Total: "Ep 9.5",
             ),
           ],
         ),

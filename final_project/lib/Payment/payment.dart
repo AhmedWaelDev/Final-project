@@ -1,5 +1,8 @@
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
+import 'package:final_project/Payment/Big.dart';
+import 'package:final_project/Payment/Enormous.dart';
+import 'package:final_project/Payment/Huge.dart';
 import 'package:final_project/Payment/Starter.dart';
 import 'package:flutter/material.dart';
 
@@ -69,7 +72,7 @@ class _PaymentState extends State<Payment> {
                 rectColor: Color(0xffcfcef1), // تحديد لون المستطيل
                 textColor: Color(0xff46abf6),
                 textColorContainr: Color(0xff4342be),
-                // تحديد لون النص
+
                 onTap: () {
                   Navigator.push(
                     context,
@@ -91,7 +94,12 @@ class _PaymentState extends State<Payment> {
                 rectColor: Color(0xffEBC6D9), // تحديد لون المستطيل
                 textColor: Color(0xff46abf6),
                 textColorContainr: Color(0xffE25392), // تحديد لون النص
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BigPayment()));
+                },
               ),
             ),
             SizedBox(
@@ -105,7 +113,12 @@ class _PaymentState extends State<Payment> {
                 txt3: "100 Ep",
                 rectColor: Color(0xffCFE1E7), // تحديد لون المستطيل
                 textColor: Color(0xff46abf6),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HugePayment()));
+                },
                 textColorContainr: Color(0xff3C93AD), // تحديد لون النص
               ),
             ),
@@ -121,7 +134,12 @@ class _PaymentState extends State<Payment> {
                 rectColor: Color(0xffCFE1E7), // تحديد لون المستطيل
                 textColor: Color(0xff46abf6),
                 textColorContainr: Color(0xff3C93AD), // تحديد لون النص
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EnormousPayment()));
+                },
               ),
             ),
           ],
