@@ -94,8 +94,63 @@ class Chat extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(
+                height: size.height * 10 / 932,
+              ),
               Expanded(
-                child: CustomChat(),
+                child: CustomChatItem(
+                  imagePath: "assets/images/drchat.png",
+                  name: "Waled",
+                  message:
+                      "How are you DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd",
+                  unreadMessages: 2,
+                  time: "10:30 PM",
+                ),
+              ),
+              Expanded(
+                child: CustomChatItem(
+                  imagePath: "assets/images/drchat2.png",
+                  name: "John",
+                  message: "Hello there!",
+                  unreadMessages: 1,
+                  time: "10:00 AM",
+                ),
+              ),
+              Expanded(
+                child: CustomChatItem(
+                  imagePath: "assets/images/person.png",
+                  name: "Jana",
+                  message: "Hello !",
+                  unreadMessages: 0,
+                  time: "80:00 AM",
+                ),
+              ),
+              Expanded(
+                child: CustomChatItem(
+                  imagePath: "assets/images/drchat2.png",
+                  name: "Ahmed",
+                  message: "whats app",
+                  unreadMessages: 2,
+                  time: "7:00 AM",
+                ),
+              ),
+              Expanded(
+                child: CustomChatItem(
+                  imagePath: "assets/images/drchat.png",
+                  name: "karim",
+                  message: "examss",
+                  unreadMessages: 5,
+                  time: "12:00 AM",
+                ),
+              ),
+              Expanded(
+                child: CustomChatItem(
+                  imagePath: "assets/images/dr.jpg",
+                  name: "nada",
+                  message: "Welcome",
+                  unreadMessages: 4,
+                  time: "3:00 AM",
+                ),
               ),
             ],
           ),
