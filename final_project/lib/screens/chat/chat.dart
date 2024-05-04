@@ -38,38 +38,39 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xffe5e9f0),
       appBar: AppBar(
-        toolbarHeight: 70,
+        toolbarHeight: size.height * 70 / 932,
         backgroundColor: Color(0xffe5e9f0),
         title: _isSearching ? _buildSearchField() : Text("Chats"),
         actions: _buildAppBarActions(),
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(size.width * 10 / 320),
           color: Color(0xffe5e9f0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              const Padding(
-                padding: EdgeInsets.only(left: 15.0),
+              SizedBox(height: size.height * 10 / 932),
+              Padding(
+                padding: EdgeInsets.only(left: size.width * 15 / 320),
                 child: Text(
                   "Online Doctors",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: size.width * 20 / 320,
                     color: Color(0xff757575),
                   ),
                 ),
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: size.height * 15 / 932),
               Row(
                 children: [
                   Expanded(
                     child: SizedBox(
-                      height: 60,
+                      height: size.height * 60 / 932,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: 15,
@@ -77,14 +78,15 @@ class _ChatState extends State<Chat> {
                           return GestureDetector(
                             onTap: () {},
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 15.0),
+                              padding:
+                                  EdgeInsets.only(right: size.width * 15 / 320),
                               child: Container(
-                                width: 60,
-                                height: 60,
+                                width: size.width * 50 / 320,
+                                height: size.height * 60 / 932,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: const Color(0xffe5e9f0),
+                                    color: Color(0xffe5e9f0),
                                     width: 2,
                                   ),
                                 ),
@@ -103,15 +105,15 @@ class _ChatState extends State<Chat> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: size.height * 10 / 932),
               if (searchedCharacters.isEmpty)
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(size.width * 8 / 320),
                   child: Text(
                     "Not Found",
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: size.width * 20 / 320,
                     ),
                   ),
                 )
@@ -161,7 +163,7 @@ class _ChatState extends State<Chat> {
       return [
         IconButton(
           onPressed: _stopSearching,
-          icon: const Icon(
+          icon: Icon(
             Icons.clear,
             color: Colors.black,
           ),
@@ -171,7 +173,7 @@ class _ChatState extends State<Chat> {
       return [
         IconButton(
           onPressed: _startSearch,
-          icon: const Icon(Icons.search),
+          icon: Icon(Icons.search),
         )
       ];
     }
