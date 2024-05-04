@@ -18,87 +18,47 @@ class CustomChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipOval(
-                  child: Image.asset(
-                    imagePath,
-                    width: size.width * 50 / 340,
-                    height: size.height * 60 / 930,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Text(
-                        message,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Color(0xffD9D9D9),
-                      radius: 10,
-                      child: Text(
-                        unreadMessages.toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      time,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color(0xffA49B9B),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    return ListTile(
+      leading: CircleAvatar(
+        radius: 20,
+        backgroundImage: AssetImage(imagePath),
+      ),
+      title: Text(
+        name,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
         ),
+      ),
+      subtitle: Text(
+        message,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            time,
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
+          ),
+          if (unreadMessages > 0)
+            Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                unreadMessages.toString(),
+                style: TextStyle(
+                  color: Color(0xffe5e9f0),
+                  fontSize: 12,
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
