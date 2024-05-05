@@ -18,47 +18,56 @@ class CustomChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage(imagePath),
+    var size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * 89 / 930,
+      margin: EdgeInsets.only(bottom: 16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.white,
       ),
-      title: Text(
-        name,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          backgroundImage: AssetImage(imagePath),
         ),
-      ),
-      subtitle: Text(
-        message,
-        overflow: TextOverflow.ellipsis,
-      ),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            time,
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 12,
-            ),
+        title: Text(
+          name,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
           ),
-          if (unreadMessages > 0)
-            Container(
-              padding: EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                shape: BoxShape.circle,
+        ),
+        subtitle: Text(
+          message,
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              time,
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
               ),
-              child: Text(
-                unreadMessages.toString(),
-                style: TextStyle(
-                  color: Color(0xffe5e9f0),
-                  fontSize: 12,
+            ),
+            if (unreadMessages > 0)
+              Container(
+                padding: EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  unreadMessages.toString(),
+                  style: TextStyle(
+                    color: Color(0xffe5e9f0),
+                    fontSize: 12,
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
