@@ -83,22 +83,22 @@ class doctorHomePage extends StatelessWidget {
                       height: size.height * 0.35,
                       child: ListView(
                         children: [
-                          mytimeLineTile(
+                          doctorTimeLineTile(
                               isPast: true,
                               size: size,
                               isFirst: true,
                               isLast: false),
-                          mytimeLineTile(
+                          doctorTimeLineTile(
                               isPast: true,
                               size: size,
                               isFirst: false,
                               isLast: false),
-                          mytimeLineTile(
+                          doctorTimeLineTile(
                               isPast: false,
                               size: size,
                               isFirst: false,
                               isLast: false),
-                          mytimeLineTile(
+                          doctorTimeLineTile(
                               isPast: false,
                               size: size,
                               isFirst: false,

@@ -38,12 +38,12 @@ class _BigPaymentState extends State<BigPayment> {
                   txt1: "1000 pts",
                   txt2: "Save 5%",
                   txt3: "10 Ep",
-                  rectColor: Color(0xffEBC6D9), // تحديد لون المستطيل
-                  textColor: Color(0xff46abf6),
-                  textColorContainr: Color(0xffE25392),
+                  rectColor: const Color(0xffEBC6D9), // تحديد لون المستطيل
+                  textColor: const Color(0xff46abf6),
+                  textColorContainr: const Color(0xffE25392),
                   onTap: () {}),
             ),
-            detailsPayment(
+            const detailsPayment(
               subtotal: "Ep 10",
               discount: "5%",
               Total: "Ep 9.5",

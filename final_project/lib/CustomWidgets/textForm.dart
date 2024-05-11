@@ -5,9 +5,15 @@ class myTextFrom extends StatelessWidget {
   final String? hint;
   final Icon? suf;
   final String? countryCode;
+  final TextEditingController? mycontroller;
 
   const myTextFrom(
-      {super.key, required this.label, this.hint, this.suf, this.countryCode});
+      {super.key,
+      required this.label,
+      this.hint,
+      this.suf,
+      this.countryCode,
+      this.mycontroller});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +25,7 @@ class myTextFrom extends StatelessWidget {
         child: SizedBox(
           height: size.height * 50 / 932,
           child: TextFormField(
+            controller: mycontroller,
             decoration: InputDecoration(
                 prefixStyle: const TextStyle(color: Color(0xFF50B7C5)),
                 prefixText: countryCode,

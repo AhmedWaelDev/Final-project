@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-class mytimeLineTile extends StatelessWidget {
-  const mytimeLineTile({
+class doctorTimeLineTile extends StatelessWidget {
+  const doctorTimeLineTile({
     super.key,
     required this.isPast,
     required this.size,
