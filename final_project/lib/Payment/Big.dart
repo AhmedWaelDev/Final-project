@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:final_project/CustomWidgets/PaymentCard.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
-import 'package:final_project/CustomWidgets/textForm.dart';
-import 'package:final_project/Payment/payment.dart';
 
 class BigPayment extends StatefulWidget {
   const BigPayment({super.key});

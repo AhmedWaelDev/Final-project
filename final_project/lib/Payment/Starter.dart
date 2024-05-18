@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:final_project/CustomWidgets/PaymentCard.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
-import 'package:final_project/CustomWidgets/textForm.dart';
-import 'package:final_project/Payment/payment.dart';
 
 class StarterPayment extends StatefulWidget {
   const StarterPayment({super.key});
@@ -38,12 +35,12 @@ class _StarterPaymentState extends State<StarterPayment> {
                   txt1: "500 pts",
                   txt2: "Most popular",
                   txt3: "10 Ep",
-                  rectColor: Color(0xffcfcef1),
-                  textColor: Color(0xff46abf6),
-                  textColorContainr: Color(0xff4342be),
+                  rectColor: const Color(0xffcfcef1),
+                  textColor: const Color(0xff46abf6),
+                  textColorContainr: const Color(0xff4342be),
                   onTap: () {}),
             ),
-            detailsPayment(
+            const detailsPayment(
               subtotal: "Ep 10",
               discount: "Ep 0",
               Total: "Ep 10",

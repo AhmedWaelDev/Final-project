@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:final_project/CustomWidgets/PaymentCard.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
-import 'package:final_project/CustomWidgets/textForm.dart';
-import 'package:final_project/Payment/payment.dart';
 
 class EnormousPayment extends StatefulWidget {
   const EnormousPayment({super.key});
@@ -38,13 +35,13 @@ class _EnormousPaymentState extends State<EnormousPayment> {
                 txt1: "5000 pts",
                 txt2: "Save 20%",
                 txt3: "300 Ep",
-                rectColor: Color(0xffCFE1E7), // تحديد لون المستطيل
-                textColor: Color(0xff46abf6),
-                textColorContainr: Color(0xff3C93AD), // تحديد لون النص
+                rectColor: const Color(0xffCFE1E7), // تحديد لون المستطيل
+                textColor: const Color(0xff46abf6),
+                textColorContainr: const Color(0xff3C93AD), // تحديد لون النص
                 onTap: () {},
               ),
             ),
-            detailsPayment(
+            const detailsPayment(
               subtotal: "Ep 300",
               discount: "20%",
               Total: "Ep 280",
