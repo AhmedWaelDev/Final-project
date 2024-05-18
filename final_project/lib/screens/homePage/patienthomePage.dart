@@ -8,6 +8,7 @@ import '../../CustomWidgets/medicalAdvice.dart';
 import '../../CustomWidgets/patientPill.dart';
 import '../../CustomWidgets/upcomingForPatientContainer.dart';
 import '../../customers/doctor.dart';
+import '../../roomDB/DatabaseHelper.dart';
 import '../AppointmentScreen/patientAppointmentScreen.dart';
 
 class patienthomePagescreen extends StatelessWidget {
@@ -36,21 +37,6 @@ class patienthomePagescreen extends StatelessWidget {
             ),
             SizedBox(
               height: size.height * 20 / 932,
-            ),
-            SizedBox(
-              height: size.height * 70 / 932,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  filled: true,
-                  fillColor: Colors.white,
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(size.height * 25 / 932),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -214,16 +200,45 @@ class patienthomePagescreen extends StatelessWidget {
                       height: size.height * 10 / 932,
                     ),
                     SizedBox(
-                      height: size.height * 150 / 932,
-                      width: double.infinity,
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          pill(size: size),
-                          pill(size: size),
-                          pill(size: size),
-                        ],
+                      height: size.height * 160 / 932,
+                      child: Expanded(
+                        child: FutureBuilder<List<Medicine>>(
+                          future: DatabaseHelper()
+                              .getMedicinesForDate(DateTime.now()),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                  child: Text('Error: ${snapshot.error}'));
+                            } else if (!snapshot.hasData ||
+                                snapshot.data!.isEmpty) {
+                              return const Center(
+                                  child: Text('No Medicines today'));
+                            } else {
+                              return ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) {
+                                  Medicine medicine = snapshot.data![index];
+                                  return pill(
+                                    size: size,
+                                    amount: medicine.amount,
+                                    breakfast: medicine.breakfast,
+                                    dinner: medicine.dinner,
+                                    lunch: medicine.lunch,
+                                    icon: medicine.type,
+                                    name: medicine.name,
+                                    capsize: medicine.capsize,
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
                       ),
                     ),
                     SizedBox(

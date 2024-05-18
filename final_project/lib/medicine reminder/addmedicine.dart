@@ -270,7 +270,7 @@ class _addMedicineState extends State<AddMedicine> {
                         mycontroller: amountController,
                         size: size,
                         labelText: "Amount",
-                        suffixText: "pill/day"),
+                        suffixText: "pill/meal"),
                     newTextForm(
                         mycontroller: durationController,
                         size: size,
