@@ -1,4 +1,5 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:final_project/medicine%20reminder/reminder.dart';
 import 'package:flutter/material.dart';
 
 import '../CustomWidgets/screensappbar.dart';
@@ -593,7 +594,12 @@ class _addMedicineState extends State<AddMedicine> {
             duration: Duration(seconds: 3),
           ));
           Future.delayed(const Duration(milliseconds: 500), () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const myReminder(),
+              ),
+            );
           });
         } else {
           showDialog(

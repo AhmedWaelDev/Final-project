@@ -1,8 +1,8 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import '../CustomWidgets/reminderTImeLine.dart';
-import '../CustomWidgets/screensappbar.dart';
 import '../roomDB/DatabaseHelper.dart';
+import '../screens/homePage/patientHomePage.dart';
 import 'addmedicine.dart';
 
 class myReminder extends StatefulWidget {
@@ -28,7 +28,38 @@ class _myReminderState extends State<myReminder> {
         width: size.width,
         color: bgCOlor,
         child: Column(children: [
-          const screensappbar(name: "Medicine Reminder"),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                // تغيير لون خلفية الدائرة إلى الأبيض
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_new),
+                  color: Colors.black,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const patienthomePagescreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              Text(
+                "Medicine Reminder",
+                style: TextStyle(
+                    fontSize: size.height * 30 / 932,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Spacer(
+                flex: 2,
+              )
+            ],
+          ),
           SizedBox(
             height: size.height * 20 / 932,
           ),

@@ -1,3 +1,4 @@
+import 'package:final_project/medicine%20reminder/reminder.dart';
 import 'package:flutter/material.dart';
 
 import '../CustomWidgets/screensappbar.dart';
@@ -303,7 +304,12 @@ class EditMedicineState extends State<EditMedicine> {
                             duration: Duration(seconds: 3),
                           ));
                           Future.delayed(const Duration(milliseconds: 500), () {
-                            Navigator.pop(context, "data_deleted");
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const myReminder(),
+                              ),
+                            );
                           });
                         },
                         color: const Color(0xffE25392),
