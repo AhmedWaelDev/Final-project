@@ -201,24 +201,25 @@ class patienthomePagescreen extends StatelessWidget {
                     ),
                     SizedBox(
                       height: size.height * 160 / 932,
-                      child: Expanded(
-                        child: FutureBuilder<List<Medicine>>(
-                          future: DatabaseHelper()
-                              .getMedicinesForDate(DateTime.now()),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (snapshot.hasError) {
-                              return Center(
-                                  child: Text('Error: ${snapshot.error}'));
-                            } else if (!snapshot.hasData ||
-                                snapshot.data!.isEmpty) {
-                              return const Center(
-                                  child: Text('No Medicines today'));
-                            } else {
-                              return ListView.builder(
+                      child: FutureBuilder<List<Medicine>>(
+                        future: DatabaseHelper()
+                            .getMedicinesForDate(DateTime.now()),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (!snapshot.hasData ||
+                              snapshot.data!.isEmpty) {
+                            return const Center(
+                                child: Text('No Medicines today'));
+                          } else {
+                            return SizedBox(
+                              width: double.infinity,
+                              child: ListView.builder(
                                 physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data!.length,
@@ -235,10 +236,10 @@ class patienthomePagescreen extends StatelessWidget {
                                     capsize: medicine.capsize,
                                   );
                                 },
-                              );
-                            }
-                          },
-                        ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                     SizedBox(
