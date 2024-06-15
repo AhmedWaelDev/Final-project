@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
-import 'package:final_project/CustomWidgets/screensappbar.dart';
+
+import '../CustomWidgets/screensappbar.dart';
 
 class EnormousPayment extends StatefulWidget {
   const EnormousPayment({super.key});
@@ -29,7 +30,8 @@ class _EnormousPaymentState extends State<EnormousPayment> {
             SizedBox(
               height: size.height * 50 / 932,
             ),
-            Container(
+            SizedBox(
+              width: double.infinity,
               child: CustomPayment(
                 txt: "Enormous",
                 txt1: "5000 pts",
@@ -41,10 +43,16 @@ class _EnormousPaymentState extends State<EnormousPayment> {
                 onTap: () {},
               ),
             ),
-            const detailsPayment(
-              subtotal: "Ep 300",
-              discount: "20%",
-              Total: "Ep 280",
+            Expanded(
+              child: ListView(
+                children: const [
+                  detailsPayment(
+                    subtotal: "Ep 300",
+                    discount: "20%",
+                    Total: "Ep 280",
+                  ),
+                ],
+              ),
             ),
           ],
         ),

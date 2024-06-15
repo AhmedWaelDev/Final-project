@@ -108,7 +108,13 @@ class patienthomePagescreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Doctors()),
+                            );
+                          },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -214,8 +220,13 @@ class patienthomePagescreen extends StatelessWidget {
                                 child: Text('Error: ${snapshot.error}'));
                           } else if (!snapshot.hasData ||
                               snapshot.data!.isEmpty) {
-                            return const Center(
-                                child: Text('No Medicines today'));
+                            return Center(
+                                child: Text(
+                              'No Medicines today 😁',
+                              style: TextStyle(
+                                  color: const Color(0xFF50B7C5),
+                                  fontSize: size.height * 25 / 932),
+                            ));
                           } else {
                             return SizedBox(
                               width: double.infinity,

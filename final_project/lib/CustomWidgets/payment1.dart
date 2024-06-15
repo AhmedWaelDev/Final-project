@@ -157,10 +157,10 @@ class _detailsPaymentState extends State<detailsPayment> {
             height: size.height * 30 / 932,
           ),
           Container(
-            child: PaymentCard(label: "Card Name "),
+            child: const PaymentCard(label: "Card Name "),
           ),
           Container(
-            child: PaymentCard(label: "Card Number "),
+            child: const PaymentCard(label: "Card Number "),
           ),
           SizedBox(
             height: size.height * 20 / 932,
@@ -169,7 +169,7 @@ class _detailsPaymentState extends State<detailsPayment> {
             children: [
               Expanded(
                 child: Container(
-                  child: PaymentCard(label: "CVV "),
+                  child: const PaymentCard(label: "CVV "),
                 ),
               ),
               SizedBox(
@@ -177,7 +177,7 @@ class _detailsPaymentState extends State<detailsPayment> {
               ),
               Expanded(
                 child: Container(
-                  child: PaymentCard(label: "DataCard "),
+                  child: const PaymentCard(label: "DataCard "),
                 ),
               ),
             ],
@@ -187,7 +187,7 @@ class _detailsPaymentState extends State<detailsPayment> {
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Text(
                   'Subtotal',
                   textAlign: TextAlign.left,
@@ -201,7 +201,7 @@ class _detailsPaymentState extends State<detailsPayment> {
                 child: Text(
                   widget.subtotal, //
                   textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ],
@@ -211,7 +211,7 @@ class _detailsPaymentState extends State<detailsPayment> {
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Text(
                   'Discount',
                   textAlign: TextAlign.left,
@@ -222,7 +222,7 @@ class _detailsPaymentState extends State<detailsPayment> {
                 child: Text(
                   widget.discount,
                   textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ],
@@ -232,7 +232,7 @@ class _detailsPaymentState extends State<detailsPayment> {
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Text(
                   'Total',
                   textAlign: TextAlign.left,
@@ -243,7 +243,7 @@ class _detailsPaymentState extends State<detailsPayment> {
                 child: Text(
                   widget.Total,
                   textAlign: TextAlign.right,
-                  style: TextStyle(fontSize: 18, color: Color(0xff000000)),
+                  style: const TextStyle(fontSize: 18, color: Color(0xff000000)),
                 ),
               ),
             ],

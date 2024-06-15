@@ -21,7 +21,7 @@ class CustomChatItem extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 89 / 930,
-      margin: EdgeInsets.only(bottom: 16.0),
+      margin: const EdgeInsets.only(bottom: 16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.white,
@@ -33,7 +33,7 @@ class CustomChatItem extends StatelessWidget {
         ),
         title: Text(
           name,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -46,21 +46,21 @@ class CustomChatItem extends StatelessWidget {
           children: [
             Text(
               time,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 12,
               ),
             ),
             if (unreadMessages > 0)
               Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                   shape: BoxShape.circle,
                 ),
                 child: Text(
                   unreadMessages.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xffe5e9f0),
                     fontSize: 12,
                   ),
