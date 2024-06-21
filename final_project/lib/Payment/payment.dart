@@ -45,7 +45,7 @@ class _PaymentState extends State<Payment> {
                     top: size.width * 20 / 320,
                     right: size.width * 10 / 320,
                     left: size.width * 10 / 320),
-                child: Center(
+                child: const Center(
                   child: Column(
                     children: [
                       Center(
@@ -60,86 +60,95 @@ class _PaymentState extends State<Payment> {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 60 / 932,
-            ),
-            Container(
-              child: CustomPayment(
-                txt: "Starter",
-                txt1: "500 pts",
-                txt2: "Most popular",
-                txt3: "10 Ep",
-                rectColor: Color(0xffcfcef1), // تحديد لون المستطيل
-                textColor: Color(0xff46abf6),
-                textColorContainr: Color(0xff4342be),
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: size.height * 60 / 932,
+                  ),
+                  Container(
+                    child: CustomPayment(
+                      txt: "Starter",
+                      txt1: "500 pts",
+                      txt2: "Most popular",
+                      txt3: "10 Ep",
+                      rectColor: const Color(0xffcfcef1), // تحديد لون المستطيل
+                      textColor: const Color(0xff46abf6),
+                      textColorContainr: const Color(0xff4342be),
 
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const StarterPayment()),
-                  );
-                },
-              ),
-            ),
-            SizedBox(
-              height: size.height * 20 / 932,
-            ),
-            Container(
-              child: CustomPayment(
-                txt: "Big",
-                txt1: "1000 pts",
-                txt2: "Save 5%",
-                txt3: "10 Ep",
-                rectColor: Color(0xffEBC6D9), // تحديد لون المستطيل
-                textColor: Color(0xff46abf6),
-                textColorContainr: Color(0xffE25392), // تحديد لون النص
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BigPayment()));
-                },
-              ),
-            ),
-            SizedBox(
-              height: size.height * 20 / 932,
-            ),
-            Container(
-              child: CustomPayment(
-                txt: "Huge",
-                txt1: "2500 pts",
-                txt2: "Save 10%",
-                txt3: "100 Ep",
-                rectColor: Color(0xffCFE1E7), // تحديد لون المستطيل
-                textColor: Color(0xff46abf6),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HugePayment()));
-                },
-                textColorContainr: Color(0xff3C93AD), // تحديد لون النص
-              ),
-            ),
-            SizedBox(
-              height: size.height * 20 / 932,
-            ),
-            Container(
-              child: CustomPayment(
-                txt: "Enormous",
-                txt1: "5000 pts",
-                txt2: "Save 20%",
-                txt3: "300 Ep",
-                rectColor: Color(0xffCFE1E7), // تحديد لون المستطيل
-                textColor: Color(0xff46abf6),
-                textColorContainr: Color(0xff3C93AD), // تحديد لون النص
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EnormousPayment()));
-                },
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StarterPayment()),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 20 / 932,
+                  ),
+                  Container(
+                    child: CustomPayment(
+                      txt: "Big",
+                      txt1: "1000 pts",
+                      txt2: "Save 5%",
+                      txt3: "10 Ep",
+                      rectColor: const Color(0xffEBC6D9), // تحديد لون المستطيل
+                      textColor: const Color(0xff46abf6),
+                      textColorContainr:
+                          const Color(0xffE25392), // تحديد لون النص
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BigPayment()));
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 20 / 932,
+                  ),
+                  Container(
+                    child: CustomPayment(
+                      txt: "Huge",
+                      txt1: "2500 pts",
+                      txt2: "Save 10%",
+                      txt3: "100 Ep",
+                      rectColor: const Color(0xffCFE1E7), // تحديد لون المستطيل
+                      textColor: const Color(0xff46abf6),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HugePayment()));
+                      },
+                      textColorContainr:
+                          const Color(0xff3C93AD), // تحديد لون النص
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * 20 / 932,
+                  ),
+                  Container(
+                    child: CustomPayment(
+                      txt: "Enormous",
+                      txt1: "5000 pts",
+                      txt2: "Save 20%",
+                      txt3: "300 Ep",
+                      rectColor: const Color(0xffCFE1E7), // تحديد لون المستطيل
+                      textColor: const Color(0xff46abf6),
+                      textColorContainr:
+                          const Color(0xff3C93AD), // تحديد لون النص
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EnormousPayment()));
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

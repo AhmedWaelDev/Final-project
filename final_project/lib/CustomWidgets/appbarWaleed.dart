@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class appbarr extends StatefulWidget {
   final String Textt;
-  appbarr({super.key, required this.Textt});
+  const appbarr({super.key, required this.Textt});
 
   @override
   State<appbarr> createState() => _appbarrState();
@@ -17,7 +17,7 @@ class _appbarrState extends State<appbarr> {
       elevation: 0,
       title: Text(
         widget.Textt,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
       ),
 
@@ -28,7 +28,7 @@ class _appbarrState extends State<appbarr> {
         child: CircleAvatar(
           backgroundColor: Colors.white, // تغيير لون خلفية الدائرة إلى الأبيض
           child: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios_new),
             color: Colors.black, // تغيير لون الأيقونة
             onPressed: () {
               Navigator.of(context).pop(); // للرجوع للشاشة السابقة
@@ -37,7 +37,7 @@ class _appbarrState extends State<appbarr> {
         ),
       ),
 
-      backgroundColor: Color(0xffe5e9f0),
+      backgroundColor: const Color(0xffe5e9f0),
       // shadowColor: Colors.white,
     );
   }

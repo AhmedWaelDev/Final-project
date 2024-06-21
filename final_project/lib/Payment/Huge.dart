@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
-import 'package:final_project/CustomWidgets/screensappbar.dart';
+
+import '../CustomWidgets/screensappbar.dart';
 
 class HugePayment extends StatefulWidget {
   const HugePayment({super.key});
@@ -29,7 +30,8 @@ class _HugePaymentState extends State<HugePayment> {
             SizedBox(
               height: size.height * 50 / 932,
             ),
-            Container(
+            SizedBox(
+              width: double.infinity,
               child: CustomPayment(
                 txt: "Huge",
                 txt1: "2500 pts",
@@ -41,10 +43,16 @@ class _HugePaymentState extends State<HugePayment> {
                 textColorContainr: const Color(0xff3C93AD),
               ),
             ),
-            const detailsPayment(
-              subtotal: "Ep 100",
-              discount: "10%",
-              Total: "Ep 90",
+            Expanded(
+              child: ListView(
+                children: const [
+                  detailsPayment(
+                    subtotal: "Ep 100",
+                    discount: "10%",
+                    Total: "Ep 90",
+                  ),
+                ],
+              ),
             ),
           ],
         ),

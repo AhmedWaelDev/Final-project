@@ -29,7 +29,8 @@ class _BigPaymentState extends State<BigPayment> {
             SizedBox(
               height: size.height * 50 / 932,
             ),
-            Container(
+            SizedBox(
+              width: double.infinity,
               child: CustomPayment(
                   txt: "Big",
                   txt1: "1000 pts",
@@ -40,10 +41,16 @@ class _BigPaymentState extends State<BigPayment> {
                   textColorContainr: const Color(0xffE25392),
                   onTap: () {}),
             ),
-            const detailsPayment(
-              subtotal: "Ep 10",
-              discount: "5%",
-              Total: "Ep 9.5",
+            Expanded(
+              child: ListView(
+                children: const [
+                  detailsPayment(
+                    subtotal: "Ep 10",
+                    discount: "5%",
+                    Total: "Ep 9.5",
+                  ),
+                ],
+              ),
             ),
           ],
         ),

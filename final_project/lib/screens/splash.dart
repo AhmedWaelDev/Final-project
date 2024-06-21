@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,11 +19,20 @@ class _splashState extends State<splash> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const onbording_screen()),
-      );
-    });
+    bool isVisited = CacheHelper().getData(key: "isVisited") ?? false;
+    if (isVisited == true) {
+      Timer(const Duration(seconds: 2), () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const logIn()),
+        );
+      });
+    } else {
+      Timer(const Duration(seconds: 2), () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const onbording_screen()),
+        );
+      });
+    }
   }
 
   @override

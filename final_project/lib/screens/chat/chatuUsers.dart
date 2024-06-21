@@ -1,4 +1,5 @@
 import 'package:final_project/CustomWidgets/chats.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
@@ -40,17 +41,17 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xffe5e9f0),
+      backgroundColor: const Color(0xffe5e9f0),
       appBar: AppBar(
         toolbarHeight: size.height * 70 / 932,
-        backgroundColor: Color(0xffe5e9f0),
-        title: _isSearching ? _buildSearchField() : Text("Chats"),
+        backgroundColor: const Color(0xffe5e9f0),
+        title: _isSearching ? _buildSearchField() : const Text("Chats"),
         actions: _buildAppBarActions(),
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(size.width * 10 / 320),
-          color: Color(0xffe5e9f0),
+          color: const Color(0xffe5e9f0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,7 +62,7 @@ class _ChatState extends State<Chat> {
                   "Online Doctors",
                   style: TextStyle(
                     fontSize: size.width * 20 / 320,
-                    color: Color(0xff757575),
+                    color: const Color(0xff757575),
                   ),
                 ),
               ),
@@ -76,7 +77,14 @@ class _ChatState extends State<Chat> {
                         itemCount: 15,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ChatterScreen()),
+                              );
+                            },
                             child: Padding(
                               padding:
                                   EdgeInsets.only(right: size.width * 15 / 320),
@@ -86,7 +94,7 @@ class _ChatState extends State<Chat> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: Color(0xffe5e9f0),
+                                    color: const Color(0xffe5e9f0),
                                     width: 2,
                                   ),
                                 ),
@@ -138,12 +146,12 @@ class _ChatState extends State<Chat> {
       controller: _searchTextController,
       cursorColor: Colors.lightBlue,
       keyboardType: TextInputType.text,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: "Find a chat....",
         border: InputBorder.none,
         hintStyle: TextStyle(color: Colors.black, fontSize: 15),
       ),
-      style: TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       onChanged: _searchCharacter,
     );
   }
@@ -163,7 +171,7 @@ class _ChatState extends State<Chat> {
       return [
         IconButton(
           onPressed: _stopSearching,
-          icon: Icon(
+          icon: const Icon(
             Icons.clear,
             color: Colors.black,
           ),
@@ -173,7 +181,7 @@ class _ChatState extends State<Chat> {
       return [
         IconButton(
           onPressed: _startSearch,
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
         )
       ];
     }
