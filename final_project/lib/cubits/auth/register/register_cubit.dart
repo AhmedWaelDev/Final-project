@@ -33,30 +33,17 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> registerFunction() async {
     emit(RegisterLoading());
     try {
-      var formData = {
-        'name': RegisterName.text,
-        'email': RegisterEmail.text,
-        'password': RegisterPassword.text,
-        'password_confirmation': RegisterConfirmPassword.text,
-        'phone': RegisterPhoneNumber.text,
-      };
-      var formData2 = {
-        "name": "ahmed wael ali",
-        "email": "ahm3@gmail.com",
-        "password": "123456789",
-        "password_confirmation": "123456789",
-        "phone": "01002068841"
-      };
       var response = await Dio().post(
         'http://127.0.0.1:8000/api/register',
-        data: formData2,
+        data: {
+          'name': RegisterName.text,
+          'email': RegisterEmail.text,
+          'password': RegisterPassword.text,
+          'password_confirmation': RegisterConfirmPassword.text,
+          'phone': RegisterPhoneNumber.text,
+        },
       );
       emit(RegisterSuccess());
-      if (response.statusCode == 201) {
-        emit(RegisterSuccess());
-      } else {
-        emit(RegisterFailure(errMessage: "error"));
-      }
     } catch (e) {
       emit(RegisterFailure(errMessage: e.toString()));
     }
