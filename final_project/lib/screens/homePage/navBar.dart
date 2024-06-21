@@ -6,7 +6,7 @@ import '../AppointmentScreen/patientAppointmentScreen.dart';
 import '../chat/chat.dart';
 import 'doctorHomePage.dart';
 
-const bool ispatient = true;
+const bool ispatient = false;
 
 class myNavBar extends StatefulWidget {
   const myNavBar({super.key});
