@@ -3,10 +3,10 @@ import 'package:final_project/screens/homePage/patienthomePage.dart';
 import 'package:flutter/material.dart';
 import '../AppointmentScreen/doctorAppointment.dart';
 import '../AppointmentScreen/patientAppointmentScreen.dart';
-import '../chat/chat.dart';
+import '../chat/chatuUsers.dart';
 import 'doctorHomePage.dart';
 
-const bool ispatient = true;
+const bool ispatient = false;
 
 class myNavBar extends StatefulWidget {
   const myNavBar({super.key});

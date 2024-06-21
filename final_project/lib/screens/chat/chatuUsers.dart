@@ -1,4 +1,5 @@
 import 'package:final_project/CustomWidgets/chats.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
@@ -76,7 +77,14 @@ class _ChatState extends State<Chat> {
                         itemCount: 15,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ChatterScreen()),
+                              );
+                            },
                             child: Padding(
                               padding:
                                   EdgeInsets.only(right: size.width * 15 / 320),

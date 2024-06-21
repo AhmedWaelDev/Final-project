@@ -8,6 +8,7 @@ class passwordTextField extends StatelessWidget {
     required this.fun,
     required this.label,
     required this.hint,
+    this.mycontroller,
   });
 
   final Size size;
@@ -15,6 +16,7 @@ class passwordTextField extends StatelessWidget {
   final VoidCallback fun;
   final String label;
   final String hint;
+  final TextEditingController? mycontroller;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class passwordTextField extends StatelessWidget {
         child: SizedBox(
           height: size.height * 50 / 932,
           child: TextFormField(
+            controller: mycontroller,
             obscureText: obsecure,
             decoration: InputDecoration(
                 labelText: label,
@@ -32,7 +35,7 @@ class passwordTextField extends StatelessWidget {
                 suffixIcon: InkWell(
                   onTap: fun,
                   child:
-                      Icon(obsecure ? Icons.visibility : Icons.visibility_off),
+                      Icon(!obsecure ? Icons.visibility : Icons.visibility_off),
                 ),
                 hintStyle: const TextStyle(color: Color(0xffB2AAAA)),
                 contentPadding: EdgeInsets.only(left: size.width * 18 / 430),

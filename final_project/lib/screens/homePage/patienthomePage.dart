@@ -1,5 +1,5 @@
 import 'package:final_project/medicine%20reminder/reminder.dart';
-import 'package:final_project/screens/chat/chat.dart';
+import 'package:final_project/screens/chat/chatuUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import '../../CustomWidgets/DoctorsAppoint.dart';

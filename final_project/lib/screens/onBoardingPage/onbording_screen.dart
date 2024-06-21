@@ -1,3 +1,4 @@
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/models/onBoardingPage.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ class _onbording_screenState extends State<onbording_screen> {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      CacheHelper().saveData(key: "isVisited", value: true);
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => const logIn()),
                       );
