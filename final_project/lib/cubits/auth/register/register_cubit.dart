@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:final_project/cubits/endPoints.dart';
@@ -32,18 +34,27 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> registerFunction() async {
     emit(RegisterLoading());
+    Dio dio = Dio();
     try {
-      var response = await Dio().post(
-        'http://127.0.0.1:8000/api/register',
-        data: {
-          'name': RegisterName.text,
-          'email': RegisterEmail.text,
-          'password': RegisterPassword.text,
-          'password_confirmation': RegisterConfirmPassword.text,
-          'phone': RegisterPhoneNumber.text,
-        },
+      var url = 'https://food-api-omega.vercel.app/api/v1/user/signup';
+      var response = await dio.post(
+        url,
+        data: FormData.fromMap(
+          {
+            'name': RegisterName.text,
+            'email': RegisterEmail.text,
+            'password': RegisterPassword.text,
+            'password_confirmation': RegisterConfirmPassword.text,
+            'phone': RegisterPhoneNumber.text,
+          },
+        ),
       );
-      emit(RegisterSuccess());
+
+      if (response.statusCode == 201) {
+        emit(RegisterSuccess());
+      } else {
+        emit(RegisterFailure(errMessage: response.data.toString()));
+      }
     } catch (e) {
       emit(RegisterFailure(errMessage: e.toString()));
     }

@@ -2,6 +2,7 @@ import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/screens/homePage/navBar.dart';
 import 'package:final_project/screens/sign_in_up/forgetPass.dart';
 import 'package:final_project/screens/sign_in_up/sginUp.dart';
+import 'package:final_project/screens/sign_in_up/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,7 @@ class logIn extends StatelessWidget {
               content: Text("success"),
             ),
           );
+          context.read<LoginCubit>().getUserProfile();
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const myNavBar()),
           );
@@ -162,7 +164,12 @@ class logIn extends StatelessWidget {
                                   mainColor: mainColor,
                                   text: "Sign in",
                                   onTapFun: () {
-                                    context.read<LoginCubit>().login();
+                                    // context.read<LoginCubit>().login();
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const myNavBar()),
+                                    );
                                   },
                                 ),
                           Container(

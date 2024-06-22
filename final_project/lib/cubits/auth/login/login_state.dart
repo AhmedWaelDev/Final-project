@@ -15,6 +15,19 @@ final class LoginFailure extends LoginState {
   LoginFailure({required this.errMessage});
 }
 
+final class getUserDataSuccess extends LoginState {
+  late UserModel user;
+  getUserDataSuccess({required this.user});
+}
+
+final class getUserDataLoading extends LoginState {}
+
+final class getUserDataFailure extends LoginState {
+  late String errMessage;
+
+  getUserDataFailure({required this.errMessage});
+}
+
 class PasswordObscureToggle extends LoginState {
   final bool obsecureValue;
   PasswordObscureToggle(this.obsecureValue);
