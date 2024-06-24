@@ -22,6 +22,11 @@ class _StarterPaymentState extends State<StarterPayment> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("success"),
           ));
+          context.read<PaymentCubit>().paymentCardName.clear();
+          context.read<PaymentCubit>().paymentCardCvv.clear();
+          context.read<PaymentCubit>().paymentCardDate.clear();
+          context.read<PaymentCubit>().paymentCardNumber.clear();
+          context.read<PaymentCubit>().points = 0;
         } else if (state is PaymentFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
