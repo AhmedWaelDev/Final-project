@@ -40,7 +40,9 @@ class _myReminderState extends State<myReminder> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const myNavBar(),
+                        builder: (context) => const myNavBar(
+                          isDoctor: true,
+                        ),
                       ),
                     );
                   },

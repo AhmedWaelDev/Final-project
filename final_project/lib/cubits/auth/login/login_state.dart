@@ -5,7 +5,21 @@ sealed class LoginState {}
 
 final class LoginInitial extends LoginState {}
 
-final class LoginSuccess extends LoginState {}
+final class LoginSuccess extends LoginState {
+  final UserModel user;
+
+  LoginSuccess(this.user);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LoginSuccess &&
+          runtimeType == other.runtimeType &&
+          user == other.user;
+
+  @override
+  int get hashCode => user.hashCode;
+}
 
 final class LoginLoading extends LoginState {}
 
@@ -13,17 +27,26 @@ final class LoginFailure extends LoginState {
   final String errMessage;
 
   LoginFailure({required this.errMessage});
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LoginFailure &&
+          runtimeType == other.runtimeType &&
+          errMessage == other.errMessage;
+
+  @override
+  int get hashCode => errMessage.hashCode;
 }
 
 final class getUserDataSuccess extends LoginState {
-  late UserModel user;
+  final UserModel user;
   getUserDataSuccess({required this.user});
 }
 
 final class getUserDataLoading extends LoginState {}
 
 final class getUserDataFailure extends LoginState {
-  late String errMessage;
+  final String errMessage;
 
   getUserDataFailure({required this.errMessage});
 }

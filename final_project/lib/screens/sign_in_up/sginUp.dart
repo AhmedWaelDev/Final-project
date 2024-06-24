@@ -1,7 +1,7 @@
-import 'package:final_project/CustomWidgets/logbtn.dart';
 import 'package:final_project/CustomWidgets/textForm.dart';
 import 'package:final_project/cubits/auth/register/register_cubit.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
+import 'package:final_project/screens/sign_in_up/verification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../CustomWidgets/backButton.dart';
@@ -15,6 +15,7 @@ class sginUp extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     const bgCOlor = Color(0xffe5e9f0);
     const mainColor = Color(0xFF50B7C5);
+    String Email;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(
@@ -32,9 +33,27 @@ class sginUp extends StatelessWidget {
                 child: BlocConsumer<RegisterCubit, RegisterState>(
                   listener: (context, state) {
                     if (state is RegisterSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("success"),
+                      String email =
+                          context.read<RegisterCubit>().RegisterEmail.text;
+                      {
+                        context.read<RegisterCubit>().RegisterName.clear();
+                        context.read<RegisterCubit>().RegisterEmail.clear();
+                        context.read<RegisterCubit>().RegisterPassword.clear();
+                        context
+                            .read<RegisterCubit>()
+                            .RegisterConfirmPassword
+                            .clear();
+                        context
+                            .read<RegisterCubit>()
+                            .RegisterPhoneNumber
+                            .clear();
+                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => verification(
+                            email: email,
+                          ),
                         ),
                       );
                     } else if (state is RegisterFailure) {
@@ -47,7 +66,6 @@ class sginUp extends StatelessWidget {
                   },
                   builder: (context, state) {
                     return Form(
-                      key: context.read<RegisterCubit>().RegisterFormKey,
                       child: Column(
                         children: [
                           SizedBox(
@@ -123,7 +141,7 @@ class sginUp extends StatelessWidget {
                               label: "Password",
                               hint: "Enter your password",
                               fun: () {
-                                context.read<RegisterCubit>().toggleobsecure();
+                                context.read<RegisterCubit>().toggleObsecure();
                               },
                               size: size,
                               obsecure:
@@ -137,7 +155,7 @@ class sginUp extends StatelessWidget {
                               fun: () {
                                 context
                                     .read<RegisterCubit>()
-                                    .toggleConfirmobsecure();
+                                    .toggleConfirmObsecure();
                               },
                               size: size,
                               obsecure: context
@@ -150,6 +168,12 @@ class sginUp extends StatelessWidget {
                               ? const CircularProgressIndicator()
                               : InkWell(
                                   onTap: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           const verification()),
+                                    // );
                                     context
                                         .read<RegisterCubit>()
                                         .registerFunction();
@@ -193,10 +217,9 @@ class sginUp extends StatelessWidget {
                                         0xff757575,
                                       )),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) => const logIn()),
                                     );

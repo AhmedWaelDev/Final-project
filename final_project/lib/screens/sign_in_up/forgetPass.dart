@@ -71,7 +71,9 @@ class forgetPassword extends StatelessWidget {
                             onTapFun: () {
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
-                                    builder: (context) => const verification()),
+                                    builder: (context) => const verification(
+                                          email: "emasad",
+                                        )),
                               );
                             },
                           ),

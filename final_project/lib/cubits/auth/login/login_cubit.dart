@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:final_project/cache/cache_helper.dart';
@@ -12,8 +14,6 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
-
-  GlobalKey<FormState> logInFormKey = GlobalKey();
 
   TextEditingController logInEmail = TextEditingController();
 
@@ -54,30 +54,41 @@ class LoginCubit extends Cubit<LoginState> {
         final id = decodedToken["sub"].toString();
         CacheHelper().saveData(key: "id", value: id);
         CacheHelper().saveData(key: "token", value: token);
-
-        emit(LoginSuccess());
-        print(CacheHelper().getAllData().toString());
+        UserModel user = UserModel.fromJson(response.data);
+        emit(LoginSuccess(user));
       } else {
         emit(LoginFailure(errMessage: 'Invalid response from server'));
       }
     } on DioException catch (e) {
-      emit(LoginFailure(errMessage: e.response!.data.toString()));
+      emit(LoginFailure(errMessage: e.response!.data["error"].toString()));
+    }
+  }
+
+  String? nameData;
+
+  void isUserDoctor(String a) async {
+    var isDOctorData = a;
+    if (a == "1") {
+      CacheHelper().saveData(key: "isDoctor", value: true);
+    } else {
+      CacheHelper().saveData(key: "isDoctor", value: false);
     }
   }
 
   Future<void> getUserProfile() async {
-    print("clicked");
     try {
       emit(getUserDataLoading());
       final response = await Dio().get(
-        'http://127.0.0.1:8000/api/getUserInfo/5',
-        options: Options(),
-      );
-      print(response);
-
+          '$baseUrl/getUserInfo/${CacheHelper().getData(key: "id")}',
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
+            },
+          ));
+      // print(response);
       if (response.statusCode == 200) {
+        isUserDoctor(response.data["isDoctor"].toString());
         emit(getUserDataSuccess(user: UserModel.fromJson(response.data)));
-        // Handle your response data here
       } else {
         emit(getUserDataFailure(errMessage: 'Failed to fetch user data'));
       }
