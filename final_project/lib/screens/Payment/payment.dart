@@ -1,9 +1,9 @@
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
-import 'package:final_project/Payment/Big.dart';
-import 'package:final_project/Payment/Enormous.dart';
-import 'package:final_project/Payment/Huge.dart';
-import 'package:final_project/Payment/Starter.dart';
+import 'package:final_project/screens/Payment/Big.dart';
+import 'package:final_project/screens/Payment/Enormous.dart';
+import 'package:final_project/screens/Payment/Huge.dart';
+import 'package:final_project/screens/Payment/Starter.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:final_project/Payment/payment.dart';
+import 'package:final_project/screens/Payment/payment.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';

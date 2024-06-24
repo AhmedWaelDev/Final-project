@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
-import 'package:final_project/CustomWidgets/screensappbar.dart';
 
-class StarterPayment extends StatefulWidget {
-  const StarterPayment({super.key});
+import '../../CustomWidgets/screensappbar.dart';
+
+class EnormousPayment extends StatefulWidget {
+  const EnormousPayment({super.key});
 
   @override
-  State<StarterPayment> createState() => _StarterPaymentState();
+  State<EnormousPayment> createState() => _EnormousPaymentState();
 }
 
-class _StarterPaymentState extends State<StarterPayment> {
+class _EnormousPaymentState extends State<EnormousPayment> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -32,22 +33,23 @@ class _StarterPaymentState extends State<StarterPayment> {
             SizedBox(
               width: double.infinity,
               child: CustomPayment(
-                  txt: "Starter",
-                  txt1: "500 pts",
-                  txt2: "Most popular",
-                  txt3: "10 Ep",
-                  rectColor: const Color(0xffcfcef1),
-                  textColor: const Color(0xff46abf6),
-                  textColorContainr: const Color(0xff4342be),
-                  onTap: () {}),
+                txt: "Enormous",
+                txt1: "5000 pts",
+                txt2: "Save 20%",
+                txt3: "300 Ep",
+                rectColor: const Color(0xffCFE1E7), // تحديد لون المستطيل
+                textColor: const Color(0xff46abf6),
+                textColorContainr: const Color(0xff3C93AD), // تحديد لون النص
+                onTap: () {},
+              ),
             ),
             Expanded(
               child: ListView(
                 children: const [
                   detailsPayment(
-                    subtotal: "Ep 10",
-                    discount: "Ep 0",
-                    Total: "Ep 10",
+                    subtotal: "Ep 300",
+                    discount: "20%",
+                    Total: "Ep 280",
                   ),
                 ],
               ),

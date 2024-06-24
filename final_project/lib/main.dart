@@ -1,6 +1,7 @@
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/auth/register/register_cubit.dart';
+import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PaymentCubit(),
         )
       ],
       child: MaterialApp(

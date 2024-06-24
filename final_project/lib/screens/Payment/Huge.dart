@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
 
-import '../CustomWidgets/screensappbar.dart';
+import '../../CustomWidgets/screensappbar.dart';
 
 class HugePayment extends StatefulWidget {
   const HugePayment({super.key});

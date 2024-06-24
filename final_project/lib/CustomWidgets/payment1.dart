@@ -133,14 +133,24 @@ class _CustomPaymentState extends State<CustomPayment> {
 }
 
 class detailsPayment extends StatefulWidget {
-  const detailsPayment(
-      {super.key,
-      required this.subtotal,
-      required this.discount,
-      required this.Total});
+  const detailsPayment({
+    super.key,
+    required this.subtotal,
+    required this.discount,
+    required this.Total,
+    this.nameController,
+    this.dateController,
+    this.numberController,
+    this.cvvController,
+  });
   final String subtotal;
   final String discount;
   final String Total;
+  final TextEditingController? nameController;
+  final TextEditingController? dateController;
+  final TextEditingController? numberController;
+  final TextEditingController? cvvController;
+
   @override
   State<detailsPayment> createState() => _detailsPaymentState();
 }
@@ -157,10 +167,14 @@ class _detailsPaymentState extends State<detailsPayment> {
             height: size.height * 30 / 932,
           ),
           Container(
-            child: const PaymentCard(label: "Card Name "),
+            child: PaymentCard(
+              label: "Card Name ",
+              mycontroller: widget.nameController,
+            ),
           ),
           Container(
-            child: const PaymentCard(label: "Card Number "),
+            child: PaymentCard(
+                label: "Card Number ", mycontroller: widget.numberController),
           ),
           SizedBox(
             height: size.height * 20 / 932,
@@ -169,7 +183,10 @@ class _detailsPaymentState extends State<detailsPayment> {
             children: [
               Expanded(
                 child: Container(
-                  child: const PaymentCard(label: "CVV "),
+                  child: PaymentCard(
+                    label: "CVV ",
+                    mycontroller: widget.cvvController,
+                  ),
                 ),
               ),
               SizedBox(
@@ -177,7 +194,10 @@ class _detailsPaymentState extends State<detailsPayment> {
               ),
               Expanded(
                 child: Container(
-                  child: const PaymentCard(label: "DataCard "),
+                  child: PaymentCard(
+                    label: "DateCard ",
+                    mycontroller: widget.dateController,
+                  ),
                 ),
               ),
             ],
@@ -243,28 +263,14 @@ class _detailsPaymentState extends State<detailsPayment> {
                 child: Text(
                   widget.Total,
                   textAlign: TextAlign.right,
-                  style: const TextStyle(fontSize: 18, color: Color(0xff000000)),
+                  style:
+                      const TextStyle(fontSize: 18, color: Color(0xff000000)),
                 ),
               ),
             ],
           ),
           SizedBox(
             height: size.height * 30 / 932,
-          ),
-          SizedBox(
-            width: size.width * 330 / 430,
-            height: size.height * 50 / 932,
-            child: MaterialButton(
-              onPressed: () {},
-              color: const Color(0xff50b7c5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13),
-              ),
-              child: const Text(
-                'Payment',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            ),
           ),
         ],
       ),
