@@ -1,4 +1,5 @@
-import 'package:final_project/Payment/payment.dart';
+import 'package:final_project/screens/Payment/payment.dart';
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 import '../../CustomWidgets/profileContainer.dart';
@@ -139,6 +140,8 @@ class Profile extends StatelessWidget {
                     text: "Logout",
                     itemColor: const Color(0xffD23A2D),
                     onTap: () {
+                      CacheHelper().removeData(key: "isDoctor");
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const logIn()),

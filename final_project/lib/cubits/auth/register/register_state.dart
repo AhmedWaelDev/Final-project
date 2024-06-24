@@ -15,6 +15,16 @@ class RegisterFailure extends RegisterState {
   RegisterFailure({required this.errMessage});
 }
 
+final class otpSuccess extends RegisterState {}
+
+final class otpLoading extends RegisterState {}
+
+final class otpFailure extends RegisterState {
+  final String errMessage;
+
+  otpFailure({required this.errMessage});
+}
+
 class PasswordObscureToggle extends RegisterState {
   final bool obsecureValue;
   PasswordObscureToggle(this.obsecureValue);

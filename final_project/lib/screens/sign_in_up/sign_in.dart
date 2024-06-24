@@ -1,9 +1,9 @@
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/screens/homePage/navBar.dart';
 import 'package:final_project/screens/sign_in_up/forgetPass.dart';
 import 'package:final_project/screens/sign_in_up/sginUp.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../CustomWidgets/logbtn.dart';
@@ -21,13 +21,12 @@ class logIn extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("success"),
+          context.read<LoginCubit>().getUserProfile();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  myNavBar(isDoctor: CacheHelper().getData(key: "isDoctor")),
             ),
-          );
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const myNavBar()),
           );
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -86,7 +85,6 @@ class logIn extends StatelessWidget {
                       height: size.height * 0.07,
                     ),
                     Form(
-                      key: context.read<LoginCubit>().logInFormKey,
                       child: Column(
                         children: [
                           myTextFrom(

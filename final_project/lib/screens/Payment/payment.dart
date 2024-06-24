@@ -1,9 +1,9 @@
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:final_project/CustomWidgets/screensappbar.dart';
-import 'package:final_project/Payment/Big.dart';
-import 'package:final_project/Payment/Enormous.dart';
-import 'package:final_project/Payment/Huge.dart';
-import 'package:final_project/Payment/Starter.dart';
+import 'package:final_project/screens/Payment/Big.dart';
+import 'package:final_project/screens/Payment/Enormous.dart';
+import 'package:final_project/screens/Payment/Huge.dart';
+import 'package:final_project/screens/Payment/Starter.dart';
 import 'package:flutter/material.dart';
 
 class Payment extends StatefulWidget {
@@ -71,7 +71,7 @@ class _PaymentState extends State<Payment> {
                       txt: "Starter",
                       txt1: "500 pts",
                       txt2: "Most popular",
-                      txt3: "10 Ep",
+                      txt3: "30 Ep",
                       rectColor: const Color(0xffcfcef1), // تحديد لون المستطيل
                       textColor: const Color(0xff46abf6),
                       textColorContainr: const Color(0xff4342be),
@@ -92,8 +92,8 @@ class _PaymentState extends State<Payment> {
                     child: CustomPayment(
                       txt: "Big",
                       txt1: "1000 pts",
-                      txt2: "Save 5%",
-                      txt3: "10 Ep",
+                      txt2: "Save 10%",
+                      txt3: "50 Ep",
                       rectColor: const Color(0xffEBC6D9), // تحديد لون المستطيل
                       textColor: const Color(0xff46abf6),
                       textColorContainr:
@@ -135,7 +135,7 @@ class _PaymentState extends State<Payment> {
                       txt: "Enormous",
                       txt1: "5000 pts",
                       txt2: "Save 20%",
-                      txt3: "300 Ep",
+                      txt3: "200 Ep",
                       rectColor: const Color(0xffCFE1E7), // تحديد لون المستطيل
                       textColor: const Color(0xff46abf6),
                       textColorContainr:

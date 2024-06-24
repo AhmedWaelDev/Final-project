@@ -1,4 +1,5 @@
 import 'package:final_project/medicine%20reminder/reminder.dart';
+import 'package:final_project/screens/AppointmentScreen/getAppointment.dart';
 import 'package:final_project/screens/chat/chatuUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
@@ -286,11 +287,17 @@ class patienthomePagescreen extends StatelessWidget {
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: 10,
+                      itemCount: 1,
                       itemBuilder: (context, index) {
                         return DoctorsAppoint(
                           name: "Dr. Nada Matani",
-                          onChatPressed: () {},
+                          onChatPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const GetAppointment()),
+                            );
+                          },
                           onVideoCallPressed: () {},
                           rating: 5,
                           specialty: "Pediatricain",
