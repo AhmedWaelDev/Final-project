@@ -79,7 +79,7 @@ class _BigPaymentState extends State<BigPayment> {
                         discount: "10%",
                         Total: "Ep 40",
                       ),
-                      state is Paymentloading
+                      state is PaymentLoading
                           ? const CircularProgressIndicator()
                           : SizedBox(
                               width: size.width * 330 / 430,

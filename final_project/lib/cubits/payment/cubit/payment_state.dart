@@ -3,13 +3,19 @@ part of 'payment_cubit.dart';
 @sealed
 class PaymentState {}
 
-final class PaymentInitial extends PaymentState {}
+class PaymentInitial extends PaymentState {}
 
-final class PaymentSuccess extends PaymentState {}
+class PaymentSuccess extends PaymentState {}
 
-final class Paymentloading extends PaymentState {}
+class PaymentLoading extends PaymentState {}
 
-final class PaymentFailure extends PaymentState {
+class PaymentPointsLoaded extends PaymentState {
+  final int points;
+
+  PaymentPointsLoaded(this.points);
+}
+
+class PaymentFailure extends PaymentState {
   final String errMessage;
 
   PaymentFailure({required this.errMessage});
