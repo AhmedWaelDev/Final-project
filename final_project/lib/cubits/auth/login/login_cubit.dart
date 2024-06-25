@@ -16,9 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   TextEditingController logInEmail = TextEditingController();
-
   TextEditingController logInPassword = TextEditingController();
-
   bool obsecureValue = true;
 
   toggleobsecure() {
@@ -54,24 +52,12 @@ class LoginCubit extends Cubit<LoginState> {
         final id = decodedToken["sub"].toString();
         CacheHelper().saveData(key: "id", value: id);
         CacheHelper().saveData(key: "token", value: token);
-        UserModel user = UserModel.fromJson(response.data);
-        emit(LoginSuccess(user));
+        emit(LoginSuccess());
       } else {
         emit(LoginFailure(errMessage: 'Invalid response from server'));
       }
     } on DioException catch (e) {
       emit(LoginFailure(errMessage: e.response!.data["error"].toString()));
-    }
-  }
-
-  String? nameData;
-
-  void isUserDoctor(String a) async {
-    var isDOctorData = a;
-    if (a == "1") {
-      CacheHelper().saveData(key: "isDoctor", value: true);
-    } else {
-      CacheHelper().saveData(key: "isDoctor", value: false);
     }
   }
 
@@ -85,10 +71,9 @@ class LoginCubit extends Cubit<LoginState> {
               'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
             },
           ));
-      // print(response);
       if (response.statusCode == 200) {
-        isUserDoctor(response.data["isDoctor"].toString());
-        emit(getUserDataSuccess(user: UserModel.fromJson(response.data)));
+        UserModel user = UserModel.fromJson(response.data);
+        emit(getUserDataSuccess(user: user));
       } else {
         emit(getUserDataFailure(errMessage: 'Failed to fetch user data'));
       }

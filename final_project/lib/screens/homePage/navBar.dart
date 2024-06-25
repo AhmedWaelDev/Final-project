@@ -20,7 +20,6 @@ class myNavBar extends StatefulWidget {
 class _myNavBarState extends State<myNavBar> {
   int currentTab = 0;
   late Widget currentScreen;
-
   @override
   void initState() {
     super.initState();

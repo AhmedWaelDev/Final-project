@@ -9,7 +9,7 @@ class UserModel {
   final String? price;
   final String email;
   final int specialtyId;
-  final int isDoctor; // This should be an int representing 0 or 1
+  var isDoctor; // This should be an int representing 0 or 1
   final String? experience;
   final String? stars;
   final int p_counter;
@@ -45,11 +45,14 @@ class UserModel {
       price: jsonData["price"] as String?,
       email: jsonData["email"] ?? "",
       specialtyId: jsonData["specialtyId"] ?? 0,
-      isDoctor: jsonData["isDoctor"] ??
-          0, // Ensure this correctly reflects your JSON structure
+      isDoctor: jsonData[
+          "isDoctor"], // Ensure this correctly reflects your JSON structure
       experience: jsonData["experience"] as String?,
       stars: jsonData["stars"] as String?,
       p_counter: jsonData["p_counter"] ?? 0,
     );
+  }
+  bool isDoctorAsBool() {
+    return isDoctor == 1;
   }
 }

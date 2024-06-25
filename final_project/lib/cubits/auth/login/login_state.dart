@@ -6,21 +6,7 @@ class LoginState {}
 class LoginInitial extends LoginState {}
 
 //class LoginSuccess extends LoginState {}
-final class LoginSuccess extends LoginState {
-  final UserModel user;
-
-  LoginSuccess(this.user);
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LoginSuccess &&
-          runtimeType == other.runtimeType &&
-          user == other.user;
-
-  @override
-  int get hashCode => user.hashCode;
-}
+final class LoginSuccess extends LoginState {}
 
 class LoginLoading extends LoginState {}
 

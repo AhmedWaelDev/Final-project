@@ -22,16 +22,17 @@ class logIn extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccess) {
           context.read<LoginCubit>().getUserProfile();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) =>
-                  myNavBar(isDoctor: CacheHelper().getData(key: "isDoctor")),
-            ),
-          );
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errMessage),
+            ),
+          );
+        } else if (state is getUserDataSuccess) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  myNavBar(isDoctor: state.user.isDoctorAsBool()),
             ),
           );
         }
