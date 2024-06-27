@@ -1,3 +1,4 @@
+import 'package:final_project/screens/Profile/doctorProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
@@ -152,8 +153,8 @@ class _myNavBarState extends State<myNavBar> {
                         onPressed: () {
                           setState(() {
                             currentScreen = widget.isDoctor
-                                ? const AppointmentScreen()
-                                : const doctorAppointment();
+                                ? const doctorAppointment()
+                                : const AppointmentScreen();
                             currentTab = 2;
                           });
                         },
@@ -185,7 +186,9 @@ class _myNavBarState extends State<myNavBar> {
                         minWidth: size.width * 40 / 320,
                         onPressed: () {
                           setState(() {
-                            currentScreen = const Profile();
+                            currentScreen = currentScreen = widget.isDoctor
+                                ? const doctorProfile()
+                                : const Profile();
                             currentTab = 3;
                           });
                         },

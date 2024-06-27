@@ -6,13 +6,13 @@ class UserModel {
   final String? gender;
   final String? blood_group;
   final String phone;
-  final String? price;
+  final int? price;
   final String email;
-  final int specialtyId;
-  var isDoctor; // This should be an int representing 0 or 1
-  final String? experience;
-  final String? stars;
-  final int p_counter;
+  final int? specialtyId;
+  final int isDoctor;
+  final int? experience;
+  final int? stars;
+  final int? p_counter;
 
   UserModel({
     required this.userId,
@@ -32,24 +32,22 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> jsonData) {
-    print('Parsing JSON data: $jsonData'); // Debug statement
-
     return UserModel(
-      userId: jsonData["userId"] ?? 0,
+      userId: jsonData["userId"],
       image: jsonData["image"] as String?,
       name: jsonData["name"] ?? "",
       date_of_birth: jsonData["date_of_birth"] as String?,
       gender: jsonData["gender"] as String?,
       blood_group: jsonData["blood_group"] as String?,
       phone: jsonData["phone"] ?? "",
-      price: jsonData["price"] as String?,
+      price: jsonData["price"],
       email: jsonData["email"] ?? "",
-      specialtyId: jsonData["specialtyId"] ?? 0,
+      specialtyId: jsonData["specialtyId"],
       isDoctor: jsonData[
           "isDoctor"], // Ensure this correctly reflects your JSON structure
-      experience: jsonData["experience"] as String?,
-      stars: jsonData["stars"] as String?,
-      p_counter: jsonData["p_counter"] ?? 0,
+      experience: jsonData["experience"],
+      stars: jsonData["stars"],
+      p_counter: jsonData["p_counter"],
     );
   }
   bool isDoctorAsBool() {

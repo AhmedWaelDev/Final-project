@@ -15,7 +15,6 @@ class sginUp extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     const bgCOlor = Color(0xffe5e9f0);
     const mainColor = Color(0xFF50B7C5);
-    String Email;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(

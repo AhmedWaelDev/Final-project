@@ -1,8 +1,8 @@
-import 'package:final_project/medicine%20reminder/reminder.dart';
+import 'package:final_project/screens/medicine%20reminder/reminder.dart';
 import 'package:flutter/material.dart';
 
-import '../CustomWidgets/screensappbar.dart';
-import '../roomDB/DatabaseHelper.dart';
+import '../../CustomWidgets/screensappbar.dart';
+import '../../roomDB/DatabaseHelper.dart';
 
 class EditMedicine extends StatefulWidget {
   final String selectedicon;

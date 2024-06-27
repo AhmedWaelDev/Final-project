@@ -1,8 +1,8 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
-import '../CustomWidgets/reminderTImeLine.dart';
-import '../roomDB/DatabaseHelper.dart';
-import '../screens/homePage/navBar.dart';
+import '../../CustomWidgets/reminderTImeLine.dart';
+import '../../roomDB/DatabaseHelper.dart';
+import '../homePage/navBar.dart';
 import 'addmedicine.dart';
 
 class myReminder extends StatefulWidget {

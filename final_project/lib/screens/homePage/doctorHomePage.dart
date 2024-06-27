@@ -1,5 +1,7 @@
+import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../CustomWidgets/appBar.dart';
 import '../../CustomWidgets/doctorAppointmentContainer.dart';
 import '../../CustomWidgets/timeLIneListTile.dart';
@@ -25,10 +27,21 @@ class doctorHomePage extends StatelessWidget {
         color: bgCOlor,
         child: Column(
           children: [
-            const myAppBar(
-              name: "Jenifer",
-              isDoctor: true,
-              image: 'assets/images/person.png',
+            BlocConsumer<LoginCubit, LoginState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return state is getUserDataSuccess
+                    ? myAppBar(
+                        name: state.user.name,
+                        isDoctor: true,
+                        image: 'assets/images/person.png',
+                      )
+                    : const myAppBar(
+                        name: "unkown",
+                        isDoctor: true,
+                        image: 'assets/images/person.png',
+                      );
+              },
             ),
             SizedBox(
               height: size.height * 20 / 932,

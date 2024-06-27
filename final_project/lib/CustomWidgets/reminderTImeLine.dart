@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-import '../medicine reminder/editMedicine.dart';
+import '../screens/medicine reminder/editMedicine.dart';
 
 class ReminderTimelineTile extends StatefulWidget {
   const ReminderTimelineTile({

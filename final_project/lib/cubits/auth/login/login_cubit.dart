@@ -73,6 +73,7 @@ class LoginCubit extends Cubit<LoginState> {
           ));
       if (response.statusCode == 200) {
         UserModel user = UserModel.fromJson(response.data);
+        print("success");
         emit(getUserDataSuccess(user: user));
       } else {
         emit(getUserDataFailure(errMessage: 'Failed to fetch user data'));

@@ -1,4 +1,3 @@
-import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/screens/homePage/navBar.dart';
 import 'package:final_project/screens/sign_in_up/forgetPass.dart';
@@ -123,7 +122,6 @@ class logIn extends StatelessWidget {
                                           context
                                               .read<LoginCubit>()
                                               .toggleCheckbox();
-                                          print(value);
                                         },
                                       ),
                                       Text(
@@ -155,7 +153,7 @@ class logIn extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: size.height * 0.07),
-                          state is LoginLoading
+                          state is LoginLoading || state is getUserDataLoading
                               ? const CircularProgressIndicator()
                               : logbtn(
                                   mainColor: mainColor,

@@ -1,10 +1,10 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:final_project/medicine%20reminder/reminder.dart';
+import 'package:final_project/screens/medicine%20reminder/reminder.dart';
 import 'package:flutter/material.dart';
 
-import '../CustomWidgets/screensappbar.dart';
-import '../CustomWidgets/textForm.dart';
-import '../roomDB/DatabaseHelper.dart';
+import '../../CustomWidgets/screensappbar.dart';
+import '../../CustomWidgets/textForm.dart';
+import '../../roomDB/DatabaseHelper.dart';
 
 class AddMedicine extends StatefulWidget {
   const AddMedicine({super.key});

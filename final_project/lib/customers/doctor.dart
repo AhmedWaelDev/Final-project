@@ -6,23 +6,27 @@ import '../../CustomWidgets/screensappbar.dart';
 import '../CustomWidgets/DoctorsAppoint.dart';
 
 class Doctors extends StatelessWidget {
+  const Doctors({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OnlineDocCubit(),
-      child: DoctorsView(),
+      child: const DoctorsView(),
     );
   }
 }
 
 class DoctorsView extends StatefulWidget {
+  const DoctorsView({super.key});
+
   @override
   _DoctorsViewState createState() => _DoctorsViewState();
 }
 
 class _DoctorsViewState extends State<DoctorsView> {
   int _selectedIndex = 0;
-  final int _specialtyId = 15; // Replace with the actual specialty ID
+  final int _specialtyId = 1;
 
   @override
   void initState() {
@@ -153,7 +157,7 @@ class _DoctorsViewState extends State<DoctorsView> {
                 builder: (context, state) {
                   print('DoctorsView - Current state: $state');
                   if (state is OnlineDocLoading) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (state is OnlineDocLoaded) {
                     return ListView.builder(
                       itemCount: state.doctors.length,
@@ -175,7 +179,7 @@ class _DoctorsViewState extends State<DoctorsView> {
                     return Center(
                         child: Text(state.message ?? 'An error occurred'));
                   } else {
-                    return Center(child: Text('No data available'));
+                    return const Center(child: Text('No data available'));
                   }
                 },
               ),
