@@ -86,7 +86,7 @@ class _BigPaymentState extends State<BigPayment> {
                               height: size.height * 50 / 932,
                               child: MaterialButton(
                                 onPressed: () {
-                                  context.read<PaymentCubit>().points = 5000;
+                                  context.read<PaymentCubit>().points = 1000;
                                   context.read<PaymentCubit>().payment();
                                 },
                                 color: const Color(0xff50b7c5),

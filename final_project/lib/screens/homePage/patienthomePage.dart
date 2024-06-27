@@ -113,7 +113,7 @@ class patienthomePagescreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Doctors()),
+                                  builder: (context) => Doctors()),
                             );
                           },
                           child: Column(
@@ -271,7 +271,7 @@ class patienthomePagescreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Doctors()),
+                                    builder: (context) => Doctors()),
                               );
                             },
                             child: Text(
