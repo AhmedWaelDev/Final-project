@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class doctorAppointContainer extends StatelessWidget {
-  const doctorAppointContainer({super.key});
+  const doctorAppointContainer({super.key, this.name, this.age});
+  final String? name;
+  final String? age;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Container(
       padding: EdgeInsets.all(
         size.height * 10 / 932,
@@ -26,16 +29,13 @@ class doctorAppointContainer extends StatelessWidget {
           foregroundImage: const AssetImage("assets/images/dr.jpg"),
         ),
         title: Text(
-          "Jenny Wilson",
+          name == null ? "unkown" : name!,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
           style: TextStyle(
             fontSize: size.height * 20 / 932,
             fontWeight: FontWeight.bold,
           ),
-        ),
-        subtitle: Text(
-          "18 years old",
-          style: TextStyle(
-              fontSize: size.height * 15 / 932, color: const Color(0xff757575)),
         ),
         trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
           InkWell(

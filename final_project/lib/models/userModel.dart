@@ -13,10 +13,14 @@ class UserModel {
   final int? experience;
   final int? stars;
   final int? p_counter;
+  final int? points;
+  final int? ratings_count;
 
   UserModel({
     required this.userId,
     this.image,
+    this.points,
+    this.ratings_count,
     required this.name,
     this.date_of_birth,
     this.gender,
@@ -28,7 +32,7 @@ class UserModel {
     required this.isDoctor,
     this.experience,
     this.stars,
-    required this.p_counter,
+    this.p_counter,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> jsonData) {
@@ -48,6 +52,8 @@ class UserModel {
       experience: jsonData["experience"],
       stars: jsonData["stars"],
       p_counter: jsonData["p_counter"],
+      points: jsonData["points"],
+      ratings_count: jsonData["ratings_count"],
     );
   }
   bool isDoctorAsBool() {
