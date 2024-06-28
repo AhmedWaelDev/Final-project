@@ -238,25 +238,6 @@ class _ProfileState extends State<profile> {
                     ),
                     SizedBox(height: size.height * 15 / 932),
                     // SizedBox(height: size.height*5/932,),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 52 / 430,
-                          right: size.width * 52 / 430,
-                          top: size.height * 12 / 932),
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: "Enter your blood group",
-                          suffixStyle:
-                              const TextStyle(color: Color(0xffB2AAAA)),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                      ),
-                    ),
 
                     SizedBox(height: size.height * 5 / 932),
                     Padding(

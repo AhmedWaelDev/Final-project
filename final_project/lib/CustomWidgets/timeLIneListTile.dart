@@ -1,3 +1,4 @@
+import 'package:final_project/models/Helper.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -8,13 +9,18 @@ class doctorTimeLineTile extends StatelessWidget {
     required this.size,
     required this.isFirst,
     required this.isLast,
+    this.name,
+    this.startTIme,
+    this.age,
   });
 
   final bool isPast;
   final Size size;
   final bool isFirst;
   final bool isLast;
-
+  final String? name;
+  final String? startTIme;
+  final String? age;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -43,7 +49,7 @@ class doctorTimeLineTile extends StatelessWidget {
               foregroundImage: const AssetImage("assets/images/dr.jpg"),
             ),
             title: Text(
-              "Jenny Wilson",
+              name ?? "unknown",
               style: TextStyle(
                   fontSize: size.height * 20 / 932,
                   fontWeight: FontWeight.bold,
@@ -53,12 +59,12 @@ class doctorTimeLineTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "18 years old",
+                  "${calculateAge(age)} years old",
                   style: TextStyle(
                       color: isPast == true ? Colors.white : Colors.black),
                 ),
                 Text(
-                  "8:00AM - 9:00AM",
+                  "$startTIme",
                   style: TextStyle(
                       color: isPast == true ? Colors.white : Colors.black),
                 ),

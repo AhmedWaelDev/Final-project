@@ -2,7 +2,9 @@ import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/Appointment/cubit/up_coming_cubit.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/auth/register/register_cubit.dart';
-import 'package:final_project/cubits/doctor/cubit/add_schedule_cubit.dart';
+import 'package:final_project/cubits/doctor/add_schedule/add_schedule_cubit.dart';
+import 'package:final_project/cubits/doctor/get_all_pateint_for_doctor/get_all_pateint_for_doctor_cubit.dart';
+import 'package:final_project/cubits/doctor/get_patient_with_date/get_patient_with_date_cubit.dart';
 import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
 import 'package:final_project/screens/splash.dart';
@@ -41,7 +43,13 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OnlineDocCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => GetAllPateintForDoctorCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetPatientWithDateCubit(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

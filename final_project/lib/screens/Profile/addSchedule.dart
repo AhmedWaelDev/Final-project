@@ -1,6 +1,6 @@
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
-import 'package:final_project/cubits/doctor/cubit/add_schedule_cubit.dart';
-import 'package:final_project/models/speciality.dart';
+import 'package:final_project/cubits/doctor/add_schedule/add_schedule_cubit.dart';
+import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/Profile/doctorProfile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
