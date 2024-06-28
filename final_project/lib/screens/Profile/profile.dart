@@ -2,12 +2,87 @@ import 'package:final_project/screens/Payment/payment.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'Personal.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  File? _image;
+  String? _imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImagePath();
+  }
+
+  Future<void> _loadImagePath() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _imagePath = prefs.getString('profile_image_path');
+      if (_imagePath != null) {
+        _image = File(_imagePath!);
+      }
+    });
+  }
+
+  Future<void> _saveImagePath(String path) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('profile_image_path', path);
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+        _saveImagePath(pickedFile.path);
+      });
+    }
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Container(
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.photo_library),
+                  title: Text('Photo Library'),
+                  onTap: () {
+                    _pickImage(ImageSource.gallery);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.photo_camera),
+                  title: Text('Camera'),
+                  onTap: () {
+                    _pickImage(ImageSource.camera);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +136,16 @@ class Profile extends StatelessWidget {
               child: Stack(
                 children: [
                   CircleAvatar(
-                      radius: size.height * 90 / 932,
-                      backgroundImage:
-                          const AssetImage("assets/photo/Mask group.png")),
+                    radius: size.height * 90 / 932,
+                    backgroundImage: _image == null
+                        ? const AssetImage("assets/photo/Mask group.png")
+                        : FileImage(_image!) as ImageProvider,
+                  ),
                   Align(
                       alignment: Alignment.bottomRight,
                       child: MaterialButton(
                           minWidth: size.height * 45 / 932,
-                          onPressed: () {},
+                          onPressed: () => _showPicker(context),
                           child: Container(
                             height: size.height * 45 / 932,
                             width: size.height * 45 / 932,
