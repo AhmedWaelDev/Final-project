@@ -5,6 +5,7 @@ import 'package:final_project/cubits/auth/register/register_cubit.dart';
 import 'package:final_project/cubits/doctor/cubit/add_schedule_cubit.dart';
 import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
+import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OnlineDocCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PhotoCubit(),
         )
       ],
       child: MaterialApp(

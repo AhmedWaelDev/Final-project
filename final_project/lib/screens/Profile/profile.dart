@@ -1,13 +1,15 @@
+import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
+import 'package:final_project/cubits/profile/cubit/photo_state.dart';
 import 'package:final_project/screens/Payment/payment.dart';
-import 'package:final_project/cache/cache_helper.dart';
-import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'Personal.dart';
+import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/screens/sign_in_up/sign_in.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -17,39 +19,10 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  File? _image;
-  String? _imagePath;
-
   @override
   void initState() {
     super.initState();
-    _loadImagePath();
-  }
-
-  Future<void> _loadImagePath() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _imagePath = prefs.getString('profile_image_path');
-      if (_imagePath != null) {
-        _image = File(_imagePath!);
-      }
-    });
-  }
-
-  Future<void> _saveImagePath(String path) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('profile_image_path', path);
-  }
-
-  Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-        _saveImagePath(pickedFile.path);
-      });
-    }
+    context.read<PhotoCubit>().loadImagePath();
   }
 
   void _showPicker(context) {
@@ -64,7 +37,7 @@ class _ProfileState extends State<Profile> {
                   leading: Icon(Icons.photo_library),
                   title: Text('Photo Library'),
                   onTap: () {
-                    _pickImage(ImageSource.gallery);
+                    context.read<PhotoCubit>().pickImage(ImageSource.gallery);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -72,7 +45,7 @@ class _ProfileState extends State<Profile> {
                   leading: Icon(Icons.photo_camera),
                   title: Text('Camera'),
                   onTap: () {
-                    _pickImage(ImageSource.camera);
+                    context.read<PhotoCubit>().pickImage(ImageSource.camera);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -113,7 +86,7 @@ class _ProfileState extends State<Profile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const profile()),
+                      MaterialPageRoute(builder: (context) => const Profile()),
                     );
                   },
                   child: Container(
@@ -135,11 +108,21 @@ class _ProfileState extends State<Profile> {
               width: size.height * 180 / 932,
               child: Stack(
                 children: [
-                  CircleAvatar(
-                    radius: size.height * 90 / 932,
-                    backgroundImage: _image == null
-                        ? const AssetImage("assets/photo/Mask group.png")
-                        : FileImage(_image!) as ImageProvider,
+                  BlocBuilder<PhotoCubit, PhotoState>(
+                    builder: (context, state) {
+                      if (state is PhotoLoaded) {
+                        return CircleAvatar(
+                          radius: size.height * 90 / 932,
+                          backgroundImage: FileImage(state.image),
+                        );
+                      } else {
+                        return CircleAvatar(
+                          radius: size.height * 90 / 932,
+                          backgroundImage:
+                              const AssetImage("assets/photo/Mask group.png"),
+                        );
+                      }
+                    },
                   ),
                   Align(
                       alignment: Alignment.bottomRight,
