@@ -73,6 +73,7 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
       }
     } catch (e) {
       print('fetchAllDoctors - Error: $e');
+
       emit(OnlineDocError(e.toString()));
     }
   }

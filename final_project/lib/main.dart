@@ -7,6 +7,7 @@ import 'package:final_project/cubits/doctor/get_all_pateint_for_doctor/get_all_p
 import 'package:final_project/cubits/doctor/get_patient_with_date/get_patient_with_date_cubit.dart';
 import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
+import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,13 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OnlineDocCubit(),
-        ),
-        BlocProvider(
-          create: (context) => GetAllPateintForDoctorCubit(),
-        ),
-        BlocProvider(
-          create: (context) => GetPatientWithDateCubit(),
-        ),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
