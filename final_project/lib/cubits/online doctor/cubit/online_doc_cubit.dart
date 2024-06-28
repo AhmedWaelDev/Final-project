@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:final_project/cubits/endPoints.dart';
 import 'package:meta/meta.dart';
 import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/cubits/endPoints.dart';
 
 part 'online_doc_state.dart';
 
@@ -16,11 +16,10 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
     try {
       final token = CacheHelper().getData(key: "token");
       final response = await _dio.get(
-        '$baseUrl/doctors/specialty/$specialtyId/online',
+        '$baseUrl/doctors/online',
         options: Options(
           headers: {
-            'Authorization':
-                'Bearer $token', // Include the authorization header
+            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -52,8 +51,7 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
         '$baseUrl/patients/doctors',
         options: Options(
           headers: {
-            'Authorization':
-                'Bearer $token', // Include the authorization header
+            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -73,7 +71,6 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
       }
     } catch (e) {
       print('fetchAllDoctors - Error: $e');
-
       emit(OnlineDocError(e.toString()));
     }
   }

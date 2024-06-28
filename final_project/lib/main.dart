@@ -1,5 +1,6 @@
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/Appointment/cubit/up_coming_cubit.dart';
+import 'package:final_project/cubits/Logout/cubit/logout_cubit.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/auth/register/register_cubit.dart';
 import 'package:final_project/cubits/doctor/cubit/add_schedule_cubit.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PhotoCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LogoutCubit(),
         )
       ],
       child: MaterialApp(
