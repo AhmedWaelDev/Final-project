@@ -6,15 +6,17 @@ class settingsContainer extends StatelessWidget {
     required this.icon,
     required this.text,
     required this.color,
+    this.function,
   });
   final IconData icon;
   final String text;
   final Color color;
+  final VoidCallback? function;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () {},
+      onTap: function,
       child: Container(
         padding: EdgeInsets.all(
           size.height * 20 / 932,

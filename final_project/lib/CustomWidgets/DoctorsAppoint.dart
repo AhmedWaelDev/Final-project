@@ -68,11 +68,15 @@ class _cardCompleteState extends State<DoctorsAppoint> {
                       SizedBox(width: size.width * 3 / 430),
                       Text(widget.rating.toString()),
                       SizedBox(width: size.width * 8 / 430),
-                      Text(
-                        widget.specialty,
-                        style: TextStyle(
-                          fontSize: size.width * 14 / 430,
-                          color: Colors.grey,
+                      SizedBox(
+                        width: size.width * 80 / 430,
+                        child: Text(
+                          overflow: TextOverflow.ellipsis,
+                          widget.specialty,
+                          style: TextStyle(
+                            fontSize: size.width * 14 / 430,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                       SizedBox(

@@ -24,7 +24,6 @@ class _myNavBarState extends State<myNavBar> {
   @override
   void initState() {
     super.initState();
-    super.initState();
     currentScreen = widget.isDoctor
         ? const doctorHomePage()
         : const patienthomePagescreen();
@@ -47,36 +46,29 @@ class _myNavBarState extends State<myNavBar> {
       },
       builder: (context, state) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
           body: PageStorage(
             bucket: PageStorageBucket(),
             child: state is getUserDataLoading
                 ? const Center(child: CircularProgressIndicator())
                 : currentScreen,
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: const Color(0xFF50B7C5),
-            onPressed: () {},
-            child: const Icon(
-              Icons.add_ic_call,
-              color: Colors.white,
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(top: size.height * 0.03),
+            child: FloatingActionButton(
+              backgroundColor: const Color(0xFF50B7C5),
+              onPressed: () {},
+              child: const Icon(
+                Icons.add_ic_call,
+                color: Colors.white,
+              ),
             ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BottomAppBar(
-            shadowColor: const Color(0xFF50B7C5),
             color: Colors.white,
-            shape: const CircularNotchedRectangle(),
-            notchMargin: size.height * 10 / 932,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(size.height * 25 / 932),
-                  topRight: Radius.circular(size.height * 25 / 932),
-                ),
-              ),
-              height: size.height * 80 / 932,
+            child: SizedBox(
+              height: size.height * 0.1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -84,7 +76,7 @@ class _myNavBarState extends State<myNavBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MaterialButton(
-                        minWidth: size.width * 40 / 320,
+                        minWidth: size.width * 0.125,
                         onPressed: () {
                           setState(() {
                             currentScreen = widget.isDoctor
@@ -105,7 +97,7 @@ class _myNavBarState extends State<myNavBar> {
                             Text(
                               "Home",
                               style: TextStyle(
-                                fontSize: size.height * 15 / 932,
+                                fontSize: size.height * 0.016,
                                 color: currentTab == 0
                                     ? const Color(0xFF50B7C5)
                                     : const Color(0xff757575),
@@ -115,7 +107,7 @@ class _myNavBarState extends State<myNavBar> {
                         ),
                       ),
                       MaterialButton(
-                        minWidth: size.width * 40 / 320,
+                        minWidth: size.width * 0.125,
                         onPressed: () {
                           setState(() {
                             currentScreen = const Chat();
@@ -134,7 +126,7 @@ class _myNavBarState extends State<myNavBar> {
                             Text(
                               "Inbox",
                               style: TextStyle(
-                                fontSize: size.height * 15 / 932,
+                                fontSize: size.height * 0.016,
                                 color: currentTab == 1
                                     ? const Color(0xFF50B7C5)
                                     : const Color(0xff757575),
@@ -149,7 +141,7 @@ class _myNavBarState extends State<myNavBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MaterialButton(
-                        minWidth: size.width * 40 / 320,
+                        minWidth: size.width * 0.125,
                         onPressed: () {
                           setState(() {
                             currentScreen = widget.isDoctor
@@ -167,26 +159,23 @@ class _myNavBarState extends State<myNavBar> {
                                   ? const Color(0xFF50B7C5)
                                   : const Color(0xff757575),
                             ),
-                            Flexible(
-                              child: Text(
-                                "Appointment",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: size.height * 15 / 932,
-                                  color: currentTab == 2
-                                      ? const Color(0xFF50B7C5)
-                                      : const Color(0xff757575),
-                                ),
+                            Text(
+                              "Appointment",
+                              style: TextStyle(
+                                fontSize: size.height * 0.016,
+                                color: currentTab == 2
+                                    ? const Color(0xFF50B7C5)
+                                    : const Color(0xff757575),
                               ),
                             ),
                           ],
                         ),
                       ),
                       MaterialButton(
-                        minWidth: size.width * 40 / 320,
+                        minWidth: size.width * 0.125,
                         onPressed: () {
                           setState(() {
-                            currentScreen = currentScreen = widget.isDoctor
+                            currentScreen = widget.isDoctor
                                 ? const doctorProfile()
                                 : const Profile();
                             currentTab = 3;
@@ -201,16 +190,13 @@ class _myNavBarState extends State<myNavBar> {
                                   ? const Color(0xFF50B7C5)
                                   : const Color(0xff757575),
                             ),
-                            Flexible(
-                              child: Text(
-                                "Profile",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: size.height * 15 / 932,
-                                  color: currentTab == 3
-                                      ? const Color(0xFF50B7C5)
-                                      : const Color(0xff757575),
-                                ),
+                            Text(
+                              "Profile",
+                              style: TextStyle(
+                                fontSize: size.height * 0.016,
+                                color: currentTab == 3
+                                    ? const Color(0xFF50B7C5)
+                                    : const Color(0xff757575),
                               ),
                             ),
                           ],

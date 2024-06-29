@@ -1,7 +1,9 @@
+import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/screens/medicine%20reminder/reminder.dart';
 import 'package:final_project/screens/AppointmentScreen/getAppointment.dart';
 import 'package:final_project/screens/chat/chatuUsers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import '../../CustomWidgets/DoctorsAppoint.dart';
 import '../../CustomWidgets/appBar.dart';
@@ -31,10 +33,20 @@ class patienthomePagescreen extends StatelessWidget {
         color: bgCOlor,
         child: Column(
           children: [
-            const myAppBar(
-              name: "Jenifer",
-              isDoctor: false,
-              image: 'assets/images/person.png',
+            BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return state is getUserDataSuccess
+                    ? myAppBar(
+                        name: state.user.name,
+                        isDoctor: false,
+                        image: 'assets/images/person.png',
+                      )
+                    : const myAppBar(
+                        name: "unknow",
+                        isDoctor: false,
+                        image: 'assets/images/person.png',
+                      );
+              },
             ),
             SizedBox(
               height: size.height * 20 / 932,
@@ -79,19 +91,24 @@ class patienthomePagescreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Swiper(
-                      axisDirection: AxisDirection.up,
-                      curve: Curves.ease,
-                      layout: SwiperLayout.TINDER,
-                      itemCount: 4,
-                      itemHeight: size.height * 200 / 932,
-                      itemWidth: double.infinity,
-                      duration: 300,
-                      loop: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return const upcomingForPatientContainer();
-                      },
+                    SizedBox(
+                      height:
+                          size.height * 230 / 932, // Adjust height as needed
+                      width: double.infinity,
+                      child: Swiper(
+                        axisDirection: AxisDirection.up,
+                        curve: Curves.ease,
+                        layout: SwiperLayout.TINDER,
+                        itemCount: 4,
+                        itemHeight: size.height * 200 / 932,
+                        itemWidth: double.infinity,
+                        duration: 300,
+                        loop: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return const upcomingForPatientContainer();
+                        },
+                      ),
                     ),
                     SizedBox(
                       height: size.height * 20 / 932,
@@ -113,7 +130,7 @@ class patienthomePagescreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Doctors()),
+                                  builder: (context) => const Doctors()),
                             );
                           },
                           child: Column(
@@ -271,7 +288,7 @@ class patienthomePagescreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Doctors()),
+                                    builder: (context) => const Doctors()),
                               );
                             },
                             child: Text(

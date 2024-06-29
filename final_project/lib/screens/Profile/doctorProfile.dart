@@ -1,4 +1,5 @@
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
+import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/Payment/payment.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/Profile/Personal.dart';
@@ -10,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
-import 'package:final_project/cubits/profile/cubit/photo_state.dart';
 
 class doctorProfile extends StatefulWidget {
   const doctorProfile({super.key});
@@ -128,21 +128,31 @@ class _DoctorProfileState extends State<doctorProfile> {
                 ],
               ),
             ),
-            Text(
-              "Jasmin khatun",
-              style: TextStyle(
-                  fontSize: size.height * 24 / 932,
-                  fontWeight: FontWeight.bold),
+            BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return Text(
+                  state is getUserDataSuccess ? state.user.name : "unknown",
+                  style: TextStyle(
+                      fontSize: size.height * 24 / 932,
+                      fontWeight: FontWeight.bold),
+                );
+              },
             ),
             SizedBox(
               height: size.height * 5 / 932,
             ),
-            Text(
-              "28 years old",
-              style: TextStyle(
-                  fontSize: size.height * 20 / 932,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff757575)),
+            BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return Text(
+                  state is getUserDataSuccess
+                      ? "${calculateAge(state.user.date_of_birth)} years old"
+                      : "unkonw years old",
+                  style: TextStyle(
+                      fontSize: size.height * 20 / 932,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff757575)),
+                );
+              },
             ),
             SizedBox(
               height: size.height * 30 / 932,

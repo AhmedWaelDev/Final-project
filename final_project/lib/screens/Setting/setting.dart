@@ -1,3 +1,4 @@
+import 'package:final_project/screens/sign_in_up/changePass.dart';
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/screensappbar.dart';
@@ -46,10 +47,17 @@ class _SettingState extends State<Setting> {
                     SizedBox(
                       height: size.height * 20 / 932,
                     ),
-                    const settingsContainer(
+                    settingsContainer(
                       color: Colors.black,
                       icon: Icons.lock_outlined,
                       text: "Change password",
+                      function: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ChangePass(),
+                          ),
+                        );
+                      },
                     ),
                     const settingsContainer(
                       color: Colors.black,

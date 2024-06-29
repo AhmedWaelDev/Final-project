@@ -1,13 +1,14 @@
+import 'package:final_project/cubits/auth/Logout/cubit/logout_cubit.dart';
+import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
 import 'package:final_project/cubits/profile/cubit/photo_state.dart';
+import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/Payment/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
-import 'Personal.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 
@@ -34,16 +35,16 @@ class _ProfileState extends State<Profile> {
             child: Wrap(
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.photo_library),
-                  title: Text('Photo Library'),
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Photo Library'),
                   onTap: () {
                     context.read<PhotoCubit>().pickImage(ImageSource.gallery);
                     Navigator.of(context).pop();
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.photo_camera),
-                  title: Text('Camera'),
+                  leading: const Icon(Icons.photo_camera),
+                  title: const Text('Camera'),
                   onTap: () {
                     context.read<PhotoCubit>().pickImage(ImageSource.camera);
                     Navigator.of(context).pop();
@@ -139,21 +140,31 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            Text(
-              "Jasmin khatun",
-              style: TextStyle(
-                  fontSize: size.height * 24 / 932,
-                  fontWeight: FontWeight.bold),
+            BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return Text(
+                  state is getUserDataSuccess ? state.user.name : "unknown",
+                  style: TextStyle(
+                      fontSize: size.height * 24 / 932,
+                      fontWeight: FontWeight.bold),
+                );
+              },
             ),
             SizedBox(
               height: size.height * 5 / 932,
             ),
-            Text(
-              "28 years old",
-              style: TextStyle(
-                  fontSize: size.height * 20 / 932,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xff757575)),
+            BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return Text(
+                  state is getUserDataSuccess
+                      ? "${calculateAge(state.user.date_of_birth)} years old"
+                      : "unkonw years old",
+                  style: TextStyle(
+                      fontSize: size.height * 20 / 932,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xff757575)),
+                );
+              },
             ),
             SizedBox(
               height: size.height * 30 / 932,
@@ -194,18 +205,31 @@ class _ProfileState extends State<Profile> {
                     itemColor: Colors.black,
                     onTap: () {},
                   ),
-                  profileContainer(
-                    icon: Icons.exit_to_app_outlined,
-                    color: const Color(0xffE6C9CE),
-                    text: "Logout",
-                    itemColor: const Color(0xffD23A2D),
-                    onTap: () {
-                      CacheHelper().removeData(key: "isDoctor");
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const logIn()),
-                      );
+                  BlocConsumer<LogoutCubit, LogoutState>(
+                    listener: (context, state) {
+                      if (state is LogoutSuccess) {
+                        print("logged out");
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const logIn()),
+                          (Route<dynamic> route) => false,
+                        );
+                        CacheHelper().removeData(key: "isDoctor");
+                      }
+                    },
+                    builder: (context, state) {
+                      return state is LogoutLoading
+                          ? const CircularProgressIndicator()
+                          : profileContainer(
+                              icon: Icons.exit_to_app_outlined,
+                              color: const Color(0xffE6C9CE),
+                              text: "Logout",
+                              itemColor: const Color(0xffD23A2D),
+                              onTap: () {
+                                context.read<LogoutCubit>().logout();
+                              },
+                            );
                     },
                   ),
                 ]),
