@@ -34,16 +34,16 @@ class _ProfileState extends State<Profile> {
             child: Wrap(
               children: <Widget>[
                 ListTile(
-                  leading: const Icon(Icons.photo_library),
-                  title: const Text('Photo Library'),
+                  leading: Icon(Icons.photo_library),
+                  title: Text('Photo Library'),
                   onTap: () {
                     context.read<PhotoCubit>().pickImage(ImageSource.gallery);
                     Navigator.of(context).pop();
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.photo_camera),
-                  title: const Text('Camera'),
+                  leading: Icon(Icons.photo_camera),
+                  title: Text('Camera'),
                   onTap: () {
                     context.read<PhotoCubit>().pickImage(ImageSource.camera);
                     Navigator.of(context).pop();

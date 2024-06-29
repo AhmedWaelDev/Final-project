@@ -1,6 +1,8 @@
 import 'package:final_project/CustomWidgets/chats.dart';
+import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Chat extends StatefulWidget {
   const Chat({
@@ -12,29 +14,15 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  late List<Characters> allCharacters;
-  late List<Characters> searchedCharacters;
+  List<Characters> allCharacters = [];
+  List<Characters> searchedCharacters = [];
   bool _isSearching = false;
   final TextEditingController _searchTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    allCharacters = [
-      Characters(name: "Waled"),
-      Characters(name: "John"),
-      Characters(name: "Jana"),
-      Characters(name: "Ahmed"),
-      Characters(name: "karim"),
-      Characters(name: "nada"),
-      Characters(name: "Waled"),
-      Characters(name: "John"),
-      Characters(name: "Jana"),
-      Characters(name: "Ahmed"),
-      Characters(name: "karim"),
-      Characters(name: "nada"),
-    ];
-    searchedCharacters = allCharacters;
+    context.read<OnlineDocCubit>().fetchAllDoctors();
   }
 
   @override
@@ -48,94 +36,119 @@ class _ChatState extends State<Chat> {
         title: _isSearching ? _buildSearchField() : const Text("Chats"),
         actions: _buildAppBarActions(),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(size.width * 10 / 320),
-          color: const Color(0xffe5e9f0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: size.height * 10 / 932),
-              Padding(
-                padding: EdgeInsets.only(left: size.width * 15 / 320),
-                child: Text(
-                  "Online Doctors",
-                  style: TextStyle(
-                    fontSize: size.width * 20 / 320,
-                    color: const Color(0xff757575),
-                  ),
+      body: BlocBuilder<OnlineDocCubit, OnlineDocState>(
+        builder: (context, state) {
+          if (state is OnlineDocLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is OnlineDocLoaded) {
+            allCharacters = state.doctors.map((doctor) {
+              return Characters.fromJson(doctor);
+            }).toList();
+            if (!_isSearching) {
+              searchedCharacters = allCharacters;
+            }
+
+            return buildChatList(context, size);
+          } else if (state is OnlineDocError) {
+            return Center(child: Text(state.message));
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget buildChatList(BuildContext context, Size size) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(size.width * 10 / 320),
+        color: const Color(0xffe5e9f0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: size.height * 10 / 932),
+            Padding(
+              padding: EdgeInsets.only(left: size.width * 15 / 320),
+              child: Text(
+                "Online Doctors",
+                style: TextStyle(
+                  fontSize: size.width * 20 / 320,
+                  color: const Color(0xff757575),
                 ),
               ),
-              SizedBox(height: size.height * 15 / 932),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: size.height * 60 / 932,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 15,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ChatterScreen()),
-                              );
-                            },
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.only(right: size.width * 15 / 320),
-                              child: Container(
-                                width: size.width * 50 / 320,
-                                height: size.height * 60 / 932,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: const Color(0xffe5e9f0),
-                                    width: 2,
-                                  ),
+            ),
+            SizedBox(height: size.height * 15 / 932),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: size.height * 60 / 932,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: allCharacters.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ChatterScreen()),
+                            );
+                          },
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(right: size.width * 15 / 320),
+                            child: Container(
+                              width: size.width * 50 / 320,
+                              height: size.height * 60 / 932,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: const Color(0xffe5e9f0),
+                                  width: 2,
                                 ),
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    "assets/images/person.png",
-                                    fit: BoxFit.cover,
-                                  ),
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  "assets/images/person.png",
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: size.height * 10 / 932),
-              if (searchedCharacters.isEmpty)
-                Padding(
-                  padding: EdgeInsets.all(size.width * 8 / 320),
-                  child: Text(
-                    "Not Found",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: size.width * 20 / 320,
-                    ),
+                ),
+              ],
+            ),
+            SizedBox(height: size.height * 10 / 932),
+            if (searchedCharacters.isEmpty)
+              Padding(
+                padding: EdgeInsets.all(size.width * 8 / 320),
+                child: Text(
+                  "Not Found",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: size.width * 20 / 320,
                   ),
-                )
-              else
-                for (var character in searchedCharacters)
-                  CustomChatItem(
+                ),
+              )
+            else
+              Column(
+                children: searchedCharacters.map((character) {
+                  return CustomChatItem(
                     imagePath: "assets/images/drchat.png",
                     name: character.name,
                     message: "How are you?",
                     unreadMessages: 5,
                     time: "10:30 PM",
-                  ),
-            ],
-          ),
+                  );
+                }).toList(),
+              ),
+          ],
         ),
       ),
     );
@@ -217,4 +230,10 @@ class Characters {
   Characters({
     required this.name,
   });
+
+  factory Characters.fromJson(Map<String, dynamic> json) {
+    return Characters(
+      name: json['name'],
+    );
+  }
 }
