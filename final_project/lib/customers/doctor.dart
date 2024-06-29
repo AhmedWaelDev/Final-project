@@ -1,32 +1,32 @@
-import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
-import 'package:final_project/models/Helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import '../../CustomWidgets/screensappbar.dart';
 import '../CustomWidgets/DoctorsAppoint.dart';
 
 class Doctors extends StatelessWidget {
-  const Doctors({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OnlineDocCubit(),
-      child: const DoctorsView(),
+      child: DoctorsView(),
     );
   }
 }
 
 class DoctorsView extends StatefulWidget {
-  const DoctorsView({super.key});
-
   @override
   _DoctorsViewState createState() => _DoctorsViewState();
 }
 
 class _DoctorsViewState extends State<DoctorsView> {
   int _selectedIndex = 0;
-  final int _specialtyId = 1;
+  final int _specialtyId = 5; // Replace with the actual specialty ID
+  List<dynamic> allDoctors = [];
+  List<dynamic> searchedDoctors = [];
+  bool _isSearching = false;
+  final TextEditingController _searchTextController = TextEditingController();
 
   @override
   void initState() {
@@ -45,13 +45,49 @@ class _DoctorsViewState extends State<DoctorsView> {
     }
   }
 
+  void _searchDoctor(String searchedDoctor) {
+    setState(() {
+      searchedDoctors = allDoctors
+          .where((doctor) =>
+              doctor['name'] != null &&
+              doctor['name']
+                  .toLowerCase()
+                  .contains(searchedDoctor.toLowerCase()))
+          .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: size.height * 90 / 932,
+        backgroundColor: const Color(0xffe5e9f0),
+        title: _isSearching
+            ? _buildSearchField()
+            : Text(
+                "Doctors",
+                style: TextStyle(color: Colors.black, fontSize: 25),
+              ),
+        actions: _buildAppBarActions(),
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.5),
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new),
+              color: Colors.black,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.only(
-          top: size.width * 35 / 320,
           right: size.width * 10 / 320,
           left: size.width * 10 / 320,
         ),
@@ -60,23 +96,6 @@ class _DoctorsViewState extends State<DoctorsView> {
         color: const Color(0xffe5e9f0),
         child: Column(
           children: [
-            const screensappbar(name: "Doctors"),
-            SizedBox(height: size.height * 20 / 932),
-            SizedBox(
-              height: size.height * 70 / 932,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  filled: true,
-                  fillColor: Colors.white,
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(size.height * 25 / 932),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
-            ),
             SizedBox(height: size.height * 20 / 932),
             Container(
               child: Padding(
@@ -155,30 +174,38 @@ class _DoctorsViewState extends State<DoctorsView> {
             Expanded(
               child: BlocBuilder<OnlineDocCubit, OnlineDocState>(
                 builder: (context, state) {
-                  print('DoctorsView - Current state: $state');
                   if (state is OnlineDocLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator());
                   } else if (state is OnlineDocLoaded) {
+                    allDoctors = state.doctors;
+                    searchedDoctors =
+                        _isSearching ? searchedDoctors : allDoctors;
+
+                    // Check if searchedDoctors is empty
+                    if (searchedDoctors.isEmpty) {
+                      return Center(child: Text('No data available'));
+                    }
+
                     return ListView.builder(
-                      itemCount: state.doctors.length,
+                      itemCount: searchedDoctors.length,
                       itemBuilder: (context, index) {
-                        final doctor = state.doctors[index];
-                        print('Doctor data: $doctor'); // Add this line
+                        final doctor = searchedDoctors[index];
                         return DoctorsAppoint(
                           name: doctor['name'] ?? 'No Name Available',
                           onChatPressed: () {},
                           onVideoCallPressed: () {},
-                          rating: 3,
+                          rating: 3, // Replace with actual rating data
                           specialty: doctor['specialtyId'] != null
-                              ? specialties[doctor['specialtyId']]
+                              ? _getSpecialtyNameById(doctor['specialtyId'])
                               : 'Unknown Specialty',
                         );
                       },
                     );
                   } else if (state is OnlineDocError) {
-                    return Center(child: Text(state.message));
+                    return Center(
+                        child: Text(state.message ?? 'An error occurred'));
                   } else {
-                    return const Center(child: Text('No data available'));
+                    return Center(child: Text('No data available'));
                   }
                 },
               ),
@@ -187,5 +214,76 @@ class _DoctorsViewState extends State<DoctorsView> {
         ),
       ),
     );
+  }
+
+  Widget _buildSearchField() {
+    return TextField(
+      controller: _searchTextController,
+      cursorColor: Colors.lightBlue,
+      keyboardType: TextInputType.text,
+      decoration: const InputDecoration(
+        hintText: "Find a doctor....",
+        border: InputBorder.none,
+        hintStyle: TextStyle(color: Colors.black, fontSize: 25),
+      ),
+      style: const TextStyle(color: Colors.black),
+      onChanged: _searchDoctor,
+    );
+  }
+
+  List<Widget> _buildAppBarActions() {
+    if (_isSearching) {
+      return [
+        IconButton(
+          onPressed: _stopSearching,
+          icon: const Icon(
+            Icons.clear,
+            color: Colors.black,
+          ),
+        ),
+      ];
+    } else {
+      return [
+        IconButton(
+          onPressed: _startSearch,
+          icon: const Icon(Icons.search),
+        )
+      ];
+    }
+  }
+
+  void _startSearch() {
+    ModalRoute.of(context)!
+        .addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
+    setState(() {
+      _isSearching = true;
+    });
+  }
+
+  void _stopSearching() {
+    _clearSearch();
+    setState(() {
+      _isSearching = false;
+      _searchTextController.clear();
+    });
+  }
+
+  void _clearSearch() {
+    setState(() {
+      _searchTextController.clear();
+      searchedDoctors = allDoctors;
+    });
+  }
+
+  String _getSpecialtyNameById(int specialtyId) {
+    switch (specialtyId) {
+      case 1:
+        return 'Cardiology'; // Replace with actual specialty names as needed
+      case 2:
+        return 'Dermatology';
+      // Add more cases as per your specialty IDs
+      default:
+        return 'Unknown Specialty';
+    }
   }
 }
