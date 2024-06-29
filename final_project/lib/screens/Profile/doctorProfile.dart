@@ -87,7 +87,7 @@ class _DoctorProfileState extends State<doctorProfile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const profile()),
+                      MaterialPageRoute(builder: (context) => Personal()),
                     );
                   },
                   child: Container(

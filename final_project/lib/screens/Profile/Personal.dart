@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/screensappbar.dart';
 
-class profile extends StatefulWidget {
-  const profile({super.key});
+class Personal extends StatefulWidget {
+  const Personal({super.key});
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<profile> {
+class _ProfileState extends State<Personal> {
   DateTime selectedDate = DateTime.now();
   String? newSelectedDate;
 

@@ -4,6 +4,7 @@ import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
 import 'package:final_project/cubits/profile/cubit/photo_state.dart';
 import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/Payment/payment.dart';
+import 'package:final_project/screens/Profile/Personal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -87,7 +88,7 @@ class _ProfileState extends State<Profile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Profile()),
+                      MaterialPageRoute(builder: (context) => Personal()),
                     );
                   },
                   child: Container(
