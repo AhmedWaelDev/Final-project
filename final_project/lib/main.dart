@@ -44,7 +44,16 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OnlineDocCubit(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => GetAllPateintForDoctorCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PhotoCubit(),
+        ),
+        BlocProvider(
+          create: (context) => GetPatientWithDateCubit(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

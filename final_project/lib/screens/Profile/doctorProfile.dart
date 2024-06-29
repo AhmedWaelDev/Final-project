@@ -1,9 +1,12 @@
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/screens/Payment/payment.dart';
 import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/screens/Profile/Personal.dart';
 import 'package:final_project/screens/Profile/addSchedule.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';

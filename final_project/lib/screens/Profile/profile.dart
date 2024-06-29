@@ -1,5 +1,10 @@
+import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
+import 'package:final_project/cubits/profile/cubit/photo_state.dart';
 import 'package:final_project/screens/Payment/payment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'Personal.dart';
@@ -81,7 +86,7 @@ class _ProfileState extends State<Profile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const profile()),
+                      MaterialPageRoute(builder: (context) => const Profile()),
                     );
                   },
                   child: Container(
@@ -103,15 +108,27 @@ class _ProfileState extends State<Profile> {
               width: size.height * 180 / 932,
               child: Stack(
                 children: [
-                  CircleAvatar(
-                      radius: size.height * 90 / 932,
-                      backgroundImage:
-                          const AssetImage("assets/photo/Mask group.png")),
+                  BlocBuilder<PhotoCubit, PhotoState>(
+                    builder: (context, state) {
+                      if (state is PhotoLoaded) {
+                        return CircleAvatar(
+                          radius: size.height * 90 / 932,
+                          backgroundImage: FileImage(state.image),
+                        );
+                      } else {
+                        return CircleAvatar(
+                          radius: size.height * 90 / 932,
+                          backgroundImage:
+                              const AssetImage("assets/photo/Mask group.png"),
+                        );
+                      }
+                    },
+                  ),
                   Align(
                       alignment: Alignment.bottomRight,
                       child: MaterialButton(
                           minWidth: size.height * 45 / 932,
-                          onPressed: () {},
+                          onPressed: () => _showPicker(context),
                           child: Container(
                             height: size.height * 45 / 932,
                             width: size.height * 45 / 932,
@@ -185,24 +202,18 @@ class _ProfileState extends State<Profile> {
                     onTap: () {
                       CacheHelper().removeData(key: "isDoctor");
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const logIn()),
-                                    );
-                                  },
-                                ),
-                              ]),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  : const Center(
-                      child: Text("check your internet"),
-                    ),
-        );
-      },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const logIn()),
+                      );
+                    },
+                  ),
+                ]),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
