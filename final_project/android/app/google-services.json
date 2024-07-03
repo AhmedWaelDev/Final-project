@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "933533440365",
+    "project_id": "chattapp-3aa43",
+    "storage_bucket": "chattapp-3aa43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933533440365:android:b068fd19cd1200883b6264",
+        "android_client_info": {
+          "package_name": "com.example.final_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEooSEDX7NPRN-A1pqY9rOH74gOe5Xtcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

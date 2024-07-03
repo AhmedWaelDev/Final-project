@@ -1,3 +1,4 @@
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class CustomChatItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChatterScreen()),
+          MaterialPageRoute(builder: (context) => ChatterScreen()),
         );
       },
       child: Container(

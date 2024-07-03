@@ -93,7 +93,7 @@ class _ChatState extends State<Chat> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ChatterScreen()),
+                                  builder: (context) => ChatterScreen()),
                             );
                           },
                           child: Padding(

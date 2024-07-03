@@ -10,7 +10,9 @@ import 'package:final_project/cubits/doctor/get_patient_with_date/get_patient_wi
 import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
+import 'package:final_project/firebase_options.dart';
 import 'package:final_project/screens/splash.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +20,10 @@ const Color primeColor = Color(0xFF50B7C5);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper().init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/endPoints.dart';
 import 'package:final_project/models/userModel.dart';
-
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:meta/meta.dart';
@@ -50,8 +48,12 @@ class LoginCubit extends Cubit<LoginState> {
         String token = response.data["token"];
         final decodedToken = JwtDecoder.decode(token);
         final id = decodedToken["sub"].toString();
+        final name = decodedToken["name"].toString();
+
         CacheHelper().saveData(key: "id", value: id);
         CacheHelper().saveData(key: "token", value: token);
+        CacheHelper().saveData(key: "name", value: name); // Save user's name
+
         emit(LoginSuccess());
       } else {
         emit(LoginFailure(errMessage: 'Invalid response from server'));
@@ -73,7 +75,8 @@ class LoginCubit extends Cubit<LoginState> {
           ));
       if (response.statusCode == 200) {
         UserModel user = UserModel.fromJson(response.data);
-        print("success");
+        CacheHelper().saveData(
+            key: "name", value: response.data["name"]); // Save user's name
         emit(getUserDataSuccess(user: user));
       } else {
         emit(getUserDataFailure(errMessage: 'Failed to fetch user data'));

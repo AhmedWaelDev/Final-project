@@ -1,60 +1,95 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'package:final_project/Service/serviceChat.dart';
+import 'package:final_project/cache/cache_helper.dart';
 
 class ChatterScreen extends StatefulWidget {
-  const ChatterScreen({super.key});
-
   @override
   _ChatterScreenState createState() => _ChatterScreenState();
 }
 
 class _ChatterScreenState extends State<ChatterScreen> {
   final TextEditingController _messageController = TextEditingController();
-  final List<Map<String, String>> _messages = [
-    {'sender': 'Alice', 'text': 'Hello!'},
-    {'sender': 'Bob', 'text': 'Hi there!'},
-    {'sender': 'Alice', 'text': 'Hello!'},
-    {'sender': 'Bob', 'text': 'Hi there!'},
-    {'sender': 'Alice', 'text': 'Hello!'},
-    {'sender': 'Bob', 'text': 'Hi there!'},
-    {'sender': 'Alice', 'text': 'Hello!'},
-    {'sender': 'Bob', 'text': 'Hi there!'},
-    {'sender': 'Alice', 'text': 'Hello!'},
-    {'sender': 'Bob', 'text': 'Hi there!'},
-    {'sender': 'Alice', 'text': 'Hello!'},
-    {'sender': 'Bob', 'text': 'Hi there!'},
-    {'sender': 'You', 'text': " 213السلام عليكم"}
-    // Add more static messages if needed
-  ];
-
   final ScrollController _scrollController = ScrollController();
+  final ImagePicker _picker = ImagePicker();
+  File? _imageFile;
+  bool _uploadingImage = false; // State for showing loading indicator
+  bool _imageSelectedForUpload =
+      false; // State for indicating image selected for upload
+  final ChatService _chatService = ChatService();
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-  }
-
-  void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
-  }
-
-  void _sendMessage() {
-    if (_messageController.text.isNotEmpty) {
+  void _getImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
       setState(() {
-        _messages.add({
-          'sender': 'You',
-          'text': _messageController.text,
-        });
-        _messageController.clear();
-      });
-      Future.delayed(const Duration(milliseconds: 300), () {
-        _scrollToBottom();
+        _imageFile = File(pickedFile.path);
+        _imageSelectedForUpload = true; // Set image selected for upload
       });
     }
+  }
+
+  void _sendMessage() async {
+    if (_messageController.text.isNotEmpty || _imageFile != null) {
+      String currentUserId = CacheHelper().getData(key: "id") ?? "";
+      String senderName = CacheHelper().getData(key: "name") ?? "";
+      String text = _messageController.text;
+      String receiverId = 'receiver_id_here'; // Replace with actual receiver ID
+
+      String? imageUrl;
+      if (_imageFile != null) {
+        setState(() {
+          _uploadingImage = true; // Start showing loading indicator
+        });
+        imageUrl = await _chatService.uploadImage(_imageFile!);
+        setState(() {
+          _uploadingImage = false; // Stop showing loading indicator
+          _imageSelectedForUpload = false; // Reset image selected for upload
+        });
+      }
+
+      await _chatService.sendMessage(
+        currentUserId,
+        senderName,
+        text,
+        receiverId,
+        imageUrl: imageUrl,
+      );
+      _messageController.clear();
+      setState(() {
+        _imageFile = null; // Clear selected image after sending
+      });
+    }
+  }
+
+  void _showImageSourceActionSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: Icon(Icons.photo),
+            title: Text('Photo Library'),
+            onTap: () {
+              Navigator.of(context).pop();
+              _getImage(ImageSource.gallery);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.camera_alt),
+            title: Text('Camera'),
+            onTap: () {
+              Navigator.of(context).pop();
+              _getImage(ImageSource.camera);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -78,73 +113,147 @@ class _ChatterScreenState extends State<ChatterScreen> {
         elevation: 0, // Remove app bar shadow
       ),
       body: Column(
-        children: <Widget>[
+        children: [
           Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                final message = _messages[index];
-                final isMe = message['sender'] == 'You';
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 16.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment:
-                        isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-                    children: <Widget>[
-                      Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: isMe
-                                ? Colors.lightBlueAccent
-                                : Colors.grey[300],
-                            borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(20.0),
-                              topRight: const Radius.circular(20.0),
-                              bottomLeft: !isMe
-                                  ? const Radius.circular(0.0)
-                                  : const Radius.circular(20.0),
-                              bottomRight: isMe
-                                  ? const Radius.circular(0.0)
-                                  : const Radius.circular(20.0),
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _chatService.getMessages(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                final messages = snapshot.data!.docs;
+                return ListView.builder(
+                  reverse: true,
+                  controller: _scrollController,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final message = messages[index];
+                    final isMe =
+                        message['sender'] == CacheHelper().getData(key: "id");
+
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: isMe
+                            ? CrossAxisAlignment.end
+                            : CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: isMe ? Colors.blue : Colors.grey,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: EdgeInsets.all(8),
+                            margin: EdgeInsets.symmetric(vertical: 4),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  message['senderName'],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                if (message.data() is Map<String, dynamic> &&
+                                    (message.data() as Map<String, dynamic>)
+                                        .containsKey('imageUrl') &&
+                                    message['imageUrl'] != null)
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(top: 8),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        child: Image.network(
+                                          message['imageUrl'],
+                                          width: 250,
+                                        ),
+                                      ),
+                                      if (_uploadingImage &&
+                                          _imageFile ==
+                                              null) // Show loading indicator
+                                        CircularProgressIndicator(),
+                                      if (_imageSelectedForUpload &&
+                                          _imageFile !=
+                                              null) // Show close button
+                                        Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: IconButton(
+                                            icon: Icon(Icons.close),
+                                            color: Colors.red,
+                                            onPressed: () {
+                                              setState(() {
+                                                _imageFile =
+                                                    null; // Clear selected image
+                                                _imageSelectedForUpload =
+                                                    false; // Reset image selection
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                SizedBox(height: 4),
+                                Text(
+                                  message['text'],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  _formatTime((message.data()
+                                          as Map<String, dynamic>)['time']
+                                      .toDate()),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          padding: const EdgeInsets.all(12.0),
-                          constraints: const BoxConstraints(maxWidth: 250.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                message['sender']!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: isMe ? Colors.white : Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 8.0),
-                              Text(
-                                message['text']!,
-                                style: TextStyle(
-                                  color: isMe ? Colors.white : Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 );
               },
             ),
           ),
+          if (_imageFile != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 2,
+                  ),
+                ),
+                child: Image.file(
+                  _imageFile!,
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+            ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.add_photo_alternate),
+                  onPressed: () => _showImageSourceActionSheet(context),
+                ),
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
@@ -170,27 +279,15 @@ class _ChatterScreenState extends State<ChatterScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 50.0,
-                  height: 50.0,
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 8.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.blue, // Button background color
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.send, color: Colors.white),
-                      onPressed: _sendMessage,
-                    ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.send),
+                    color: Colors.white,
+                    onPressed: _sendMessage,
                   ),
                 ),
               ],
@@ -200,4 +297,11 @@ class _ChatterScreenState extends State<ChatterScreen> {
       ),
     );
   }
+}
+
+String _formatTime(DateTime? time) {
+  if (time == null) return '';
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
 }
