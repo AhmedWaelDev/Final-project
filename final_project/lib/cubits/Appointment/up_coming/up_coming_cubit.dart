@@ -24,6 +24,7 @@ class UpComingCubit extends Cubit<UpComingState> {
       );
       if (response.statusCode == 200) {
         List<dynamic> data = response.data["appointments"];
+        print(data);
         emit(fetchUpUserDataSuccess(appointments: data));
       } else {
         emit(fetchUpUserDataFailure(error: 'Failed to fetch data'));

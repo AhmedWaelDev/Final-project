@@ -109,45 +109,58 @@ class patienthomePagescreen extends StatelessWidget {
                                     child: CircularProgressIndicator(),
                                   )
                                 : state is fetchUpUserDataSuccess
-                                    ? Swiper(
-                                        axisDirection: AxisDirection.up,
-                                        curve: Curves.ease,
-                                        layout: SwiperLayout.TINDER,
-                                        itemCount: state.appointments
+                                    ? state.appointments
                                             .where((appointment) =>
                                                 appointment["status"]
                                                     ["original"]["status"] !=
                                                 3)
-                                            .length,
-                                        itemHeight: size.height * 200 / 932,
-                                        itemWidth: double.infinity,
-                                        duration: 300,
-                                        loop: false,
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) {
-                                          var filteredAppointments = state
-                                              .appointments
-                                              .where((appointment) =>
-                                                  appointment["status"]
-                                                      ["original"]["status"] !=
-                                                  3)
-                                              .toList();
-                                          var doctor =
-                                              filteredAppointments[index]
-                                                  ["doctor"];
-                                          var appointment =
-                                              filteredAppointments[index];
-                                          return upcomingForPatientContainer(
-                                            startDate:
-                                                appointment["appointmentDate"],
-                                            startTime: convertTimeFormat(
-                                                appointment["appointmentTime"]),
-                                            doctorName: doctor["name"],
-                                            status: appointment["status"]
-                                                ["original"]["status"],
-                                          );
-                                        },
-                                      )
+                                            .isEmpty
+                                        ? const Center(
+                                            child: Text(
+                                                "No upcoming appointments"),
+                                          )
+                                        : Swiper(
+                                            axisDirection: AxisDirection.up,
+                                            curve: Curves.ease,
+                                            layout: SwiperLayout.TINDER,
+                                            itemCount: state.appointments
+                                                .where((appointment) =>
+                                                    appointment["status"]
+                                                            ["original"]
+                                                        ["status"] !=
+                                                    3)
+                                                .length,
+                                            itemHeight: size.height * 200 / 932,
+                                            itemWidth: double.infinity,
+                                            duration: 300,
+                                            loop: false,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              var filteredAppointments = state
+                                                  .appointments
+                                                  .where((appointment) =>
+                                                      appointment["status"]
+                                                              ["original"]
+                                                          ["status"] !=
+                                                      3)
+                                                  .toList();
+                                              var doctor =
+                                                  filteredAppointments[index]
+                                                      ["doctor"];
+                                              var appointment =
+                                                  filteredAppointments[index];
+                                              return upcomingForPatientContainer(
+                                                startDate: appointment[
+                                                    "appointmentDate"],
+                                                startTime: convertTimeFormat(
+                                                    appointment[
+                                                        "appointmentTime"]),
+                                                doctorName: doctor["name"],
+                                                status: appointment["status"]
+                                                    ["original"]["status"],
+                                              );
+                                            },
+                                          )
                                     : const Text("failed to fetch data"),
                           );
                         },

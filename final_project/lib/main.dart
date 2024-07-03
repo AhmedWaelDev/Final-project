@@ -13,6 +13,7 @@ import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart
 import 'package:final_project/cubits/paitent/get_all_doctors_for_spciality/get_doctors_for_spciality_cubit.dart';
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
+import 'package:final_project/cubits/update_information/update_information_cubit.dart';
 import 'package:final_project/firebase_options.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -53,9 +54,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ForgetPasswordCubit(),
         ),
-        // BlocProvider(
-        // create: (context) => UpdateInformationCubit(),
-        //),
+        BlocProvider(
+          create: (context) => UpdateInformationCubit(),
+        ),
         BlocProvider(
           create: (context) => AddScheduleCubit(),
         ),

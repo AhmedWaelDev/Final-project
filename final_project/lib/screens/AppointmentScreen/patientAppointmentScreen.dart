@@ -14,23 +14,42 @@ class AppointmentScreen extends StatefulWidget {
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
   int _selectedIndex = 0;
+  late UpComingCubit _upcomingCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _upcomingCubit = UpComingCubit();
+    _upcomingCubit
+        .fetchUpUpcomingAppointments(); // Fetch the upcoming appointments initially
+  }
+
+  @override
+  void dispose() {
+    // _upcomingCubit.close();
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
     if (index == 0) {
-      context.read<UpComingCubit>().fetchUpUpcomingAppointments();
+      _upcomingCubit.fetchUpUpcomingAppointments();
     } else if (index == 1) {
-      context.read<UpComingCubit>().fetchUpCompleteAppointments();
+      _upcomingCubit.fetchUpCompleteAppointments();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (context) => UpComingCubit()..fetchUpUpcomingAppointments(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UpComingCubit>.value(
+          value: _upcomingCubit,
+        ),
+      ],
       child: Scaffold(
           backgroundColor: const Color(0xffe5e9f0),
           appBar: AppBar(
@@ -133,24 +152,34 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       child: CircularProgressIndicator(),
                     );
                   } else if (state is fetchUpUpcomingAppointmentsSuccess) {
-                    return SizedBox(
-                      width: size.width * 360 / 430,
-                      child: ListView.builder(
-                        itemCount: state.appointments.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var doctor = state.appointments[index]["doctor"];
-                          return DoctorCard(
-                            name: doctor["name"],
-                            rating: doctor["stars"].toString(),
-                            specialty: specialties[doctor["specialtyId"] - 1],
-                            onChatPressed: () {},
-                            onVideoCallPressed: () {},
-                            video: 'Video call',
+                    return state.appointments.isEmpty
+                        ? const Center(
+                            child: Text("No Upcoming Appointments"),
+                          )
+                        : SizedBox(
+                            width: size.width * 360 / 430,
+                            child: ListView.builder(
+                              itemCount: state.appointments.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var doctor =
+                                    state.appointments[index]["doctor"];
+                                return DoctorCard(
+                                  name: doctor["name"],
+                                  rating: doctor["stars"].toString(),
+                                  specialty:
+                                      specialties[doctor["specialtyId"] - 1],
+                                  onChatPressed: () {},
+                                  onVideoCallPressed: () {},
+                                  video: 'Video call',
+                                );
+                              },
+                            ),
                           );
-                        },
-                      ),
+                  } else if (state is fetchUpUpcomingAppointmentsFailure) {
+                    return Center(
+                      child: Text(state.error),
                     );
                   } else {
                     return Center(
@@ -174,23 +203,32 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       child: CircularProgressIndicator(),
                     );
                   } else if (state is fetchUpCompleteAppointmentsSuccess) {
-                    return SizedBox(
-                      width: size.width * 360 / 430,
-                      child: ListView.builder(
-                        itemCount: state.appointments.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var appointment = state.appointments[index]["doctor"];
-                          return cardComplete(
-                              name: appointment["name"],
-                              rating: appointment["stars"].toString() ?? "0",
-                              specialty:
-                                  specialties[appointment["specialtyId"] - 1],
-                              onChatPressed: () {},
-                              onVideoCallPressed: () {});
-                        },
-                      ),
+                    return state.appointments.isEmpty
+                        ? const Center(
+                            child: Text("No complete Appointments"),
+                          )
+                        : SizedBox(
+                            width: size.width * 360 / 430,
+                            child: ListView.builder(
+                              itemCount: state.appointments.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                var appointment =
+                                    state.appointments[index]["doctor"];
+                                return cardComplete(
+                                    name: appointment["name"],
+                                    rating: appointment["stars"].toString(),
+                                    specialty: specialties[
+                                        appointment["specialtyId"] - 1],
+                                    onChatPressed: () {},
+                                    onVideoCallPressed: () {});
+                              },
+                            ),
+                          );
+                  } else if (state is fetchUpUpcomingAppointmentsFailure) {
+                    return Center(
+                      child: Text(state.error),
                     );
                   } else {
                     return Center(
