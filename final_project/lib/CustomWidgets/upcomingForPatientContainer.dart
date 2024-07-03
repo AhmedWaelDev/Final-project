@@ -1,9 +1,18 @@
+import 'package:final_project/models/Helper.dart';
 import 'package:flutter/material.dart';
 
 class upcomingForPatientContainer extends StatelessWidget {
   const upcomingForPatientContainer({
     super.key,
+    required this.doctorName,
+    required this.startTime,
+    required this.startDate,
+    required this.status,
   });
+  final String doctorName;
+  final String startTime;
+  final String startDate;
+  final int status;
 
   @override
   Widget build(BuildContext context) {
@@ -48,17 +57,23 @@ class upcomingForPatientContainer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Dr. Kriss Hemswoth",
+                              doctorName,
                               style: TextStyle(
                                   fontSize: size.height * 20 / 932,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "11:25AM . General Consultation ",
+                              startDate,
                               style: TextStyle(
                                   fontSize: size.height * 20 / 932,
                                   color: const Color(0xff757575)),
-                            )
+                            ),
+                            Text(
+                              startTime,
+                              style: TextStyle(
+                                  fontSize: size.height * 20 / 932,
+                                  color: const Color(0xff757575)),
+                            ),
                           ],
                         )
                       ],
@@ -73,19 +88,23 @@ class upcomingForPatientContainer extends StatelessWidget {
                           Container(
                             height: size.height * 15 / 932,
                             width: size.height * 15 / 932,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Color(0xff757575)),
+                                color: status == 2
+                                    ? const Color(0xff757575)
+                                    : Colors.green),
                           ),
                           SizedBox(
                             width: size.height * 10 / 932,
                           ),
-                          Text(
-                            "Starts in 2 minute",
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: size.height * 15 / 932,
-                                color: const Color(0xff757575)),
+                          Expanded(
+                            child: Text(
+                              calculateRemainingTime(startDate, startTime),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: size.height * 15 / 932,
+                                  color: const Color(0xff757575)),
+                            ),
                           )
                         ],
                       )),

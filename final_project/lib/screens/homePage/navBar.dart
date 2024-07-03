@@ -6,7 +6,7 @@ import 'package:final_project/screens/Profile/profile.dart';
 import 'package:final_project/screens/homePage/patienthomePage.dart';
 import '../AppointmentScreen/doctorAppointment.dart';
 import '../AppointmentScreen/patientAppointmentScreen.dart';
-import '../chat/chatuUsers.dart';
+import '../chat/chatUsers.dart';
 import 'doctorHomePage.dart';
 
 class myNavBar extends StatefulWidget {

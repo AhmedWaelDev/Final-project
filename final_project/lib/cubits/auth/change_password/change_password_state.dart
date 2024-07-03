@@ -18,8 +18,3 @@ final class ChangePasswordFailure extends ChangePasswordState {
 
   const ChangePasswordFailure({required this.errMessage});
 }
-
-class PasswordObscureToggle extends ChangePasswordState {
-  final bool obsecureValue;
-  const PasswordObscureToggle(this.obsecureValue);
-}

@@ -1,12 +1,14 @@
-import 'package:final_project/screens/sign_in_up/congrats.dart';
+import 'package:final_project/cubits/auth/change_password/change_password_cubit.dart';
+import 'package:final_project/screens/sign_in_up/changeCongrats%20.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../CustomWidgets/backButton.dart';
 import '../../CustomWidgets/logbtn.dart';
 import '../../CustomWidgets/passwordTextField.dart';
 
-class confirmPass extends StatelessWidget {
-  const confirmPass({super.key});
+class changePassword extends StatelessWidget {
+  const changePassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class confirmPass extends StatelessWidget {
             height: size.height * 120 / 932,
           ),
           Container(
-              height: size.height * 0.3,
+              height: size.height * 0.2,
               margin: EdgeInsets.symmetric(vertical: size.height * 20 / 932),
               child: SvgPicture.asset("assets/Logo/GroupLogo.svg",
                   height: size.height * 20 / 932)),
@@ -39,7 +41,7 @@ class confirmPass extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: size.height * 20 / 932),
                 child: Center(
                   child: Text(
-                    "confirm password",
+                    "change password",
                     style: TextStyle(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.bold,
@@ -50,6 +52,26 @@ class confirmPass extends StatelessWidget {
               StatefulBuilder(
                 builder: (context, setState) {
                   return passwordTextField(
+                      mycontroller:
+                          context.read<ChangePasswordCubit>().currentPassword,
+                      label: "current password",
+                      hint: "Enter your current password",
+                      fun: () {
+                        setState(
+                          () {
+                            obsecure = !obsecure;
+                          },
+                        );
+                      },
+                      size: size,
+                      obsecure: obsecure);
+                },
+              ),
+              StatefulBuilder(
+                builder: (context, setState) {
+                  return passwordTextField(
+                      mycontroller:
+                          context.read<ChangePasswordCubit>().newPassword,
                       label: "New password",
                       hint: "Enter your new password",
                       fun: () {
@@ -66,6 +88,8 @@ class confirmPass extends StatelessWidget {
               StatefulBuilder(
                 builder: (context, setState) {
                   return passwordTextField(
+                      mycontroller:
+                          context.read<ChangePasswordCubit>().confirmPassword,
                       label: "confirm password",
                       hint: "confrim your new password",
                       fun: () {
@@ -79,14 +103,37 @@ class confirmPass extends StatelessWidget {
                       obsecure: obsecure);
                 },
               ),
-              logbtn(
-                mainColor: mainColor,
-                text: 'Confirm',
-                onTapFun: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const congrats()),
-                  );
-                },
+              Container(
+                margin: EdgeInsets.symmetric(vertical: size.height * 35 / 932),
+                child: BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+                  listener: (context, state) {
+                    if (state is ChangePasswordFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.errMessage),
+                        ),
+                      );
+                    } else if (state is ChangePasswordSuccess) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => const ChangeCongrats()),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return state is ChangePasswordLoading
+                        ? const CircularProgressIndicator()
+                        : logbtn(
+                            mainColor: mainColor,
+                            text: 'Confirm',
+                            onTapFun: () {
+                              context
+                                  .read<ChangePasswordCubit>()
+                                  .changePassword();
+                            },
+                          );
+                  },
+                ),
               ),
             ],
           )

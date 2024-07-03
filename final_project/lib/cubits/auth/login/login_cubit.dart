@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/endPoints.dart';
 import 'package:final_project/models/userModel.dart';
-
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:meta/meta.dart';
@@ -71,7 +68,25 @@ class LoginCubit extends Cubit<LoginState> {
               'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
             },
           ));
+      print(response.data);
       if (response.statusCode == 200) {
+        CacheHelper().saveData(key: "name", value: response.data["name"]);
+        CacheHelper().saveData(
+            key: "date_of_birth",
+            value: (response.data["date_of_birth"] ?? "2002-07-13"));
+        CacheHelper().saveData(
+            key: "experience", value: (response.data["experience"] ?? "0"));
+        CacheHelper().saveData(key: "price", value: response.data["price"]);
+        CacheHelper().saveData(
+            key: "specialtyId", value: (response.data["specialtyId"] ?? "0"));
+        CacheHelper().saveData(
+            key: "date_of_birth", value: response.data["date_of_birth"]);
+        CacheHelper().saveData(
+            key: "gender", value: (response.data["gender"] ?? "male"));
+        CacheHelper().saveData(
+            key: "blood_group", value: (response.data["blood_group"] ?? "A+"));
+        CacheHelper()
+            .saveData(key: "phone", value: (response.data["phone"] ?? "0"));
         UserModel user = UserModel.fromJson(response.data);
         print("success");
         emit(getUserDataSuccess(user: user));

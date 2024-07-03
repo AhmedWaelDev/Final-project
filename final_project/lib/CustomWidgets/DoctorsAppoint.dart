@@ -5,7 +5,6 @@ class DoctorsAppoint extends StatefulWidget {
   final double rating;
   final String specialty;
   final VoidCallback onChatPressed;
-  final VoidCallback onVideoCallPressed;
 
   const DoctorsAppoint({
     super.key,
@@ -13,7 +12,6 @@ class DoctorsAppoint extends StatefulWidget {
     required this.rating,
     required this.specialty,
     required this.onChatPressed,
-    required this.onVideoCallPressed,
   });
 
   @override
