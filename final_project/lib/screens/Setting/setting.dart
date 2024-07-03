@@ -1,4 +1,4 @@
-import 'package:final_project/screens/sign_in_up/changePass.dart';
+import 'package:final_project/screens/sign_in_up/changePassword.dart';
 import 'package:flutter/material.dart';
 
 import '../../CustomWidgets/screensappbar.dart';
@@ -54,7 +54,7 @@ class _SettingState extends State<Setting> {
                       function: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const ChangePass(),
+                            builder: (context) => const changePassword(),
                           ),
                         );
                       },
@@ -65,23 +65,12 @@ class _SettingState extends State<Setting> {
                       text: "Notifications",
                     ),
                     const settingsContainer(
-                      color: Colors.black,
-                      icon: Icons.privacy_tip_sharp,
-                      text: "Privacy Setting",
-                    ),
-                    const settingsContainer(
                       color: Color(0xffC00000),
                       icon: Icons.delete,
                       text: "Delate Account",
                     ),
                     SizedBox(
                       height: size.height * 50 / 932,
-                    ),
-                    Text(
-                      "Options",
-                      style: TextStyle(
-                          fontSize: size.height * 20 / 932,
-                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 List<String> specialties = [
   'Cardiology',
   'Neurology',
@@ -11,8 +13,17 @@ List<String> specialties = [
   'Pulmonology',
   'Otolaryngology (ENT)',
   'Nephrology',
-  'Urology'
+  'Urology',
 ];
+
+double intToDouble(int value) {
+  return value.toDouble();
+}
+
+int getIndexOfString(List<String> list, String target) {
+  return list.indexOf(target);
+}
+
 String calculateAge(String? birthDateString) {
   if (birthDateString == null) {
     return "unknown";
@@ -53,6 +64,43 @@ bool isBeforeCurrentTime(String timeString, String dateString) {
 
   // Compare the given date and time with the current date and time
   return givenDateTime.isBefore(now);
+}
+
+String calculateRemainingTime(String date, String time) {
+  // Combine the date and time strings
+  String dateTimeString = "$date $time";
+
+  // Define the format of the input date and time strings
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+
+  // Parse the combined string into a DateTime object
+  DateTime appointmentDateTime = dateFormat.parse(dateTimeString);
+
+  // Get the current DateTime
+  DateTime now = DateTime.now();
+
+  // Calculate the difference
+  Duration difference = appointmentDateTime.difference(now);
+
+  // If the appointment time is in the past, return "Time has passed"
+  if (difference.isNegative) {
+    return "OnGoing meeting ";
+  }
+
+  // Convert the difference to a readable string
+  String remainingTime = "";
+
+  if (difference.inDays > 0) {
+    remainingTime += "${difference.inDays} days ";
+  }
+  if (difference.inHours.remainder(24) > 0) {
+    remainingTime += "${difference.inHours.remainder(24)} hours ";
+  }
+  if (difference.inMinutes.remainder(60) > 0) {
+    remainingTime += "${difference.inMinutes.remainder(60)} minutes ";
+  }
+
+  return remainingTime.trim();
 }
 
 String convertTimeFormat(String time24) {

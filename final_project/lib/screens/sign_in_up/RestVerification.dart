@@ -1,36 +1,35 @@
 import 'package:final_project/CustomWidgets/logbtn.dart';
 import 'package:final_project/CustomWidgets/otpTextForm.dart';
-import 'package:final_project/cubits/auth/register/register_cubit.dart';
-import 'package:final_project/screens/sign_in_up/registerCongrats.dart';
+import 'package:final_project/cubits/auth/forget_password/forget_password_cubit.dart';
+import 'package:final_project/screens/sign_in_up/restPass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../CustomWidgets/backButton.dart';
 
-class changeVerification extends StatelessWidget {
-  const changeVerification({super.key, required this.email});
+class RestVerification extends StatelessWidget {
+  const RestVerification({super.key, required this.email});
   final String email;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     const bgCOlor = Color(0xffe5e9f0);
     const mainColor = Color(0xFF50B7C5);
-    String? otpCode;
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
       listener: (context, state) {
         if (state is otpSuccess) {
           {
-            context.read<RegisterCubit>().otp1.clear();
-            context.read<RegisterCubit>().otp2.clear();
-            context.read<RegisterCubit>().otp3.clear();
-            context.read<RegisterCubit>().otp4.clear();
-            context.read<RegisterCubit>().otp5.clear();
-            context.read<RegisterCubit>().otp6.clear();
+            context.read<ForgetPasswordCubit>().otp1.clear();
+            context.read<ForgetPasswordCubit>().otp2.clear();
+            context.read<ForgetPasswordCubit>().otp3.clear();
+            context.read<ForgetPasswordCubit>().otp4.clear();
+            context.read<ForgetPasswordCubit>().otp5.clear();
+            context.read<ForgetPasswordCubit>().otp6.clear();
           }
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const RegisterCongrats()),
+            MaterialPageRoute(builder: (context) => const confirmPass()),
           );
         } else if (state is otpFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -86,12 +85,12 @@ class changeVerification extends StatelessWidget {
                         height: size.height * 15 / 932,
                       ),
                       OtpTextFormField(
-                        otp1: context.read<RegisterCubit>().otp1,
-                        otp2: context.read<RegisterCubit>().otp2,
-                        otp3: context.read<RegisterCubit>().otp3,
-                        otp4: context.read<RegisterCubit>().otp4,
-                        otp5: context.read<RegisterCubit>().otp5,
-                        otp6: context.read<RegisterCubit>().otp6,
+                        otp1: context.read<ForgetPasswordCubit>().otp1,
+                        otp2: context.read<ForgetPasswordCubit>().otp2,
+                        otp3: context.read<ForgetPasswordCubit>().otp3,
+                        otp4: context.read<ForgetPasswordCubit>().otp4,
+                        otp5: context.read<ForgetPasswordCubit>().otp5,
+                        otp6: context.read<ForgetPasswordCubit>().otp6,
                       ),
                       SizedBox(
                         height: size.height * 20 / 932,
@@ -106,8 +105,8 @@ class changeVerification extends StatelessWidget {
                                 text: "Verify",
                                 onTapFun: () {
                                   context
-                                      .read<RegisterCubit>()
-                                      .otpFunction(otpCode, email);
+                                      .read<ForgetPasswordCubit>()
+                                      .otpFunction(email);
                                 },
                               ),
                       ),

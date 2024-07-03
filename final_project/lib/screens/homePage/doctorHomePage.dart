@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import '../../CustomWidgets/appBar.dart';
 import '../../CustomWidgets/doctorAppointmentContainer.dart';
 import '../../CustomWidgets/timeLIneListTile.dart';
-import '../../customers/patient.dart';
+import '../customers/patient.dart';
 import '../AppointmentScreen/doctorAppointment.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/doctor/get_all_pateint_for_doctor/get_all_pateint_for_doctor_cubit.dart';

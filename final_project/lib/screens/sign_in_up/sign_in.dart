@@ -1,6 +1,7 @@
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/screens/homePage/navBar.dart';
-import 'package:final_project/screens/sign_in_up/forgetPass.dart';
+import 'package:final_project/screens/sign_in_up/forgetPassword.dart';
 import 'package:final_project/screens/sign_in_up/sginUp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,8 @@ class logIn extends StatelessWidget {
             ),
           );
         } else if (state is getUserDataSuccess) {
+          CacheHelper().saveData(
+              key: "isDoctorAsBool", value: state.user.isDoctorAsBool());
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) =>
@@ -64,7 +67,7 @@ class logIn extends StatelessWidget {
                       height: size.height * 29 / 932,
                     ),
                     Text(
-                      "Sing in",
+                      "Sign in",
                       style: TextStyle(
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.bold,

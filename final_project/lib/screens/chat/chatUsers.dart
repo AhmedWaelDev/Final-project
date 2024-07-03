@@ -1,8 +1,6 @@
 import 'package:final_project/CustomWidgets/chats.dart';
-import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Chat extends StatefulWidget {
   const Chat({
@@ -20,43 +18,17 @@ class _ChatState extends State<Chat> {
   final TextEditingController _searchTextController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    context.read<OnlineDocCubit>().fetchAllDoctors();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xffe5e9f0),
-      appBar: AppBar(
-        toolbarHeight: size.height * 70 / 932,
         backgroundColor: const Color(0xffe5e9f0),
-        title: _isSearching ? _buildSearchField() : const Text("Chats"),
-        actions: _buildAppBarActions(),
-      ),
-      body: BlocBuilder<OnlineDocCubit, OnlineDocState>(
-        builder: (context, state) {
-          if (state is OnlineDocLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is OnlineDocLoaded) {
-            allCharacters = state.doctors.map((doctor) {
-              return Characters.fromJson(doctor);
-            }).toList();
-            if (!_isSearching) {
-              searchedCharacters = allCharacters;
-            }
-
-            return buildChatList(context, size);
-          } else if (state is OnlineDocError) {
-            return Center(child: Text(state.message));
-          } else {
-            return Container();
-          }
-        },
-      ),
-    );
+        appBar: AppBar(
+          toolbarHeight: size.height * 70 / 932,
+          backgroundColor: const Color(0xffe5e9f0),
+          title: _isSearching ? _buildSearchField() : const Text("Chats"),
+          actions: _buildAppBarActions(),
+        ),
+        body: Container());
   }
 
   Widget buildChatList(BuildContext context, Size size) {

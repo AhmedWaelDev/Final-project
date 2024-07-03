@@ -28,7 +28,7 @@ class verification extends StatelessWidget {
             context.read<RegisterCubit>().otp5.clear();
             context.read<RegisterCubit>().otp6.clear();
           }
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const RegisterCongrats()),
           );

@@ -1,5 +1,4 @@
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
-import 'package:final_project/screens/Payment/payment.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/CustomWidgets/payment1.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

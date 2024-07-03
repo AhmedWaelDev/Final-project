@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:final_project/cubits/endPoints.dart';
@@ -111,6 +110,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         "$baseUrl/verify-email",
         data: {'email': email, 'otp': otpString},
       );
+      print(response);
+
       emit(otpSuccess());
     } on DioException catch (e) {
       emit(otpFailure(errMessage: e.toString()));

@@ -1,26 +1,24 @@
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/update_information/update_information_cubit.dart';
-import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/homePage/navBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../CustomWidgets/screensappbar.dart';
 
-class Personal extends StatefulWidget {
-  const Personal({super.key});
+class PPersonal extends StatefulWidget {
+  const PPersonal({super.key});
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Personal> {
+class _ProfileState extends State<PPersonal> {
   DateTime selectedDate = DateTime.now();
   String? newSelectedDate;
   String? finalGender;
   String? finalBirthDate;
   String? finalBloodGroub;
-  String? finalSpeciality;
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -213,6 +211,7 @@ class _ProfileState extends State<Personal> {
                     ),
                     SizedBox(height: size.height * 15 / 932),
 
+                    SizedBox(height: size.height * 5 / 932),
                     Padding(
                       padding: EdgeInsets.only(left: size.width * 48 / 430),
                       child: const Row(
@@ -247,117 +246,17 @@ class _ProfileState extends State<Personal> {
                         ),
                       ),
                     ),
-                    SizedBox(height: size.height * 15 / 932),
 
-                    Padding(
-                      padding: EdgeInsets.only(left: size.width * 48 / 430),
-                      child: const Row(
-                        children: [
-                          Text(
-                            "Price",
-                            style: TextStyle(
-                                color: Color(0xff757575), fontSize: 16),
-                          )
-                        ],
-                      ),
+                    SizedBox(height: size.height * 5 / 932),
+
+                    SizedBox(height: size.height * 20 / 932),
+                    SizedBox(
+                      height: size.height * 100 / 932,
                     ),
-
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 52 / 430,
-                          right: size.width * 52 / 430,
-                          top: size.height * 12 / 932),
-                      child: TextFormField(
-                        controller:
-                            context.read<UpdateInformationCubit>().price,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: "Enter your price ",
-                          suffixStyle:
-                              const TextStyle(color: Color(0xffB2AAAA)),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(height: size.height * 15 / 932),
-                    Container(
-                      decoration: const BoxDecoration(),
-                      height: MediaQuery.of(context).size.height * 70 / 932,
-                      padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 52 / 430,
-                        right: MediaQuery.of(context).size.width * 52 / 430,
-                        top: MediaQuery.of(context).size.height * 12 / 932,
-                      ),
-                      width: double.infinity,
-                      child: DropdownButtonFormField<String>(
-                        value: selectedBloodGroup,
-                        hint: const Text(
-                          'Pick your specialty',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedBloodGroup = newValue;
-                            finalSpeciality = newValue;
-                            context.read<UpdateInformationCubit>().speciality =
-                                newValue!;
-                          });
-                        },
-                        items: specialties.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    SizedBox(height: size.height * 15 / 932),
-
-                    Padding(
-                      padding: EdgeInsets.only(left: size.width * 48 / 430),
-                      child: const Row(
-                        children: [
-                          Text(
-                            "Experience",
-                            style: TextStyle(
-                                color: Color(0xff757575), fontSize: 16),
-                          )
-                        ],
-                      ),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 52 / 430,
-                          right: size.width * 52 / 430,
-                          top: size.height * 12 / 932),
-                      child: TextFormField(
-                        controller:
-                            context.read<UpdateInformationCubit>().experience,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: "Enter your experience",
-                          suffixStyle:
-                              const TextStyle(color: Color(0xffB2AAAA)),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: size.height * 15 / 932),
-
                     BlocListener<UpdateInformationCubit,
                         UpdateInformationState>(
                       listener: (context, state) {
-                        if (state is UpdateDoctorInformationSuccess) {
+                        if (state is UpdateuserInformationSuccess) {
                           () async {
                             await CacheHelper().saveData(
                                 key: "name",
@@ -366,25 +265,9 @@ class _ProfileState extends State<Personal> {
                                     .name
                                     .text);
                             await CacheHelper().saveData(
-                                key: "price",
-                                value: context
-                                    .read<UpdateInformationCubit>()
-                                    .price
-                                    .text);
-                            await CacheHelper().saveData(
-                                key: "experience",
-                                value: context
-                                    .read<UpdateInformationCubit>()
-                                    .experience
-                                    .text);
-                            await CacheHelper().saveData(
                                 key: "date_of_birth", value: finalBirthDate);
                             await CacheHelper()
                                 .saveData(key: "gender", value: finalGender);
-                            await CacheHelper().saveData(
-                                key: "specialtyId",
-                                value:
-                                    "${getIndexOfString(specialties, finalSpeciality!) + 1}");
                             await CacheHelper().saveData(
                                 key: "blood_group", value: finalBloodGroub);
                             await CacheHelper().saveData(
@@ -396,11 +279,7 @@ class _ProfileState extends State<Personal> {
                           };
                           context.read<UpdateInformationCubit>().name.clear();
                           context.read<UpdateInformationCubit>().number.clear();
-                          context
-                              .read<UpdateInformationCubit>()
-                              .experience
-                              .clear();
-                          context.read<UpdateInformationCubit>().price.clear();
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text("success"),
@@ -411,11 +290,11 @@ class _ProfileState extends State<Personal> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const myNavBar(
-                                      isDoctor: true,
+                                      isDoctor: false,
                                     )),
                             (Route<dynamic> route) => false,
                           );
-                        } else if (state is UpdateDoctorInformationFailure) {
+                        } else if (state is UpdateuserInformationFailure) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(state.message),
@@ -426,7 +305,7 @@ class _ProfileState extends State<Personal> {
                       child: BlocBuilder<UpdateInformationCubit,
                           UpdateInformationState>(
                         builder: (context, state) {
-                          return state is UpdateDoctorInformationLoading
+                          return state is UpdateuserInformationLoading
                               ? const Center(
                                   child: CircularProgressIndicator(),
                                 )
@@ -439,7 +318,7 @@ class _ProfileState extends State<Personal> {
                                     onPressed: () {
                                       context
                                           .read<UpdateInformationCubit>()
-                                          .UpdatedoctorInformation();
+                                          .UpdateuserInformation();
                                     },
                                     color: const Color(0xff50b7c5),
                                     shape: RoundedRectangleBorder(

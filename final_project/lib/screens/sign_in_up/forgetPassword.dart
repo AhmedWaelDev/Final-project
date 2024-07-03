@@ -1,5 +1,7 @@
-import 'package:final_project/screens/sign_in_up/verification.dart';
+import 'package:final_project/cubits/auth/forget_password/forget_password_cubit.dart';
+import 'package:final_project/screens/sign_in_up/RestVerification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../CustomWidgets/backButton.dart';
@@ -14,6 +16,7 @@ class forgetPassword extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     const bgCOlor = Color(0xffe5e9f0);
     const mainColor = Color(0xFF50B7C5);
+
     return Scaffold(
       body: Container(
           padding: EdgeInsets.all(size.width * 15 / 320),
@@ -60,21 +63,47 @@ class forgetPassword extends StatelessWidget {
                                   fontSize: size.width * 13 / 320),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child: myTextFrom(
-                                hint: "Enter your email", label: "Email"),
+                                mycontroller:
+                                    context.read<ForgetPasswordCubit>().Email,
+                                hint: "Enter your email",
+                                label: "Email"),
                           ),
-                          logbtn(
-                            mainColor: mainColor,
-                            text: 'Send Code',
-                            onTapFun: () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => const verification(
-                                          email: "emasad",
-                                        )),
-                              );
+                          BlocConsumer<ForgetPasswordCubit,
+                              ForgetPasswordState>(
+                            listener: (context, state) {
+                              if (state is forgetPasswordfailure) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(state.errMessage),
+                                  ),
+                                );
+                              } else if (state is forgetPasswordSuccess) {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => RestVerification(
+                                            email: context
+                                                .read<ForgetPasswordCubit>()
+                                                .Email
+                                                .text,
+                                          )),
+                                );
+                              }
+                            },
+                            builder: (context, state) {
+                              return state is forgetPasswordLoading
+                                  ? const CircularProgressIndicator()
+                                  : logbtn(
+                                      mainColor: mainColor,
+                                      text: 'Send Code',
+                                      onTapFun: () {
+                                        context
+                                            .read<ForgetPasswordCubit>()
+                                            .forgetPassword();
+                                      },
+                                    );
                             },
                           ),
                         ],

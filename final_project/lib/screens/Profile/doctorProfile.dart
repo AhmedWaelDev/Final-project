@@ -87,7 +87,7 @@ class _DoctorProfileState extends State<doctorProfile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Personal()),
+                      MaterialPageRoute(builder: (context) => const Personal()),
                     );
                   },
                   child: Container(
@@ -206,10 +206,10 @@ class _DoctorProfileState extends State<doctorProfile> {
                     itemColor: const Color(0xffD23A2D),
                     onTap: () {
                       CacheHelper().removeData(key: "isDoctor");
-
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => const logIn()),
+                        (Route<dynamic> route) => false,
                       );
                     },
                   ),
