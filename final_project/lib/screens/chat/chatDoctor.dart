@@ -1,34 +1,63 @@
 import 'package:final_project/CustomWidgets/chats.dart';
+import 'package:final_project/cubits/doctor/get_all_pateint_for_doctor/get_all_pateint_for_doctor_cubit.dart';
 import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({
+class PatientChat extends StatefulWidget {
+  const PatientChat({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<PatientChat> createState() => _PatientChatState();
 }
 
-class _ChatState extends State<Chat> {
+class _PatientChatState extends State<PatientChat> {
   List<Characters> allCharacters = [];
   List<Characters> searchedCharacters = [];
   bool _isSearching = false;
   final TextEditingController _searchTextController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    context.read<GetAllPateintForDoctorCubit>().GetAllPateintForDoctor();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: const Color(0xffe5e9f0),
+      appBar: AppBar(
+        toolbarHeight: size.height * 70 / 932,
         backgroundColor: const Color(0xffe5e9f0),
-        appBar: AppBar(
-          toolbarHeight: size.height * 70 / 932,
-          backgroundColor: const Color(0xffe5e9f0),
-          title: _isSearching ? _buildSearchField() : const Text("Chats"),
-          actions: _buildAppBarActions(),
-        ),
-        body: Container());
+        title: _isSearching ? _buildSearchField() : const Text("Chats"),
+        actions: _buildAppBarActions(),
+      ),
+      body:
+          BlocBuilder<GetAllPateintForDoctorCubit, GetAllPateintForDoctorState>(
+        builder: (context, state) {
+          if (state is GetAllPateintForDoctorLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is GetAllPateintForDoctorsuccess) {
+            allCharacters = state.patients.map((patient) {
+              return Characters.fromJson(patient);
+            }).toList();
+            if (!_isSearching) {
+              searchedCharacters = allCharacters;
+            }
+
+            return buildChatList(context, size);
+          } else if (state is GetAllPateintForDoctorFailure) {
+            return Center(child: Text(state.errMessage));
+          } else {
+            return Container();
+          }
+        },
+      ),
+    );
   }
 
   Widget buildChatList(BuildContext context, Size size) {
@@ -43,7 +72,7 @@ class _ChatState extends State<Chat> {
             Padding(
               padding: EdgeInsets.only(left: size.width * 15 / 320),
               child: Text(
-                "Online Doctors",
+                "My Patients",
                 style: TextStyle(
                   fontSize: size.width * 20 / 320,
                   color: const Color(0xff757575),

@@ -1,4 +1,6 @@
 import 'package:final_project/screens/Profile/doctorProfile.dart';
+import 'package:final_project/screens/chat/chatDoctor.dart';
+import 'package:final_project/screens/chat/chatuUsers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
@@ -6,7 +8,7 @@ import 'package:final_project/screens/Profile/profile.dart';
 import 'package:final_project/screens/homePage/patienthomePage.dart';
 import '../AppointmentScreen/doctorAppointment.dart';
 import '../AppointmentScreen/patientAppointmentScreen.dart';
-import '../chat/chatUsers.dart';
+
 import 'doctorHomePage.dart';
 
 class myNavBar extends StatefulWidget {
@@ -110,7 +112,9 @@ class _myNavBarState extends State<myNavBar> {
                         minWidth: size.width * 0.125,
                         onPressed: () {
                           setState(() {
-                            currentScreen = const Chat();
+                            currentScreen = widget.isDoctor
+                                ? const PatientChat()
+                                : const Chat();
                             currentTab = 1;
                           });
                         },

@@ -9,9 +9,11 @@ import 'package:final_project/cubits/auth/register/register_cubit.dart';
 import 'package:final_project/cubits/doctor/add_schedule/add_schedule_cubit.dart';
 import 'package:final_project/cubits/doctor/get_all_pateint_for_doctor/get_all_pateint_for_doctor_cubit.dart';
 import 'package:final_project/cubits/doctor/get_patient_with_date/get_patient_with_date_cubit.dart';
+import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
 import 'package:final_project/cubits/paitent/get_all_doctors_for_spciality/get_doctors_for_spciality_cubit.dart';
 import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
+import 'package:final_project/firebase_options.dart';
 import 'package:final_project/screens/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => OnlineDocCubit(),
+        ),
+        BlocProvider(
           create: (context) => LoginCubit(),
         ),
         BlocProvider(
@@ -48,9 +53,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ForgetPasswordCubit(),
         ),
-        BlocProvider(
-          create: (context) => UpdateInformationCubit(),
-        ),
+        // BlocProvider(
+        // create: (context) => UpdateInformationCubit(),
+        //),
         BlocProvider(
           create: (context) => AddScheduleCubit(),
         ),

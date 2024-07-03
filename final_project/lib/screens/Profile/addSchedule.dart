@@ -1,3 +1,4 @@
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/doctor/add_schedule/add_schedule_cubit.dart';
 import 'package:final_project/models/Helper.dart';
@@ -507,9 +508,11 @@ class _AppointmentReservationState extends State<AddSchedule> {
                                             Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const myNavBar(
-                                                          isDoctor: true),
+                                                  builder: (context) => myNavBar(
+                                                      isDoctor: CacheHelper()
+                                                          .getData(
+                                                              key:
+                                                                  "isDoctorAsBool")),
                                                 ));
                                           },
                                           color: const Color(0xff050b7c5),

@@ -410,9 +410,9 @@ class _ProfileState extends State<Personal> {
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const myNavBar(
-                                      isDoctor: true,
-                                    )),
+                                builder: (context) => myNavBar(
+                                    isDoctor: CacheHelper()
+                                        .getData(key: "isDoctorAsBool"))),
                             (Route<dynamic> route) => false,
                           );
                         } else if (state is UpdateDoctorInformationFailure) {

@@ -1,4 +1,5 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:flutter/material.dart';
 import '../../CustomWidgets/reminderTImeLine.dart';
 import '../../roomDB/DatabaseHelper.dart';
@@ -40,8 +41,9 @@ class _myReminderState extends State<myReminder> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const myNavBar(
-                          isDoctor: true,
+                        builder: (context) => myNavBar(
+                          isDoctor:
+                              CacheHelper().getData(key: "isDoctorAsBool"),
                         ),
                       ),
                     );
