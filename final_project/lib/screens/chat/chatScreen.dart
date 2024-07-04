@@ -29,6 +29,9 @@ class _ChatterScreenState extends State<ChatterScreen> {
       false; // State for indicating image selected for upload
   final ChatService _chatService = ChatService();
 
+  bool isSending =
+      false; // State for showing loading indicator when sending message
+
   void _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
@@ -41,6 +44,11 @@ class _ChatterScreenState extends State<ChatterScreen> {
 
   void _sendMessage() async {
     if (_messageController.text.isNotEmpty || _imageFile != null) {
+      setState(() {
+        isSending =
+            true; // Start showing loading indicator when sending message
+      });
+
       String currentUserId = CacheHelper().getData(key: "id") ?? "";
       String senderName = CacheHelper().getData(key: "name") ?? "";
       String text = _messageController.text;
@@ -68,6 +76,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
       _messageController.clear();
       setState(() {
         _imageFile = null; // Clear selected image after sending
+        isSending =
+            false; // Stop showing loading indicator when sending message is done
       });
     }
   }
@@ -122,128 +132,131 @@ class _ChatterScreenState extends State<ChatterScreen> {
       body: Column(
         children: [
           Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-            stream: _chatService.getMessages(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
-              }
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _chatService.getMessages(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
-              final messages = snapshot.data!.docs;
-              final String currentUserId =
-                  CacheHelper().getData(key: "id") ?? "";
+                final messages = snapshot.data!.docs;
+                final String currentUserId =
+                    CacheHelper().getData(key: "id") ?? "";
 
-              return ListView.builder(
-                reverse: true,
-                controller: _scrollController,
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  final message = messages[index];
-                  final Map<String, dynamic> messageData =
-                      message.data() as Map<String, dynamic>;
-                  final String senderId = messageData['sender'];
-                  final String receiverId = messageData['receiverId'];
+                return ListView.builder(
+                  reverse: true,
+                  controller: _scrollController,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final message = messages[index];
+                    final Map<String, dynamic> messageData =
+                        message.data() as Map<String, dynamic>;
+                    final String senderId = messageData['sender'];
+                    final String receiverId = messageData['receiverId'];
 
-                  // Check if the message involves the current user and the specified receiver
-                  final bool isSenderToReceiver = senderId == currentUserId &&
-                      receiverId == widget.receiverId;
-                  final bool isReceiverFromSender =
-                      senderId == widget.receiverId &&
-                          receiverId == currentUserId;
+                    // Check if the message involves the current user and the specified receiver
+                    final bool isSenderToReceiver = senderId == currentUserId &&
+                        receiverId == widget.receiverId;
+                    final bool isReceiverFromSender =
+                        senderId == widget.receiverId &&
+                            receiverId == currentUserId;
 
-                  if (isSenderToReceiver || isReceiverFromSender) {
-                    final bool isMe = senderId == currentUserId;
+                    if (isSenderToReceiver || isReceiverFromSender) {
+                      final bool isMe = senderId == currentUserId;
 
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: isMe
-                            ? CrossAxisAlignment.end
-                            : CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: isMe ? Colors.blue : Colors.grey,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            padding: EdgeInsets.all(8),
-                            margin: EdgeInsets.symmetric(vertical: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  messageData['senderName'],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: isMe
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: isMe ? Colors.blue : Colors.grey,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: EdgeInsets.all(8),
+                              margin: EdgeInsets.symmetric(vertical: 4),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    messageData['senderName'],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                if (messageData.containsKey('imageUrl') &&
-                                    messageData['imageUrl'] != null)
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(top: 8),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.white,
-                                            width: 2,
+                                  if (messageData.containsKey('imageUrl') &&
+                                      messageData['imageUrl'] != null)
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(top: 8),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.white,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          child: Image.network(
+                                            messageData['imageUrl'],
+                                            width: 250,
                                           ),
                                         ),
-                                        child: Image.network(
-                                          messageData['imageUrl'],
-                                          width: 250,
-                                        ),
-                                      ),
-                                      if (_uploadingImage && _imageFile == null)
-                                        CircularProgressIndicator(),
-                                      if (_imageSelectedForUpload &&
-                                          _imageFile != null)
-                                        Positioned(
-                                          top: 0,
-                                          right: 0,
-                                          child: IconButton(
-                                            icon: Icon(Icons.close),
-                                            color: Colors.red,
-                                            onPressed: () {
-                                              setState(() {
-                                                _imageFile = null;
-                                                _imageSelectedForUpload = false;
-                                              });
-                                            },
+                                        if (_uploadingImage &&
+                                            _imageFile == null)
+                                          CircularProgressIndicator(),
+                                        if (_imageSelectedForUpload &&
+                                            _imageFile != null)
+                                          Positioned(
+                                            top: 0,
+                                            right: 0,
+                                            child: IconButton(
+                                              icon: Icon(Icons.close),
+                                              color: Colors.red,
+                                              onPressed: () {
+                                                setState(() {
+                                                  _imageFile = null;
+                                                  _imageSelectedForUpload =
+                                                      false;
+                                                });
+                                              },
+                                            ),
                                           ),
-                                        ),
-                                    ],
+                                      ],
+                                    ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    messageData['text'],
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                SizedBox(height: 4),
-                                Text(
-                                  messageData['text'],
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                  SizedBox(height: 4),
+                                  Text(
+                                    _formatTime(messageData['time'].toDate()),
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  _formatTime(messageData['time'].toDate()),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              );
-            },
-          )),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
+                );
+              },
+            ),
+          ),
           if (_imageFile != null)
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -299,11 +312,19 @@ class _ChatterScreenState extends State<ChatterScreen> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: IconButton(
-                    icon: Icon(Icons.send),
-                    color: Colors.white,
-                    onPressed: _sendMessage,
-                  ),
+                  child: isSending
+                      ? Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2.0,
+                          ),
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.send),
+                          color: Colors.white,
+                          onPressed: _sendMessage,
+                        ),
                 ),
               ],
             ),
