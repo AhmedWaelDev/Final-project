@@ -1,4 +1,5 @@
 import 'package:final_project/cubits/doctor/get_all_pateint_for_doctor/get_all_pateint_for_doctor_cubit.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,6 +74,19 @@ class Patient extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return doctorAppointContainer(
                                     name: state.patients[index]["name"],
+                                    onChatPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatterScreen(
+                                            receiverId: state.patients[index]
+                                                    ["id"]
+                                                .toString(),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    onvedioPressed: () {},
                                   );
                                 },
                               ))

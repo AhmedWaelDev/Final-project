@@ -1,4 +1,5 @@
 import 'package:final_project/models/Helper.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -211,6 +212,17 @@ class doctorHomePage extends StatelessWidget {
                                 final patient = state.patients[index];
                                 return doctorAppointContainer(
                                   name: patient["name"],
+                                  onChatPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ChatterScreen(
+                                          receiverId: patient["id"].toString(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  onvedioPressed: () {},
                                 );
                               },
                             );
