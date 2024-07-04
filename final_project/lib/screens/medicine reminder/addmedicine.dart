@@ -1,4 +1,5 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/screens/medicine%20reminder/reminder.dart';
 import 'package:flutter/material.dart';
 
@@ -503,6 +504,7 @@ class _addMedicineState extends State<AddMedicine> {
     int capsize = int.tryParse(capsizeController.text) ?? 0;
     int duration = int.tryParse(durationController.text) ?? 0;
     int amount = int.tryParse(amountController.text) ?? 0;
+    int id = int.parse(CacheHelper().getData(key: "id"));
 
     if (name.isNotEmpty &&
         duration > 0 &&
@@ -530,60 +532,60 @@ class _addMedicineState extends State<AddMedicine> {
             if (breakfastChoice != null) {
               DateTime breakfastdate = _selectedDate;
               Medicine breakfastMedicine = Medicine(
-                breakfastTime: breakfastTime!,
-                dinnerTime: "",
-                lunchTime: "",
-                type: selectedphoto!,
-                name: name,
-                cause: cause,
-                amount: amount,
-                breakfast: breakfastChoice!,
-                dinner: "",
-                lunch: "",
-                reminderTime: breakfastdate,
-                durationInDays: 1,
-                capsize: capsize,
-              );
+                  breakfastTime: breakfastTime!,
+                  dinnerTime: "",
+                  lunchTime: "",
+                  type: selectedphoto!,
+                  name: name,
+                  cause: cause,
+                  amount: amount,
+                  breakfast: breakfastChoice!,
+                  dinner: "",
+                  lunch: "",
+                  reminderTime: breakfastdate,
+                  durationInDays: 1,
+                  capsize: capsize,
+                  id: id);
               DatabaseHelper().insertMedicine(breakfastMedicine);
               breakfastdate = breakfastdate.add(const Duration(days: 1));
             }
             if (lunchChoice != null) {
               DateTime lunchdate = _selectedDate;
               Medicine lunchMedicine = Medicine(
-                breakfastTime: "",
-                dinnerTime: "",
-                lunchTime: lunchTime!,
-                type: selectedphoto!,
-                name: name,
-                cause: cause,
-                amount: amount,
-                breakfast: "",
-                dinner: "",
-                lunch: lunchChoice!,
-                reminderTime: lunchdate,
-                durationInDays: 1,
-                capsize: capsize,
-              );
+                  breakfastTime: "",
+                  dinnerTime: "",
+                  lunchTime: lunchTime!,
+                  type: selectedphoto!,
+                  name: name,
+                  cause: cause,
+                  amount: amount,
+                  breakfast: "",
+                  dinner: "",
+                  lunch: lunchChoice!,
+                  reminderTime: lunchdate,
+                  durationInDays: 1,
+                  capsize: capsize,
+                  id: id);
               DatabaseHelper().insertMedicine(lunchMedicine);
               lunchdate = lunchdate.add(const Duration(days: 1));
             }
             if (dinnerChoice != null) {
               DateTime dinnerdate = _selectedDate;
               Medicine dinnerMedicine = Medicine(
-                breakfastTime: "",
-                dinnerTime: dinnerTime!,
-                lunchTime: "",
-                type: selectedphoto!,
-                name: name,
-                cause: cause,
-                amount: amount,
-                breakfast: "",
-                dinner: dinnerChoice!,
-                lunch: "",
-                reminderTime: dinnerdate,
-                durationInDays: 1,
-                capsize: capsize,
-              );
+                  breakfastTime: "",
+                  dinnerTime: dinnerTime!,
+                  lunchTime: "",
+                  type: selectedphoto!,
+                  name: name,
+                  cause: cause,
+                  amount: amount,
+                  breakfast: "",
+                  dinner: dinnerChoice!,
+                  lunch: "",
+                  reminderTime: dinnerdate,
+                  durationInDays: 1,
+                  capsize: capsize,
+                  id: id);
               DatabaseHelper().insertMedicine(dinnerMedicine);
               dinnerdate = dinnerdate.add(const Duration(days: 1));
             }
