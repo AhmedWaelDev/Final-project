@@ -1,18 +1,18 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:final_project/Service/serviceChat.dart';
 import 'package:final_project/cache/cache_helper.dart';
 
 class ChatterScreen extends StatefulWidget {
   final String receiverId; // Receiver ID (doctor or patient ID)
+  final String receiverName;
 
   const ChatterScreen({
     Key? key,
     required this.receiverId,
+    required this.receiverName,
   }) : super(key: key);
 
   @override
@@ -29,9 +29,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
       false; // State for indicating image selected for upload
   final ChatService _chatService = ChatService();
 
-  bool isSending =
-      false; // State for showing loading indicator when sending message
-
   void _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
@@ -44,11 +41,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
 
   void _sendMessage() async {
     if (_messageController.text.isNotEmpty || _imageFile != null) {
-      setState(() {
-        isSending =
-            true; // Start showing loading indicator when sending message
-      });
-
       String currentUserId = CacheHelper().getData(key: "id") ?? "";
       String senderName = CacheHelper().getData(key: "name") ?? "";
       String text = _messageController.text;
@@ -76,8 +68,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
       _messageController.clear();
       setState(() {
         _imageFile = null; // Clear selected image after sending
-        isSending =
-            false; // Stop showing loading indicator when sending message is done
       });
     }
   }
@@ -89,16 +79,16 @@ class _ChatterScreenState extends State<ChatterScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: const Icon(Icons.photo),
-            title: const Text('Photo Library'),
+            leading: Icon(Icons.photo),
+            title: Text('Photo Library'),
             onTap: () {
               Navigator.of(context).pop();
               _getImage(ImageSource.gallery);
             },
           ),
           ListTile(
-            leading: const Icon(Icons.camera_alt),
-            title: const Text('Camera'),
+            leading: Icon(Icons.camera_alt),
+            title: Text('Camera'),
             onTap: () {
               Navigator.of(context).pop();
               _getImage(ImageSource.camera);
@@ -122,9 +112,9 @@ class _ChatterScreenState extends State<ChatterScreen> {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
-          'Chatter',
-          style: TextStyle(color: Colors.black), // Adjust title color
+        title: Text(
+          widget.receiverName,
+          style: const TextStyle(color: Colors.black), // Adjust title color
         ),
         centerTitle: true,
         elevation: 0, // Remove app bar shadow
@@ -136,7 +126,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
               stream: _chatService.getMessages(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(child: CircularProgressIndicator());
                 }
 
                 final messages = snapshot.data!.docs;
@@ -176,14 +166,14 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                 color: isMe ? Colors.blue : Colors.grey,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              padding: const EdgeInsets.all(8),
-                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              padding: EdgeInsets.all(8),
+                              margin: EdgeInsets.symmetric(vertical: 4),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     messageData['senderName'],
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -194,7 +184,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                       alignment: Alignment.center,
                                       children: [
                                         Container(
-                                          margin: const EdgeInsets.only(top: 8),
+                                          margin: EdgeInsets.only(top: 8),
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: Colors.white,
@@ -208,14 +198,14 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                         ),
                                         if (_uploadingImage &&
                                             _imageFile == null)
-                                          const CircularProgressIndicator(),
+                                          CircularProgressIndicator(),
                                         if (_imageSelectedForUpload &&
                                             _imageFile != null)
                                           Positioned(
                                             top: 0,
                                             right: 0,
                                             child: IconButton(
-                                              icon: const Icon(Icons.close),
+                                              icon: Icon(Icons.close),
                                               color: Colors.red,
                                               onPressed: () {
                                                 setState(() {
@@ -228,17 +218,17 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                           ),
                                       ],
                                     ),
-                                  const SizedBox(height: 4),
+                                  SizedBox(height: 4),
                                   Text(
                                     messageData['text'],
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  SizedBox(height: 4),
                                   Text(
                                     _formatTime(messageData['time'].toDate()),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.white,
                                     ),
@@ -279,7 +269,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
             child: Row(
               children: <Widget>[
                 IconButton(
-                  icon: const Icon(Icons.add_photo_alternate),
+                  icon: Icon(Icons.add_photo_alternate),
                   onPressed: () => _showImageSourceActionSheet(context),
                 ),
                 Expanded(
@@ -312,19 +302,11 @@ class _ChatterScreenState extends State<ChatterScreen> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: isSending
-                      ? const Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2.0,
-                          ),
-                        )
-                      : IconButton(
-                          icon: const Icon(Icons.send),
-                          color: Colors.white,
-                          onPressed: _sendMessage,
-                        ),
+                  child: IconButton(
+                    icon: Icon(Icons.send),
+                    color: Colors.white,
+                    onPressed: _sendMessage,
+                  ),
                 ),
               ],
             ),

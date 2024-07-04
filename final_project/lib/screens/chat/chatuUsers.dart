@@ -96,6 +96,7 @@ class _ChatState extends State<Chat> {
                               MaterialPageRoute(
                                 builder: (context) => ChatterScreen(
                                   receiverId: character.id,
+                                  receiverName: character.name,
                                 ),
                               ),
                             );
@@ -147,10 +148,11 @@ class _ChatState extends State<Chat> {
                   return CustomChatItem(
                     imagePath: "assets/images/drchat.png",
                     name: character.name,
-                    message: "How are you?",
-                    unreadMessages: 5,
+                    message: "Show message",
+                    unreadMessages: 1,
                     time: "10:30 PM",
                     receiverId: character.id,
+                    receiverName: character.name,
                   );
                 }).toList(),
               ),

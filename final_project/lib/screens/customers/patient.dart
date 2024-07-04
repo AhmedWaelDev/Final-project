@@ -82,6 +82,8 @@ class Patient extends StatelessWidget {
                                             receiverId: state.patients[index]
                                                     ["id"]
                                                 .toString(),
+                                            receiverName: state.patients[index][
+                                                "name"], // Pass the patient's name here
                                           ),
                                         ),
                                       );

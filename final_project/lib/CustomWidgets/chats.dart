@@ -7,7 +7,8 @@ class CustomChatItem extends StatelessWidget {
   final String message;
   final int unreadMessages;
   final String time;
-  final String receiverId; // Add receiverId as a property
+  final String receiverId;
+  final String receiverName; // Add receiverId as a property
   // Add receiverName as a property
 
   const CustomChatItem({
@@ -17,7 +18,8 @@ class CustomChatItem extends StatelessWidget {
     required this.message,
     required this.unreadMessages,
     required this.time,
-    required this.receiverId, // Initialize receiverId
+    required this.receiverId,
+    required this.receiverName, // Initialize receiverId
     // Initialize receiverName
   }) : super(key: key);
 
@@ -31,6 +33,7 @@ class CustomChatItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => ChatterScreen(
               receiverId: receiverId,
+              receiverName: receiverName,
             ),
           ),
         );

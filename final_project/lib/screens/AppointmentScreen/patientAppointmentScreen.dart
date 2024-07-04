@@ -52,181 +52,189 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         ),
       ],
       child: Scaffold(
-          backgroundColor: const Color(0xffe5e9f0),
-          appBar: AppBar(
-            elevation: 0,
-            title: Padding(
-              padding: EdgeInsets.only(
-                top: size.width * 20 / 320,
-              ),
-              child: const Center(
-                  child: Text(
+        backgroundColor: const Color(0xffe5e9f0),
+        appBar: AppBar(
+          elevation: 0,
+          title: Padding(
+            padding: EdgeInsets.only(
+              top: size.width * 20 / 320,
+            ),
+            child: const Center(
+              child: Text(
                 "Appointment",
                 style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              )),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
             ),
-            backgroundColor: const Color(0xffe5e9f0),
           ),
-          body: SingleChildScrollView(
-              child: Column(children: <Widget>[
-            Container(
-              child: Padding(
-                padding: EdgeInsets.only(
+          backgroundColor: const Color(0xffe5e9f0),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.only(
                     left: size.width * 35 / 430,
                     right: size.width * 35 / 430,
-                    top: size.height * 20 / 932),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Container(
-                    color: Colors.white,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Container(
-                                color: _selectedIndex == 0
-                                    ? Colors.cyan
-                                    : Colors.white,
-                                child: TextButton(
-                                  child: Text(
-                                    "Upcoming",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: size.width * 18 / 430,
-                                      color: _selectedIndex == 0
-                                          ? Colors.white
-                                          : Colors.black,
+                    top: size.height * 20 / 932,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: Container(
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: Container(
+                                  color: _selectedIndex == 0
+                                      ? Colors.cyan
+                                      : Colors.white,
+                                  child: TextButton(
+                                    child: Text(
+                                      "Upcoming",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: size.width * 18 / 430,
+                                        color: _selectedIndex == 0
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
+                                    onPressed: () => _onItemTapped(0),
                                   ),
-                                  onPressed: () => _onItemTapped(0),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Container(
-                                color: _selectedIndex == 1
-                                    ? Colors.cyan
-                                    : Colors.white,
-                                child: TextButton(
-                                  child: Text(
-                                    "Complete",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: size.width * 18 / 430,
-                                      color: _selectedIndex == 1
-                                          ? Colors.white
-                                          : Colors.black,
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(25),
+                                child: Container(
+                                  color: _selectedIndex == 1
+                                      ? Colors.cyan
+                                      : Colors.white,
+                                  child: TextButton(
+                                    child: Text(
+                                      "Complete",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: size.width * 18 / 430,
+                                        color: _selectedIndex == 1
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
+                                    onPressed: () => _onItemTapped(1),
                                   ),
-                                  onPressed: () => _onItemTapped(1),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height * 32 / 932,
-            ),
-            if (_selectedIndex == 0)
-              BlocBuilder<UpComingCubit, UpComingState>(
-                builder: (context, state) {
-                  if (state is fetchUpUpcomingAppointmentsLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is fetchUpUpcomingAppointmentsSuccess) {
-                    return state.appointments.isEmpty
-                        ? const Center(
-                            child: Text("No Upcoming Appointments"),
-                          )
-                        : SizedBox(
-                            width: size.width * 360 / 430,
-                            child: ListView.builder(
-                              itemCount: state.appointments.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                var doctor =
-                                    state.appointments[index]["doctor"];
-                                return DoctorCard(
-                                  name: doctor["name"],
-                                  rating: doctor["stars"].toString(),
-                                  specialty:
-                                      specialties[doctor["specialtyId"] - 1],
-                                  onChatPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ChatterScreen(
-                                          receiverId: doctor["id"].toString(),
+              SizedBox(
+                height: size.height * 32 / 932,
+              ),
+              if (_selectedIndex == 0)
+                BlocBuilder<UpComingCubit, UpComingState>(
+                  builder: (context, state) {
+                    if (state is fetchUpUpcomingAppointmentsLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is fetchUpUpcomingAppointmentsSuccess) {
+                      return state.appointments.isEmpty
+                          ? const Center(
+                              child: Text("No Upcoming Appointments"),
+                            )
+                          : SizedBox(
+                              width: size.width * 360 / 430,
+                              child: ListView.builder(
+                                itemCount: state.appointments.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  var doctor =
+                                      state.appointments[index]["doctor"];
+                                  return DoctorCard(
+                                    name: doctor["name"],
+                                    rating: doctor["stars"].toString(),
+                                    specialty:
+                                        specialties[doctor["specialtyId"] - 1],
+                                    onChatPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatterScreen(
+                                            receiverId: doctor["id"].toString(),
+                                            receiverName: doctor[
+                                                "name"], // Pass the doctor's name here
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  onVideoCallPressed: () {},
-                                  video: 'Video call',
-                                );
-                              },
-                            ),
-                          );
-                  } else if (state is fetchUpUpcomingAppointmentsFailure) {
-                    return Center(
-                      child: Text(state.error),
-                    );
-                  } else {
-                    return Center(
-                      child: Center(
+                                      );
+                                    },
+                                    onVideoCallPressed: () {},
+                                    video: 'Video call',
+                                  );
+                                },
+                              ),
+                            );
+                    } else if (state is fetchUpUpcomingAppointmentsFailure) {
+                      return Center(
+                        child: Text(state.error),
+                      );
+                    } else {
+                      return Center(
+                        child: Center(
                           child: TextButton(
-                              onPressed: () {
-                                context
-                                    .read<UpComingCubit>()
-                                    .fetchUpUpcomingAppointments();
-                              },
-                              child: const Text("try again"))),
-                    );
-                  }
-                },
-              )
-            else if (_selectedIndex == 1)
-              BlocBuilder<UpComingCubit, UpComingState>(
-                builder: (context, state) {
-                  if (state is fetchUpCompleteAppointmentsLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is fetchUpCompleteAppointmentsSuccess) {
-                    return state.appointments.isEmpty
-                        ? const Center(
-                            child: Text("No complete Appointments"),
-                          )
-                        : SizedBox(
-                            width: size.width * 360 / 430,
-                            child: ListView.builder(
-                              itemCount: state.appointments.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                var appointment =
-                                    state.appointments[index]["doctor"];
-                                return cardComplete(
+                            onPressed: () {
+                              context
+                                  .read<UpComingCubit>()
+                                  .fetchUpUpcomingAppointments();
+                            },
+                            child: const Text("try again"),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                )
+              else if (_selectedIndex == 1)
+                BlocBuilder<UpComingCubit, UpComingState>(
+                  builder: (context, state) {
+                    if (state is fetchUpCompleteAppointmentsLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is fetchUpCompleteAppointmentsSuccess) {
+                      return state.appointments.isEmpty
+                          ? const Center(
+                              child: Text("No complete Appointments"),
+                            )
+                          : SizedBox(
+                              width: size.width * 360 / 430,
+                              child: ListView.builder(
+                                itemCount: state.appointments.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  var appointment =
+                                      state.appointments[index]["doctor"];
+                                  return cardComplete(
                                     name: appointment["name"],
                                     rating: appointment["stars"].toString(),
                                     specialty: specialties[
@@ -238,33 +246,58 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           builder: (context) => ChatterScreen(
                                             receiverId:
                                                 appointment["id"].toString(),
+                                            receiverName: appointment[
+                                                "name"], // Pass the doctor's name here
                                           ),
                                         ),
                                       );
                                     },
-                                    onVideoCallPressed: () {});
-                              },
-                            ),
-                          );
-                  } else if (state is fetchUpUpcomingAppointmentsFailure) {
-                    return Center(
-                      child: Text(state.error),
-                    );
-                  } else {
-                    return Center(
-                      child: Center(
+                                    onVideoCallPressed: () {},
+                                  );
+                                },
+                              ),
+                            );
+                    } else if (state is fetchUpUpcomingAppointmentsFailure) {
+                      return Center(
+                        child: Text(state.error),
+                      );
+                    } else {
+                      return Center(
+                        child: Center(
                           child: TextButton(
-                              onPressed: () {
-                                context
-                                    .read<UpComingCubit>()
-                                    .fetchUpCompleteAppointments();
-                              },
-                              child: const Text("try again"))),
-                    );
-                  }
-                },
-              )
-          ]))),
+                            onPressed: () {
+                              context
+                                  .read<UpComingCubit>()
+                                  .fetchUpCompleteAppointments();
+                            },
+                            child: const Text("try again"),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Characters {
+  final String id; // Define id as a String
+  final String name;
+
+  Characters({
+    required this.id,
+    required this.name,
+  });
+
+  factory Characters.fromJson(Map<String, dynamic> json) {
+    return Characters(
+      id: json['id'].toString(), // Convert id to String during parsing
+      name: json['name'],
     );
   }
 }
