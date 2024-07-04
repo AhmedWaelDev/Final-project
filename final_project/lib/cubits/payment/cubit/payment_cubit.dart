@@ -59,7 +59,7 @@ class PaymentCubit extends Cubit<PaymentState> {
 
       print("Payment successful");
       emit(PaymentSuccess());
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       String errorMessage = "An error occurred during payment.";
       if (e.response != null) {
         errorMessage = e.response!.data.toString();

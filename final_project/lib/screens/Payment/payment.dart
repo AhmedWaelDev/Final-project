@@ -1,4 +1,5 @@
-import 'package:final_project/cubits/payment/cubit/payment_cubit.dart';
+import 'package:final_project/cubits/auth/login/login_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // Import Flutter Bloc for BlocBuilder
 import 'package:final_project/CustomWidgets/payment1.dart';
@@ -24,7 +25,7 @@ class _PaymentState extends State<Payment> {
   void initState() {
     super.initState();
     // Load points when the widget initializes
-    context.read<PaymentCubit>().fetchPoints();
+    context.read<LoginCubit>().getUserProfile();
   }
 
   @override
@@ -32,15 +33,25 @@ class _PaymentState extends State<Payment> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: BlocBuilder<PaymentCubit, PaymentState>(
+      body: BlocBuilder<LoginCubit, LoginState>(
         builder: (context, state) {
-          // Check the current state and update UI accordingly
-          if (state is PaymentPointsLoaded) {
+          if (state is getUserDataSuccess) {
             return buildPaymentUI(
-                size, state.points); // Pass points to buildPaymentUI
-          } else {
+                size, state.user.points ?? 0); // Pass points to buildPaymentUI
+          } else if (state is getUserDataLoading) {
             // Handle other states if needed
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is getUserDataFailure) {
+            return Center(child: Text(state.errMessage));
+          } else {
+            return Center(
+              child: TextButton(
+                onPressed: () {
+                  context.read<LoginCubit>().getUserProfile();
+                },
+                child: const Text("try again"),
+              ),
+            );
           }
         },
       ),
@@ -77,8 +88,8 @@ class _PaymentState extends State<Payment> {
                   children: [
                     Text(
                       "$points Pts", // Display dynamic points here
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 30),
                     ),
                   ],
                 ),
