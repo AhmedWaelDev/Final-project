@@ -12,7 +12,7 @@ class Message {
     required this.senderId,
     required this.receiverId,
   });
-/*
+
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       content: json['content'],
@@ -20,14 +20,14 @@ class Message {
       senderId: json['senderId'],
       receiverId: json['receiverId'],
     );
-  }*/
+  }
 
   Map<String, dynamic> toMap() {
     return {
       'senderId': senderId,
       'receiverId': receiverId,
       'content': content,
-      'time': time
+      'time': time,
     };
   }
 }

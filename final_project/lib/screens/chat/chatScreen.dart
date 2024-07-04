@@ -8,6 +8,13 @@ import 'package:final_project/Service/serviceChat.dart';
 import 'package:final_project/cache/cache_helper.dart';
 
 class ChatterScreen extends StatefulWidget {
+  final String receiverId; // Receiver ID (doctor or patient ID)
+
+  const ChatterScreen({
+    Key? key,
+    required this.receiverId,
+  }) : super(key: key);
+
   @override
   _ChatterScreenState createState() => _ChatterScreenState();
 }
@@ -37,7 +44,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
       String currentUserId = CacheHelper().getData(key: "id") ?? "";
       String senderName = CacheHelper().getData(key: "name") ?? "";
       String text = _messageController.text;
-      String receiverId = 'receiver_id_here'; // Replace with actual receiver ID
+      String receiverId = widget.receiverId; // Replace with actual receiver ID
 
       String? imageUrl;
       if (_imageFile != null) {
@@ -115,22 +122,37 @@ class _ChatterScreenState extends State<ChatterScreen> {
       body: Column(
         children: [
           Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: _chatService.getMessages(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
-                }
+              child: StreamBuilder<QuerySnapshot>(
+            stream: _chatService.getMessages(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
 
-                final messages = snapshot.data!.docs;
-                return ListView.builder(
-                  reverse: true,
-                  controller: _scrollController,
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final message = messages[index];
-                    final isMe =
-                        message['sender'] == CacheHelper().getData(key: "id");
+              final messages = snapshot.data!.docs;
+              final String currentUserId =
+                  CacheHelper().getData(key: "id") ?? "";
+
+              return ListView.builder(
+                reverse: true,
+                controller: _scrollController,
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  final message = messages[index];
+                  final Map<String, dynamic> messageData =
+                      message.data() as Map<String, dynamic>;
+                  final String senderId = messageData['sender'];
+                  final String receiverId = messageData['receiverId'];
+
+                  // Check if the message involves the current user and the specified receiver
+                  final bool isSenderToReceiver = senderId == currentUserId &&
+                      receiverId == widget.receiverId;
+                  final bool isReceiverFromSender =
+                      senderId == widget.receiverId &&
+                          receiverId == currentUserId;
+
+                  if (isSenderToReceiver || isReceiverFromSender) {
+                    final bool isMe = senderId == currentUserId;
 
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -150,16 +172,14 @@ class _ChatterScreenState extends State<ChatterScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  message['senderName'],
+                                  messageData['senderName'],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
                                 ),
-                                if (message.data() is Map<String, dynamic> &&
-                                    (message.data() as Map<String, dynamic>)
-                                        .containsKey('imageUrl') &&
-                                    message['imageUrl'] != null)
+                                if (messageData.containsKey('imageUrl') &&
+                                    messageData['imageUrl'] != null)
                                   Stack(
                                     alignment: Alignment.center,
                                     children: [
@@ -172,17 +192,14 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                           ),
                                         ),
                                         child: Image.network(
-                                          message['imageUrl'],
+                                          messageData['imageUrl'],
                                           width: 250,
                                         ),
                                       ),
-                                      if (_uploadingImage &&
-                                          _imageFile ==
-                                              null) // Show loading indicator
+                                      if (_uploadingImage && _imageFile == null)
                                         CircularProgressIndicator(),
                                       if (_imageSelectedForUpload &&
-                                          _imageFile !=
-                                              null) // Show close button
+                                          _imageFile != null)
                                         Positioned(
                                           top: 0,
                                           right: 0,
@@ -191,10 +208,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                             color: Colors.red,
                                             onPressed: () {
                                               setState(() {
-                                                _imageFile =
-                                                    null; // Clear selected image
-                                                _imageSelectedForUpload =
-                                                    false; // Reset image selection
+                                                _imageFile = null;
+                                                _imageSelectedForUpload = false;
                                               });
                                             },
                                           ),
@@ -203,16 +218,14 @@ class _ChatterScreenState extends State<ChatterScreen> {
                                   ),
                                 SizedBox(height: 4),
                                 Text(
-                                  message['text'],
+                                  messageData['text'],
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
                                 ),
                                 SizedBox(height: 4),
                                 Text(
-                                  _formatTime((message.data()
-                                          as Map<String, dynamic>)['time']
-                                      .toDate()),
+                                  _formatTime(messageData['time'].toDate()),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.white,
@@ -224,11 +237,13 @@ class _ChatterScreenState extends State<ChatterScreen> {
                         ],
                       ),
                     );
-                  },
-                );
-              },
-            ),
-          ),
+                  } else {
+                    return Container();
+                  }
+                },
+              );
+            },
+          )),
           if (_imageFile != null)
             Padding(
               padding: const EdgeInsets.all(8.0),

@@ -1,6 +1,5 @@
-import 'package:final_project/cache/cache_helper.dart';
-import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
 
 class CustomChatItem extends StatelessWidget {
   final String imagePath;
@@ -8,6 +7,8 @@ class CustomChatItem extends StatelessWidget {
   final String message;
   final int unreadMessages;
   final String time;
+  final String receiverId; // Add receiverId as a property
+  // Add receiverName as a property
 
   const CustomChatItem({
     Key? key,
@@ -16,6 +17,8 @@ class CustomChatItem extends StatelessWidget {
     required this.message,
     required this.unreadMessages,
     required this.time,
+    required this.receiverId, // Initialize receiverId
+    // Initialize receiverName
   }) : super(key: key);
 
   @override
@@ -25,7 +28,11 @@ class CustomChatItem extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatterScreen()),
+          MaterialPageRoute(
+            builder: (context) => ChatterScreen(
+              receiverId: receiverId,
+            ),
+          ),
         );
       },
       child: Container(

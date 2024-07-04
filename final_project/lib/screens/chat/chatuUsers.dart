@@ -1,8 +1,8 @@
-import 'package:final_project/CustomWidgets/chats.dart';
-import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
-import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:final_project/cubits/online%20doctor/cubit/online_doc_cubit.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
+import 'package:final_project/CustomWidgets/chats.dart';
 
 class Chat extends StatefulWidget {
   const Chat({
@@ -86,19 +86,24 @@ class _ChatState extends State<Chat> {
                     height: size.height * 60 / 932,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: allCharacters.length,
+                      itemCount: searchedCharacters.length,
                       itemBuilder: (context, index) {
+                        var character = searchedCharacters[index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChatterScreen()),
+                                builder: (context) => ChatterScreen(
+                                  receiverId: character.id,
+                                ),
+                              ),
                             );
                           },
                           child: Padding(
-                            padding:
-                                EdgeInsets.only(right: size.width * 15 / 320),
+                            padding: EdgeInsets.only(
+                              right: size.width * 15 / 320,
+                            ),
                             child: Container(
                               width: size.width * 50 / 320,
                               height: size.height * 60 / 932,
@@ -145,6 +150,7 @@ class _ChatState extends State<Chat> {
                     message: "How are you?",
                     unreadMessages: 5,
                     time: "10:30 PM",
+                    receiverId: character.id,
                   );
                 }).toList(),
               ),
@@ -225,14 +231,17 @@ class _ChatState extends State<Chat> {
 }
 
 class Characters {
+  final String id; // Define id as a String
   final String name;
 
   Characters({
+    required this.id,
     required this.name,
   });
 
   factory Characters.fromJson(Map<String, dynamic> json) {
     return Characters(
+      id: json['id'].toString(), // Convert id to String during parsing
       name: json['name'],
     );
   }

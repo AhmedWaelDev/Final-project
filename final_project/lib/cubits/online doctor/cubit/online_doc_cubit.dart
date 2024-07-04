@@ -14,6 +14,7 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
   void fetchOnlineDoctors(int specialtyId) async {
     emit(OnlineDocLoading());
     try {
+      final id = CacheHelper().getData(key: "id");
       final token = CacheHelper().getData(key: "token");
       final response = await _dio.get(
         '$baseUrl/doctors/online',
