@@ -1,3 +1,4 @@
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/roomDB/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 
@@ -26,13 +27,10 @@ class _NewScreenState extends State<NewScreen> {
         ),
         ElevatedButton(
           onPressed: () {
-            if (time == TimeOfDay.now().format(context).toString()) {
-              print(
-                  "yeeeeeeeeeeeeeeeeeeeeeeees\n${TimeOfDay.now().format(context)}");
-            }
-            print(TimeOfDay.now().format(context).toString());
+            print(int.parse(CacheHelper().getData(key: "id")).runtimeType);
+            print(CacheHelper().getData(key: "id"));
           },
-          child: const Text('compair'),
+          child: const Text('runtimeType'),
         ),
         ElevatedButton(
           onPressed: () async {

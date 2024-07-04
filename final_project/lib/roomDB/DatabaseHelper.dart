@@ -72,7 +72,7 @@ class DatabaseHelper {
   Future<void> _createDb(Database db, int version) async {
     await db.execute('''
         CREATE TABLE medicines(
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          id INTEGER PRIMARY KEY ,
           name TEXT,
           breakfast TEXT,
           lunch TEXT,
