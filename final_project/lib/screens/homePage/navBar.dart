@@ -113,7 +113,7 @@ class _myNavBarState extends State<myNavBar> {
                         onPressed: () {
                           setState(() {
                             currentScreen = widget.isDoctor
-                                ? const Doctors()
+                                ? const PatientChat()
                                 : const Chat();
                             currentTab = 1;
                           });
