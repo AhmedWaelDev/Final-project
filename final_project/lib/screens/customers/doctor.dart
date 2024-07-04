@@ -268,11 +268,7 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                           doctor['p_counter'] ??
                                                               0,
                                                       rating: doctor["stars"]
-                                                              is int
-                                                          ? intToDouble(
-                                                              doctor["stars"])
-                                                          : (doctor["stars"] ??
-                                                              0),
+                                                          .toString(),
                                                       spciality: doctor[
                                                                   'specialtyId'] !=
                                                               null
@@ -286,9 +282,7 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                     ),
                                                   ));
                                             },
-                                            rating: doctor["stars"] is int
-                                                ? intToDouble(doctor["stars"])
-                                                : (doctor["stars"] ?? 0),
+                                            rating: doctor["stars"].toString(),
                                             specialty: doctor['specialtyId'] !=
                                                     null
                                                 ? specialties[
@@ -372,11 +366,7 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                           doctor['p_counter'] ??
                                                               0,
                                                       rating: doctor["stars"]
-                                                              is int
-                                                          ? intToDouble(
-                                                              doctor["stars"])
-                                                          : (doctor["stars"] ??
-                                                              0),
+                                                          .toString(),
                                                       spciality: doctor[
                                                                   'specialtyId'] !=
                                                               null
@@ -392,10 +382,8 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                     ),
                                                   ));
                                             },
-                                            rating: doctor["stars"] is int
-                                                ? intToDouble(doctor["stars"])
-                                                : (doctor["stars"] ??
-                                                    0), // Replace with actual rating data
+                                            rating: doctor["stars"]
+                                                .toString(), // Replace with actual rating data
                                             specialty: doctor['specialtyId'] !=
                                                     null
                                                 ? specialties[

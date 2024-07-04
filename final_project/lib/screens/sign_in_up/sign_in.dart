@@ -21,6 +21,7 @@ class logIn extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
+          print("Login successful, fetching user profile...");
           context.read<LoginCubit>().getUserProfile();
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -29,14 +30,18 @@ class logIn extends StatelessWidget {
             ),
           );
         } else if (state is getUserDataSuccess) {
+          print("User data fetched successfully, navigating to home...");
           CacheHelper().saveData(
               key: "isDoctorAsBool", value: state.user.isDoctorAsBool());
-          Navigator.of(context).push(
+          // Navigate to the new screen
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) =>
                   myNavBar(isDoctor: state.user.isDoctorAsBool()),
             ),
           );
+        } else {
+          print("Unhandled state: $state");
         }
       },
       builder: (context, state) {

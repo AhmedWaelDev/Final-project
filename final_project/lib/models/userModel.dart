@@ -11,7 +11,7 @@ class UserModel {
   final int? specialtyId;
   final int isDoctor;
   final int? experience;
-  final int? stars;
+  final String? stars;
   final int? p_counter;
   final int? points;
   final int? ratings_count;
@@ -50,7 +50,7 @@ class UserModel {
       isDoctor: jsonData[
           "isDoctor"], // Ensure this correctly reflects your JSON structure
       experience: jsonData["experience"],
-      stars: jsonData["stars"],
+      stars: jsonData["stars"].toString(),
       p_counter: jsonData["p_counter"],
       points: jsonData["points"],
       ratings_count: jsonData["ratings_count"],
