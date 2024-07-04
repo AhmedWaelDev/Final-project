@@ -82,7 +82,8 @@ class LoginCubit extends Cubit<LoginState> {
             value: (response.data["date_of_birth"] ?? "2002-07-13"));
         CacheHelper().saveData(
             key: "experience", value: (response.data["experience"] ?? "0"));
-        CacheHelper().saveData(key: "price", value: response.data["price"]);
+        CacheHelper()
+            .saveData(key: "price", value: response.data["price"] ?? "0");
         CacheHelper().saveData(
             key: "specialtyId", value: (response.data["specialtyId"] ?? "0"));
         CacheHelper().saveData(

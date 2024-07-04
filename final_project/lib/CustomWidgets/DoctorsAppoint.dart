@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DoctorsAppoint extends StatefulWidget {
   final String name;
-  final double rating;
+  final String rating;
   final String specialty;
   final VoidCallback onChatPressed;
 
@@ -64,7 +64,7 @@ class _cardCompleteState extends State<DoctorsAppoint> {
                     children: [
                       const Icon(Icons.star, color: Colors.yellow),
                       SizedBox(width: size.width * 3 / 430),
-                      Text(widget.rating.toString()),
+                      Text(widget.rating),
                       SizedBox(width: size.width * 8 / 430),
                       SizedBox(
                         width: size.width * 80 / 430,

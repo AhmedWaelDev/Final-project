@@ -15,7 +15,6 @@ class _StarterPaymentState extends State<StarterPayment> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    const int points = 500;
     return BlocConsumer<PaymentCubit, PaymentState>(
       listener: (context, state) {
         if (state is PaymentSuccess) {

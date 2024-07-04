@@ -73,7 +73,8 @@ class UpdateInformationCubit extends Cubit<UpdateInformationState> {
 
   Future<void> UpdatedoctorInformation() async {
     if (speciality == "") {
-      finalSpecialtyId = (CacheHelper().getData(key: "name") ?? 0);
+      finalSpecialtyId =
+          (int.parse(CacheHelper().getData(key: "specialtyId")) ?? 0);
     } else {
       finalSpecialtyId = getIndexOfString(specialties, speciality) + 1;
     }
@@ -128,6 +129,10 @@ class UpdateInformationCubit extends Cubit<UpdateInformationState> {
       emit(UpdateDoctorInformationFailure(
           e.response?.data["message"] ?? "Unknown error"));
     } catch (e) {
+      print('Invalid price value: ${price.text}');
+      print(
+          'Invalid chach price value: ${CacheHelper().getData(key: "price")}');
+
       print("failed with error: $e");
       emit(UpdateDoctorInformationFailure(e.toString()));
     }

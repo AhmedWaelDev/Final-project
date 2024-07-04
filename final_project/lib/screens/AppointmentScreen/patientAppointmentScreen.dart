@@ -1,5 +1,6 @@
 import 'package:final_project/cubits/Appointment/up_coming/up_coming_cubit.dart';
 import 'package:final_project/models/Helper.dart';
+import 'package:final_project/screens/chat/chatScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -170,7 +171,16 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   rating: doctor["stars"].toString(),
                                   specialty:
                                       specialties[doctor["specialtyId"] - 1],
-                                  onChatPressed: () {},
+                                  onChatPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ChatterScreen(
+                                          receiverId: doctor["id"].toString(),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   onVideoCallPressed: () {},
                                   video: 'Video call',
                                 );
@@ -221,7 +231,17 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     rating: appointment["stars"].toString(),
                                     specialty: specialties[
                                         appointment["specialtyId"] - 1],
-                                    onChatPressed: () {},
+                                    onChatPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatterScreen(
+                                            receiverId:
+                                                appointment["id"].toString(),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                     onVideoCallPressed: () {});
                               },
                             ),

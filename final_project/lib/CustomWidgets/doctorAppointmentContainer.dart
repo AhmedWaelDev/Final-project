@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class doctorAppointContainer extends StatelessWidget {
-  const doctorAppointContainer({super.key, this.name, this.age});
+  const doctorAppointContainer(
+      {super.key,
+      this.name,
+      this.age,
+      required this.onChatPressed,
+      required this.onvedioPressed});
   final String? name;
   final String? age;
+  final VoidCallback onChatPressed;
+  final VoidCallback onvedioPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,7 @@ class doctorAppointContainer extends StatelessWidget {
         ),
         trailing: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
           InkWell(
-            onTap: () {},
+            onTap: onChatPressed,
             child: Container(
               height: size.height * 40 / 932,
               width: size.height * 50 / 932,
@@ -56,7 +63,7 @@ class doctorAppointContainer extends StatelessWidget {
             width: size.width * 5 / 932,
           ),
           InkWell(
-            onTap: () {},
+            onTap: onvedioPressed,
             child: Container(
               height: size.height * 40 / 932,
               width: size.height * 50 / 932,

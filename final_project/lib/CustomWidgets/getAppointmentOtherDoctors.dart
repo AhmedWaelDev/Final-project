@@ -14,7 +14,7 @@ class getAppointmentOtherDoctors extends StatelessWidget {
   final Size size;
   final String name;
   final String speciality;
-  final double rate;
+  final String rate;
   final VoidCallback? function;
 
   @override
@@ -73,7 +73,7 @@ class getAppointmentOtherDoctors extends StatelessWidget {
                       ),
                     ),
                     RatingBarIndicator(
-                      rating: rate,
+                      rating: double.parse(rate),
                       itemSize: 20,
                       itemBuilder: (context, index) {
                         return const Icon(

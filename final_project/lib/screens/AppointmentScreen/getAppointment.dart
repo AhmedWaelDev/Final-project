@@ -25,7 +25,7 @@ class GetAppointment extends StatelessWidget {
   final int spcialityId;
   final int patientNumber;
   final int experiance;
-  final double rating;
+  final String rating;
   final int ratingCOunt;
   final int listIndex;
   final int price;
@@ -175,7 +175,7 @@ class GetAppointment extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '$rating',
+                                        rating,
                                         style: TextStyle(
                                           fontSize: size.height * 19 / 932,
                                           fontWeight: FontWeight.bold,
@@ -215,7 +215,7 @@ class GetAppointment extends StatelessWidget {
                             Column(
                               children: [
                                 Text(
-                                  '$rating',
+                                  rating,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: size.height * 60 / 932,
@@ -223,7 +223,7 @@ class GetAppointment extends StatelessWidget {
                                   ),
                                 ),
                                 RatingBarIndicator(
-                                  rating: rating,
+                                  rating: double.parse(rating),
                                   itemSize: 20,
                                   itemBuilder: (context, index) {
                                     return const Icon(
@@ -317,11 +317,7 @@ class GetAppointment extends StatelessWidget {
                                                           doctor['p_counter'] ??
                                                               0,
                                                       rating: doctor["stars"]
-                                                              is int
-                                                          ? intToDouble(
-                                                              doctor["stars"])
-                                                          : (doctor["stars"] ??
-                                                              0),
+                                                          .toString(),
                                                       spciality: doctor[
                                                                   'specialtyId'] !=
                                                               null
@@ -339,9 +335,7 @@ class GetAppointment extends StatelessWidget {
                                                   ));
                                             },
                                             name: doctor['name'] ?? 'No Name',
-                                            rate: doctor["stars"] is int
-                                                ? intToDouble(doctor["stars"])
-                                                : (doctor["stars"] ?? 0),
+                                            rate: doctor["stars"].toString(),
                                             speciality: doctor['specialtyId'] !=
                                                     null
                                                 ? specialties[
