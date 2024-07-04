@@ -97,6 +97,7 @@ class _PatientChatState extends State<PatientChat> {
                               MaterialPageRoute(
                                 builder: (context) => ChatterScreen(
                                   receiverId: character.id,
+                                  receiverName: character.name,
                                 ),
                               ),
                             );
@@ -146,14 +147,15 @@ class _PatientChatState extends State<PatientChat> {
               Column(
                 children: searchedCharacters.map((character) {
                   return CustomChatItem(
-                    imagePath: "assets/images/drchat.png",
-                    name: character.name,
-                    message: "How are you?",
-                    unreadMessages: 5,
-                    time: "10:30 PM",
-                    receiverId: character.id,
-                    // Pass receiverName
-                  );
+                      imagePath: "assets/images/drchat.png",
+                      name: character.name,
+                      message: "Show message",
+                      unreadMessages: 1,
+                      time: "10:30 PM",
+                      receiverId: character.id,
+                      receiverName: character.name
+                      // Pass receiverName
+                      );
                 }).toList(),
               ),
           ],

@@ -1,18 +1,18 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:final_project/Service/serviceChat.dart';
 import 'package:final_project/cache/cache_helper.dart';
 
 class ChatterScreen extends StatefulWidget {
   final String receiverId; // Receiver ID (doctor or patient ID)
+  final String receiverName;
 
   const ChatterScreen({
     Key? key,
     required this.receiverId,
+    required this.receiverName,
   }) : super(key: key);
 
   @override
@@ -29,9 +29,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
       false; // State for indicating image selected for upload
   final ChatService _chatService = ChatService();
 
-  bool isSending =
-      false; // State for showing loading indicator when sending message
-
   void _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
@@ -44,11 +41,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
 
   void _sendMessage() async {
     if (_messageController.text.isNotEmpty || _imageFile != null) {
-      setState(() {
-        isSending =
-            true; // Start showing loading indicator when sending message
-      });
-
       String currentUserId = CacheHelper().getData(key: "id") ?? "";
       String senderName = CacheHelper().getData(key: "name") ?? "";
       String text = _messageController.text;
@@ -76,8 +68,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
       _messageController.clear();
       setState(() {
         _imageFile = null; // Clear selected image after sending
-        isSending =
-            false; // Stop showing loading indicator when sending message is done
       });
     }
   }
@@ -122,9 +112,9 @@ class _ChatterScreenState extends State<ChatterScreen> {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
-          'Chatter',
-          style: TextStyle(color: Colors.black), // Adjust title color
+        title: Text(
+          widget.receiverName,
+          style: const TextStyle(color: Colors.black), // Adjust title color
         ),
         centerTitle: true,
         elevation: 0, // Remove app bar shadow
@@ -312,19 +302,11 @@ class _ChatterScreenState extends State<ChatterScreen> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: isSending
-                      ? Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2.0,
-                          ),
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.send),
-                          color: Colors.white,
-                          onPressed: _sendMessage,
-                        ),
+                  child: IconButton(
+                    icon: Icon(Icons.send),
+                    color: Colors.white,
+                    onPressed: _sendMessage,
+                  ),
                 ),
               ],
             ),
