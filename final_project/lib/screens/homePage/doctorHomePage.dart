@@ -166,7 +166,6 @@ class doctorHomePage extends StatelessWidget {
                           },
                         ),
                       ),
-
                       SizedBox(height: size.height * 10 / 932),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,6 +217,8 @@ class doctorHomePage extends StatelessWidget {
                                       MaterialPageRoute(
                                         builder: (context) => ChatterScreen(
                                           receiverId: patient["id"].toString(),
+                                          receiverName: patient[
+                                              "name"], // Pass the patient's name here
                                         ),
                                       ),
                                     );
