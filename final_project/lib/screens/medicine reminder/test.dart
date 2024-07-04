@@ -1,4 +1,3 @@
-import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/roomDB/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 
@@ -27,16 +26,19 @@ class _NewScreenState extends State<NewScreen> {
         ),
         ElevatedButton(
           onPressed: () {
-            print(int.parse(CacheHelper().getData(key: "id")).runtimeType);
-            print(CacheHelper().getData(key: "id"));
+            if (time == TimeOfDay.now().format(context).toString()) {
+              print(
+                  "yeeeeeeeeeeeeeeeeeeeeeeees\n${TimeOfDay.now().format(context)}");
+            }
+            print(TimeOfDay.now().format(context).toString());
           },
-          child: const Text('runtimeType'),
+          child: const Text('compair'),
         ),
         ElevatedButton(
           onPressed: () async {
             await _databaseHelper.mydeleteDatabase();
           },
-          child: const Text(' delete it  '),
+          child: const Text(' delete it '),
         ),
         ElevatedButton(
           onPressed: () async {

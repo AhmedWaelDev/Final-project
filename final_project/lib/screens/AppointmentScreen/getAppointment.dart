@@ -335,7 +335,7 @@ class GetAppointment extends StatelessWidget {
                                                   ));
                                             },
                                             name: doctor['name'] ?? 'No Name',
-                                            rate: doctor["stars"].toString(),
+                                            rate: doctor["stars"] ?? "0",
                                             speciality: doctor['specialtyId'] !=
                                                     null
                                                 ? specialties[
