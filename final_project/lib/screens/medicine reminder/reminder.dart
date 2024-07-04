@@ -104,7 +104,7 @@ class _myReminderState extends State<myReminder> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AddMedicine()),
+                          builder: (context) => const NewScreen()),
                     );
                   },
                   child: Text("+  Add New",
