@@ -1,6 +1,10 @@
+import 'package:final_project/CustomWidgets/DoctorsAppoint.dart';
+import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/Appointment/up_coming/up_coming_cubit.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
+import 'package:final_project/cubits/doctor/online%20doctors/cubit/online_doctors_cubit.dart';
 import 'package:final_project/models/Helper.dart';
+import 'package:final_project/screens/AppointmentScreen/getAppointment.dart';
 import 'package:final_project/screens/chat/chatuUsers.dart';
 import 'package:final_project/screens/medicine%20reminder/reminder.dart';
 
@@ -25,8 +29,16 @@ class patienthomePagescreen extends StatelessWidget {
 
     int selectedSpecialtyIndex = 0;
     // const mainColor = Color(0xFF50B7C5);
-    return BlocProvider(
-      create: (context) => UpComingCubit()..fetchUpUserAppointments(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => OnlineDoctorsCubit()
+            ..fetchOnlineDoctorsBySpeciality(selectedSpecialtyIndex + 1),
+        ),
+        BlocProvider(
+          create: (context) => UpComingCubit()..fetchUpUserAppointments(),
+        ),
+      ],
       child: Scaffold(
         body: Container(
           padding: EdgeInsets.only(
@@ -281,8 +293,9 @@ class patienthomePagescreen extends StatelessWidget {
                       SizedBox(
                         height: size.height * 160 / 932,
                         child: FutureBuilder<List<Medicine>>(
-                          future: DatabaseHelper()
-                              .getMedicinesForDate(DateTime.now()),
+                          future: DatabaseHelper().getMedicinesForDateAndId(
+                              DateTime.now(),
+                              int.parse(CacheHelper().getData(key: "id"))),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
@@ -370,6 +383,10 @@ class patienthomePagescreen extends StatelessWidget {
                                       onTap: () {
                                         setState(() {
                                           selectedSpecialtyIndex = index;
+                                          context
+                                              .read<OnlineDoctorsCubit>()
+                                              .fetchOnlineDoctorsBySpeciality(
+                                                  index + 1);
                                         });
                                       },
                                       child: Container(
@@ -403,6 +420,95 @@ class patienthomePagescreen extends StatelessWidget {
                                   }));
                         },
                       ),
+                      BlocBuilder<OnlineDoctorsCubit, OnlineDoctorsState>(
+                        builder: (context, state) {
+                          return state is OnlineDoctorsLoading
+                              ? SizedBox(
+                                  height: size.height * 250 / 932,
+                                  child: const Center(
+                                      child: CircularProgressIndicator()))
+                              : state is OnlineDoctorsLoaded
+                                  ? Container(
+                                      margin: EdgeInsets.only(
+                                          top: size.height * 20 / 932),
+                                      height: size.height * 200 / 932,
+                                      child: state.doctors.isEmpty
+                                          ? Center(
+                                              child: Text(
+                                                'No Available Doctors',
+                                                style: TextStyle(
+                                                    color:
+                                                        const Color(0xFF50B7C5),
+                                                    fontSize:
+                                                        size.height * 25 / 932),
+                                              ),
+                                            )
+                                          : ListView.builder(
+                                              itemCount: state.doctors.length,
+                                              itemBuilder: (context, index) {
+                                                final doctor = state
+                                                    .doctors[index]["doctor"];
+                                                return DoctorsAppoint(
+                                                  name: doctor['name'] ??
+                                                      'No Name Available',
+                                                  onChatPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GetAppointment(
+                                                            doctorId:
+                                                                doctor["id"] ??
+                                                                    0,
+                                                            price: doctor[
+                                                                    "price"] ??
+                                                                0,
+                                                            listIndex: index,
+                                                            name:
+                                                                "${doctor['name'] ?? 'unKown'}",
+                                                            experiance: doctor[
+                                                                    'experience'] ??
+                                                                0,
+                                                            patientNumber: doctor[
+                                                                    'p_counter'] ??
+                                                                0,
+                                                            rating:
+                                                                doctor["stars"]
+                                                                    .toString(),
+                                                            spciality: doctor[
+                                                                        'specialtyId'] !=
+                                                                    null
+                                                                ? specialties[
+                                                                    doctor[
+                                                                        'specialtyId']]
+                                                                : 'Unknown Specialty',
+                                                            ratingCOunt: doctor[
+                                                                    "ratings_count"] ??
+                                                                0,
+                                                            spcialityId: doctor[
+                                                                    "specialtyId"] ??
+                                                                1,
+                                                          ),
+                                                        ));
+                                                  },
+                                                  rating: doctor["stars"]
+                                                      .toString(), // Replace with actual rating data
+                                                  specialty: doctor[
+                                                              'specialtyId'] !=
+                                                          null
+                                                      ? specialties[doctor[
+                                                              'specialtyId'] -
+                                                          1]
+                                                      : 'Unknown Specialty',
+                                                );
+                                              },
+                                            ),
+                                    )
+                                  : state is OnlineDoctorsError
+                                      ? Text(state.message)
+                                      : const Text("failed");
+                        },
+                      )
                     ],
                   ),
                 ),

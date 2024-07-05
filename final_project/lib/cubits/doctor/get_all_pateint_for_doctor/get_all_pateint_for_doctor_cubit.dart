@@ -20,7 +20,7 @@ class GetAllPateintForDoctorCubit extends Cubit<GetAllPateintForDoctorState> {
           'Authorization': 'Bearer $token',
         }),
       );
-
+      print(response.data["meta"]["0"]);
       emit(GetAllPateintForDoctorsuccess(patients: response.data["meta"]));
     } on DioException catch (e) {
       emit(GetAllPateintForDoctorFailure(

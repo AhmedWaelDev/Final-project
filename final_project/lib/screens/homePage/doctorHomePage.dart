@@ -203,30 +203,35 @@ class doctorHomePage extends StatelessWidget {
                           if (state is GetAllPateintForDoctorLoading) {
                             return const CircularProgressIndicator();
                           } else if (state is GetAllPateintForDoctorsuccess) {
-                            return ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: state.patients.length,
-                              itemBuilder: (context, index) {
-                                final patient = state.patients[index];
-                                return doctorAppointContainer(
-                                  name: patient["name"],
-                                  onChatPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ChatterScreen(
-                                          receiverId: patient["id"].toString(),
-                                          receiverName: patient[
-                                              "name"], // Pass the patient's name here
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  onvedioPressed: () {},
-                                );
-                              },
-                            );
+                            return state.patients.isEmpty
+                                ? const Center(child: Text("No patients "))
+                                : ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: state.patients.length - 1,
+                                    itemBuilder: (context, index) {
+                                      final patient = state.patients["$index"];
+                                      return doctorAppointContainer(
+                                        name: patient["name"],
+                                        onChatPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ChatterScreen(
+                                                receiverId:
+                                                    patient["id"].toString(),
+                                                receiverName: patient[
+                                                    "name"], // Pass the patient's name here
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        onvedioPressed: () {},
+                                      );
+                                    },
+                                  );
                           } else if (state is GetAllPateintForDoctorFailure) {
                             return Center(
                               child: Text(state.errMessage),

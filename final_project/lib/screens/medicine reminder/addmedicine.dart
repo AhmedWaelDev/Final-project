@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/screens/homePage/navBar.dart';
 import 'package:final_project/screens/medicine%20reminder/reminder.dart';
 import 'package:flutter/material.dart';
 
@@ -596,11 +597,13 @@ class _addMedicineState extends State<AddMedicine> {
             duration: Duration(seconds: 3),
           ));
           Future.delayed(const Duration(milliseconds: 500), () {
-            Navigator.pushReplacement(
+            Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const myReminder(),
-              ),
+                  builder: (context) => myNavBar(
+                        isDoctor: CacheHelper().getData(key: "isDoctorAsBool"),
+                      )),
+              (Route<dynamic> route) => false,
             );
           });
         } else {

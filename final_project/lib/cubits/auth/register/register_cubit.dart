@@ -110,7 +110,6 @@ class RegisterCubit extends Cubit<RegisterState> {
         "$baseUrl/verify-email",
         data: {'email': email, 'otp': otpString},
       );
-      print(response);
 
       emit(otpSuccess());
     } on DioException catch (e) {

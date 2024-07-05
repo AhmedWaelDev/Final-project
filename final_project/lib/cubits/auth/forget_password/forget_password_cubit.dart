@@ -35,7 +35,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         '$baseUrl/forgot-password',
         data: {"email": Email.text},
       );
-      print(response);
 
       emit(forgetPasswordSuccess());
       print("success");
@@ -63,7 +62,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         "$baseUrl/validate-otp",
         data: {"email": Email.text, "otp": otpString},
       );
-      print(response);
 
       emit(otpSuccess());
     } catch (e) {
@@ -83,7 +81,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
           "password_confirmation": confirmPassword.text
         },
       );
-      print(response);
       emit(resetPassowrdSuccess());
       print("success");
     } on DioException catch (e) {

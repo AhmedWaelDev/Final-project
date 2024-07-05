@@ -72,7 +72,7 @@ class DatabaseHelper {
   Future<void> _createDb(Database db, int version) async {
     await db.execute('''
         CREATE TABLE medicines(
-          id INTEGER PRIMARY KEY ,
+          id INTEGER ,
           name TEXT,
           breakfast TEXT,
           lunch TEXT,
@@ -128,16 +128,17 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Medicine>> getMedicinesForDate(DateTime date) async {
+  Future<List<Medicine>> getMedicinesForDateAndId(DateTime date, int id) async {
     Database db = await database;
     final startOfDay = DateTime(date.year, date.month, date.day);
     final endOfDay = DateTime(date.year, date.month, date.day + 1);
     List<Map<String, dynamic>> maps = await db.query(
       'medicines',
-      where: 'reminderTime >= ? AND reminderTime < ?',
+      where: 'reminderTime >= ? AND reminderTime < ? AND id = ?',
       whereArgs: [
         startOfDay.millisecondsSinceEpoch,
-        endOfDay.millisecondsSinceEpoch
+        endOfDay.millisecondsSinceEpoch,
+        id,
       ],
     );
     return List.generate(maps.length, (index) {

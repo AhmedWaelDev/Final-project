@@ -27,7 +27,6 @@ class CreateAppointmentCubit extends Cubit<CreateAppointmentState> {
               'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
             },
           ));
-      print(response);
       emit(CreateAppointmentsuccess());
 
       print("success");

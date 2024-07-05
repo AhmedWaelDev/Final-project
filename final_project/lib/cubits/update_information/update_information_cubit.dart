@@ -26,6 +26,7 @@ class UpdateInformationCubit extends Cubit<UpdateInformationState> {
         name.text.isEmpty ? CacheHelper().getData(key: "name") : name.text;
     String finalNumber = number.text.isEmpty
         ? (CacheHelper().getData(key: "phone") ?? "0")
+            .toString() // Ensure finalNumber is a string
         : number.text;
     String finalBirthDate = birthDate == ""
         ? CacheHelper().getData(key: "date_of_birth")
@@ -74,28 +75,49 @@ class UpdateInformationCubit extends Cubit<UpdateInformationState> {
   Future<void> UpdatedoctorInformation() async {
     if (speciality == "") {
       finalSpecialtyId =
-          (int.parse(CacheHelper().getData(key: "specialtyId")) ?? 0);
+          (CacheHelper().getData(key: "specialtyId") ?? "0").toString();
     } else {
-      finalSpecialtyId = getIndexOfString(specialties, speciality) + 1;
+      finalSpecialtyId =
+          (getIndexOfString(specialties, speciality) + 1).toString();
     }
     print("specialityID : $finalSpecialtyId");
+
     String finalName =
         name.text.isEmpty ? CacheHelper().getData(key: "name") : name.text;
-    String finalprice =
-        price.text.isEmpty ? CacheHelper().getData(key: "price") : price.text;
+
+    var cachePrice = CacheHelper().getData(key: "price");
+    print("Cache price type: ${cachePrice.runtimeType}");
+    String finalprice = price.text.isEmpty
+        ? cachePrice.toString()
+        : price.text; // Ensure finalprice is a string
+
+    var cacheExperience = CacheHelper().getData(key: "experience");
+    print("Cache experience type: ${cacheExperience.runtimeType}");
     String finalExperience = experience.text.isEmpty
-        ? CacheHelper().getData(key: "experience")
-        : experience.text;
-    String finalNumber =
-        number.text.isEmpty ? CacheHelper().getData(key: "phone") : number.text;
-    String finalBirthDate = birthDate == ""
-        ? CacheHelper().getData(key: "date_of_birth")
-        : birthDate;
-    String finalBloodGroup = bloodGroup == ""
-        ? CacheHelper().getData(key: "blood_group")
-        : bloodGroup;
-    String finalGender =
-        gender == "" ? CacheHelper().getData(key: "gender") : gender;
+        ? cacheExperience.toString()
+        : experience.text; // Ensure finalExperience is a string
+
+    var cachePhone = CacheHelper().getData(key: "phone");
+    print("Cache phone type: ${cachePhone.runtimeType}");
+    String finalNumber = number.text.isEmpty
+        ? cachePhone.toString()
+        : number.text; // Ensure finalNumber is a string
+
+    var cacheBirthDate = CacheHelper().getData(key: "date_of_birth");
+    print("Cache date_of_birth type: ${cacheBirthDate.runtimeType}");
+    String finalBirthDate = birthDate.isEmpty ? cacheBirthDate : birthDate;
+
+    var cacheBloodGroup = CacheHelper().getData(key: "blood_group");
+    print("Cache blood_group type: ${cacheBloodGroup.runtimeType}");
+    String finalBloodGroup = bloodGroup.isEmpty
+        ? cacheBloodGroup.toString()
+        : bloodGroup; // Ensure finalBloodGroup is a string
+
+    var cacheGender = CacheHelper().getData(key: "gender");
+    print("Cache gender type: ${cacheGender.runtimeType}");
+    String finalGender = gender.isEmpty
+        ? cacheGender.toString()
+        : gender; // Ensure finalGender is a string
 
     try {
       emit(UpdateDoctorInformationLoading());
@@ -131,8 +153,7 @@ class UpdateInformationCubit extends Cubit<UpdateInformationState> {
     } catch (e) {
       print('Invalid price value: ${price.text}');
       print(
-          'Invalid chach price value: ${CacheHelper().getData(key: "price")}');
-
+          'Invalid cache price value: ${CacheHelper().getData(key: "price")}');
       print("failed with error: $e");
       emit(UpdateDoctorInformationFailure(e.toString()));
     }

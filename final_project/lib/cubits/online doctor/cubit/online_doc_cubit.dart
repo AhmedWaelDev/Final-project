@@ -25,12 +25,8 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
         ),
       );
 
-      print('fetchOnlineDoctors - Response status: ${response.statusCode}');
-      print('fetchOnlineDoctors - Response body: ${response.data}');
-
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['doctors'];
-        print('fetchOnlineDoctors - Data: $data');
         emit(OnlineDocLoaded(data));
       } else {
         print(
@@ -57,12 +53,8 @@ class OnlineDocCubit extends Cubit<OnlineDocState> {
         ),
       );
 
-      print('fetchAllDoctors - Response status: ${response.statusCode}');
-      print('fetchAllDoctors - Response body: ${response.data}');
-
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
-        print('fetchAllDoctors - Data: $data');
         emit(OnlineDocLoaded(data));
       } else {
         print(

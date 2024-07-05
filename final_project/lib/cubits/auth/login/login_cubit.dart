@@ -74,7 +74,6 @@ class LoginCubit extends Cubit<LoginState> {
               'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
             },
           ));
-      print(response.data);
       if (response.statusCode == 200) {
         CacheHelper().saveData(key: "name", value: response.data["name"]);
         CacheHelper().saveData(

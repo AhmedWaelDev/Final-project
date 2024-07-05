@@ -28,7 +28,6 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
               'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
             },
           ));
-      print(response);
 
       emit(ChangePasswordSuccess());
       print("success");

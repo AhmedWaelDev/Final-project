@@ -316,8 +316,8 @@ class GetAppointment extends StatelessWidget {
                                                       patientNumber:
                                                           doctor['p_counter'] ??
                                                               0,
-                                                      rating: doctor["stars"]
-                                                          .toString(),
+                                                      rating:
+                                                          "${doctor["stars"] ?? "0"}",
                                                       spciality: doctor[
                                                                   'specialtyId'] !=
                                                               null
@@ -335,7 +335,7 @@ class GetAppointment extends StatelessWidget {
                                                   ));
                                             },
                                             name: doctor['name'] ?? 'No Name',
-                                            rate: doctor["stars"] ?? "0",
+                                            rate: "${doctor["stars"] ?? "0"}",
                                             speciality: doctor['specialtyId'] !=
                                                     null
                                                 ? specialties[

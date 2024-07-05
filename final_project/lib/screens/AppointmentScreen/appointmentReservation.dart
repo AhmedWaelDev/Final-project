@@ -191,14 +191,18 @@ class _AppointmentReservationState extends State<appointmentReservation> {
                                             ))
                                           : ListView.builder(
                                               scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  state.schedule.length - 1,
+                                              itemCount: state.schedule.length,
                                               itemBuilder: (context, index) {
                                                 schdualeId =
                                                     state.schedule[index]["id"];
                                                 final time =
                                                     state.schedule[index]
                                                         ["start_time"];
+                                                final isReserved =
+                                                    state.schedule[index]
+                                                            ["is_reserved"] ==
+                                                        1;
+
                                                 return Container(
                                                   margin: EdgeInsets.symmetric(
                                                       horizontal:
@@ -207,35 +211,41 @@ class _AppointmentReservationState extends State<appointmentReservation> {
                                                     label: Text(
                                                       convertTimeFormat(time),
                                                       style: TextStyle(
-                                                        color:
-                                                            _selectedTimeIndex ==
+                                                        color: isReserved
+                                                            ? Colors.red[900]
+                                                            : (_selectedTimeIndex ==
                                                                     index
                                                                 ? Colors.white
-                                                                : Colors.black,
+                                                                : Colors.black),
                                                       ),
                                                     ),
                                                     selected:
                                                         _selectedTimeIndex ==
                                                             index,
-                                                    onSelected: (selected) {
-                                                      setState(() {
-                                                        if (selected) {
-                                                          _selectedTimeIndex =
-                                                              index;
-                                                          selctedTime = time;
-                                                        } else {
-                                                          _selectedTimeIndex =
-                                                              -1;
-                                                          selctedTime = "0";
-                                                        }
-                                                      });
-                                                    },
-                                                    selectedColor:
-                                                        const Color(0xFF50B7C5),
-                                                    labelStyle: const TextStyle(
-                                                        color: Colors.white),
-                                                    backgroundColor:
-                                                        Colors.transparent,
+                                                    onSelected: isReserved
+                                                        ? null // Disable the chip if reserved
+                                                        : (selected) {
+                                                            setState(() {
+                                                              if (selected) {
+                                                                _selectedTimeIndex =
+                                                                    index;
+                                                                selctedTime =
+                                                                    time;
+                                                              } else {
+                                                                _selectedTimeIndex =
+                                                                    -1;
+                                                                selctedTime =
+                                                                    "0";
+                                                              }
+                                                            });
+                                                          },
+                                                    selectedColor: isReserved
+                                                        ? Colors.red
+                                                        : const Color(
+                                                            0xFF50B7C5),
+                                                    backgroundColor: isReserved
+                                                        ? Colors.red
+                                                        : Colors.transparent,
                                                     selectedShadowColor:
                                                         Colors.transparent,
                                                     shadowColor:
