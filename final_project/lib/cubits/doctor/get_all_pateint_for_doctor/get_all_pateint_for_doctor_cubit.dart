@@ -20,11 +20,22 @@ class GetAllPateintForDoctorCubit extends Cubit<GetAllPateintForDoctorState> {
           'Authorization': 'Bearer $token',
         }),
       );
-      print(response.data["meta"]["0"]);
-      emit(GetAllPateintForDoctorsuccess(patients: response.data["meta"]));
+
+      // Print the response data to understand its structure
+      print(response.data);
+
+      // Assuming the patients are inside the 'meta' key
+      final Map<String, dynamic> patientsMap = response.data['meta'];
+      final List<dynamic> patients = patientsMap.values.toList();
+
+      emit(GetAllPateintForDoctorsuccess(patients: patients));
     } on DioException catch (e) {
       emit(GetAllPateintForDoctorFailure(
         errMessage: e.response?.data.toString() ?? 'An unknown error occurred',
+      ));
+    } catch (e) {
+      emit(GetAllPateintForDoctorFailure(
+        errMessage: e.toString(),
       ));
     }
   }

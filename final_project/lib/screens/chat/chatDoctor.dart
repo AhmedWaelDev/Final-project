@@ -29,35 +29,34 @@ class _PatientChatState extends State<PatientChat> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xffe5e9f0),
-      appBar: AppBar(
-        toolbarHeight: size.height * 70 / 932,
         backgroundColor: const Color(0xffe5e9f0),
-        title: _isSearching ? _buildSearchField() : const Text("Chats"),
-        actions: _buildAppBarActions(),
-      ),
-      body:
-          BlocBuilder<GetAllPateintForDoctorCubit, GetAllPateintForDoctorState>(
-        builder: (context, state) {
-          if (state is GetAllPateintForDoctorLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is GetAllPateintForDoctorsuccess) {
-            allCharacters = state.patients.map((patient) {
-              return Characters.fromJson(patient);
-            }).toList();
-            if (!_isSearching) {
-              searchedCharacters = allCharacters;
-            }
+        appBar: AppBar(
+          toolbarHeight: size.height * 70 / 932,
+          backgroundColor: const Color(0xffe5e9f0),
+          title: _isSearching ? _buildSearchField() : const Text("Chats"),
+          actions: _buildAppBarActions(),
+        ),
+        body: BlocBuilder<GetAllPateintForDoctorCubit,
+            GetAllPateintForDoctorState>(
+          builder: (context, state) {
+            if (state is GetAllPateintForDoctorLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is GetAllPateintForDoctorsuccess) {
+              allCharacters = state.patients.map((patient) {
+                return Characters.fromJson(patient as Map<String, dynamic>);
+              }).toList();
+              if (!_isSearching) {
+                searchedCharacters = List<Characters>.from(allCharacters);
+              }
 
-            return buildChatList(context, size);
-          } else if (state is GetAllPateintForDoctorFailure) {
-            return Center(child: Text(state.errMessage));
-          } else {
-            return Container();
-          }
-        },
-      ),
-    );
+              return buildChatList(context, size);
+            } else if (state is GetAllPateintForDoctorFailure) {
+              return Center(child: Text(state.errMessage));
+            } else {
+              return Container();
+            }
+          },
+        ));
   }
 
   Widget buildChatList(BuildContext context, Size size) {
