@@ -204,13 +204,13 @@ class _ProfileState extends State<Profile> {
                     listener: (context, state) {
                       if (state is LogoutSuccess) {
                         print("logged out");
+                        CacheHelper().clearAllData();
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const logIn()),
                           (Route<dynamic> route) => false,
                         );
-                        CacheHelper().removeData(key: "isDoctor");
                       }
                     },
                     builder: (context, state) {

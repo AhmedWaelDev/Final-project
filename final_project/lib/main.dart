@@ -3,6 +3,7 @@ import 'package:final_project/cubits/Appointment/create_appointment/create_appoi
 import 'package:final_project/cubits/Appointment/up_coming/up_coming_cubit.dart';
 import 'package:final_project/cubits/auth/Logout/cubit/logout_cubit.dart';
 import 'package:final_project/cubits/auth/change_password/change_password_cubit.dart';
+import 'package:final_project/cubits/auth/delete_account/delete_account_cubit.dart';
 import 'package:final_project/cubits/auth/forget_password/forget_password_cubit.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/cubits/auth/register/register_cubit.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OnlineDoctorsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DeleteAccountCubit(),
         ),
         BlocProvider(
           create: (context) => LoginCubit(),

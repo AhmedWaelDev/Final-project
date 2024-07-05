@@ -1,5 +1,9 @@
+import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/cubits/auth/delete_account/delete_account_cubit.dart';
 import 'package:final_project/screens/sign_in_up/changePassword.dart';
+import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../CustomWidgets/screensappbar.dart';
 import '../../CustomWidgets/settingsContainer.dart';
@@ -64,10 +68,42 @@ class _SettingState extends State<Setting> {
                       icon: Icons.notifications,
                       text: "Notifications",
                     ),
-                    const settingsContainer(
-                      color: Color(0xffC00000),
-                      icon: Icons.delete,
-                      text: "Delate Account",
+                    BlocConsumer<DeleteAccountCubit, DeleteAccountState>(
+                      listener: (context, state) {
+                        if (state is DeleteAccountFSuccess) {
+                          CacheHelper().clearDataExceptIsVisited();
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => const logIn(),
+                              ),
+                              (route) => false);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("success"),
+                            ),
+                          );
+                        } else if (state is DeleteAccountFailure) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(state.errMessage),
+                            ),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return state is DeleteAccountFLoading
+                            ? const CircularProgressIndicator()
+                            : settingsContainer(
+                                function: () {
+                                  context
+                                      .read<DeleteAccountCubit>()
+                                      .deleteAccount();
+                                },
+                                color: const Color(0xffC00000),
+                                icon: Icons.delete,
+                                text: "Delate Account",
+                              );
+                      },
                     ),
                     SizedBox(
                       height: size.height * 50 / 932,

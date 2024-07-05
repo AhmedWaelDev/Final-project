@@ -40,6 +40,8 @@ class logIn extends StatelessWidget {
                   myNavBar(isDoctor: state.user.isDoctorAsBool()),
             ),
           );
+          context.read<LoginCubit>().logInEmail.clear();
+          context.read<LoginCubit>().logInPassword.clear();
         } else {
           print("Unhandled state: $state");
         }

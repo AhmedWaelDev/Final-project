@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:final_project/cache/cache_helper.dart';
+import 'package:final_project/screens/homePage/navBar.dart';
 import 'package:final_project/screens/sign_in_up/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,13 +24,16 @@ class _splashState extends State<splash> {
     if (isVisited == true) {
       Timer(const Duration(seconds: 2), () {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const logIn()),
+          MaterialPageRoute(
+              builder: (context) => myNavBar(
+                    isDoctor: CacheHelper().getData(key: "isDoctorAsBool"),
+                  )),
         );
       });
     } else {
       Timer(const Duration(seconds: 2), () {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const onbording_screen()),
+          MaterialPageRoute(builder: (context) => const logIn()),
         );
       });
     }
