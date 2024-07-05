@@ -1,6 +1,6 @@
 import 'package:final_project/screens/Profile/doctorProfile.dart';
+import 'package:final_project/screens/chat/chatDoctor.dart';
 import 'package:final_project/screens/chat/chatuUsers.dart';
-import 'package:final_project/screens/customers/doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
@@ -105,7 +105,7 @@ class _myNavBarState extends State<myNavBar> {
                             onPressed: () {
                               setState(() {
                                 currentScreen = widget.isDoctor
-                                    ? const Doctors()
+                                    ? const PatientChat()
                                     : const Chat();
                                 currentTab = 1;
                               });
