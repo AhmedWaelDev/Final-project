@@ -24,37 +24,41 @@ class _ChatterScreenState extends State<ChatterScreen> {
   final ScrollController _scrollController = ScrollController();
   final ImagePicker _picker = ImagePicker();
   File? _imageFile;
-  bool _uploadingImage = false; // State for showing loading indicator
-  bool _imageSelectedForUpload =
-      false; // State for indicating image selected for upload
+  bool _uploadingImage = false;
+  bool _imageSelectedForUpload = false;
   final ChatService _chatService = ChatService();
+  bool _sendingMessage = false; // Add sending message state
 
   void _getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
-        _imageSelectedForUpload = true; // Set image selected for upload
+        _imageSelectedForUpload = true;
       });
     }
   }
 
   void _sendMessage() async {
     if (_messageController.text.isNotEmpty || _imageFile != null) {
+      setState(() {
+        _sendingMessage = true; // Start sending message loading state
+      });
+
       String currentUserId = CacheHelper().getData(key: "id") ?? "";
       String senderName = CacheHelper().getData(key: "name") ?? "";
       String text = _messageController.text;
-      String receiverId = widget.receiverId; // Replace with actual receiver ID
+      String receiverId = widget.receiverId;
 
       String? imageUrl;
       if (_imageFile != null) {
         setState(() {
-          _uploadingImage = true; // Start showing loading indicator
+          _uploadingImage = true;
         });
         imageUrl = await _chatService.uploadImage(_imageFile!);
         setState(() {
-          _uploadingImage = false; // Stop showing loading indicator
-          _imageSelectedForUpload = false; // Reset image selected for upload
+          _uploadingImage = false;
+          _imageSelectedForUpload = false;
         });
       }
 
@@ -67,7 +71,8 @@ class _ChatterScreenState extends State<ChatterScreen> {
       );
       _messageController.clear();
       setState(() {
-        _imageFile = null; // Clear selected image after sending
+        _imageFile = null;
+        _sendingMessage = false; // Stop sending message loading state
       });
     }
   }
@@ -102,22 +107,22 @@ class _ChatterScreenState extends State<ChatterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Set background color to white
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white, // Set app bar background color to white
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          color: Colors.blue, // Adjust back button color
+          color: Colors.blue,
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         title: Text(
           widget.receiverName,
-          style: const TextStyle(color: Colors.black), // Adjust title color
+          style: const TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        elevation: 0, // Remove app bar shadow
+        elevation: 0,
       ),
       body: Column(
         children: [
@@ -144,7 +149,6 @@ class _ChatterScreenState extends State<ChatterScreen> {
                     final String senderId = messageData['sender'];
                     final String receiverId = messageData['receiverId'];
 
-                    // Check if the message involves the current user and the specified receiver
                     final bool isSenderToReceiver = senderId == currentUserId &&
                         receiverId == widget.receiverId;
                     final bool isReceiverFromSender =
@@ -282,8 +286,7 @@ class _ChatterScreenState extends State<ChatterScreen> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 4,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -302,11 +305,17 @@ class _ChatterScreenState extends State<ChatterScreen> {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: IconButton(
-                    icon: Icon(Icons.send),
-                    color: Colors.white,
-                    onPressed: _sendMessage,
-                  ),
+                  child: _sendingMessage
+                      ? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.send),
+                          color: Colors.white,
+                          onPressed: _sendMessage,
+                        ),
                 ),
               ],
             ),
