@@ -1,3 +1,4 @@
+import 'package:final_project/cubits/auth/Logout/cubit/logout_cubit.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
 import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/Payment/payment.dart';
@@ -61,162 +62,181 @@ class _DoctorProfileState extends State<doctorProfile> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        color: const Color(0xffe5e9f0),
-        padding: EdgeInsets.only(
-            top: size.width * 20 / 320,
-            right: size.width * 10 / 320,
-            left: size.width * 10 / 320),
-        height: size.height,
-        width: size.width,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const Spacer(
-                  flex: 2,
-                ),
-                Text("My profile",
-                    style: TextStyle(
-                        fontSize: size.height * 30 / 932,
-                        fontWeight: FontWeight.bold)),
-                const Spacer(),
-                MaterialButton(
-                  minWidth: size.height * 42 / 932,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Personal()),
-                    );
-                  },
-                  child: Container(
-                    height: size.height * 42 / 932,
-                    width: size.height * 42 / 932,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.white),
-                    child: const Icon(Icons.edit_square),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: size.height * 30 / 932,
-            ),
-            //mainPhoto
-            SizedBox(
-              height: size.height * 180 / 932,
-              width: size.height * 180 / 932,
-              child: Stack(
+    return BlocProvider(
+      create: (context) => LoginCubit()..getUserProfile(),
+      child: Scaffold(
+        body: Container(
+          color: const Color(0xffe5e9f0),
+          padding: EdgeInsets.only(
+              top: size.width * 20 / 320,
+              right: size.width * 10 / 320,
+              left: size.width * 10 / 320),
+          height: size.height,
+          width: size.width,
+          child: Column(
+            children: [
+              Row(
                 children: [
-                  CircleAvatar(
-                      radius: size.height * 90 / 932,
-                      backgroundImage:
-                          const AssetImage("assets/photo/Mask group.png")),
-                  Align(
-                      alignment: Alignment.bottomRight,
-                      child: MaterialButton(
-                          minWidth: size.height * 45 / 932,
-                          onPressed: () {},
-                          child: Container(
-                            height: size.height * 45 / 932,
-                            width: size.height * 45 / 932,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.white),
-                            child: const Icon(Icons.camera_alt_outlined),
-                          )))
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  Text("My profile",
+                      style: TextStyle(
+                          fontSize: size.height * 30 / 932,
+                          fontWeight: FontWeight.bold)),
+                  const Spacer(),
+                  MaterialButton(
+                    minWidth: size.height * 42 / 932,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Personal()),
+                      );
+                    },
+                    child: Container(
+                      height: size.height * 42 / 932,
+                      width: size.height * 42 / 932,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.white),
+                      child: const Icon(Icons.edit_square),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            BlocBuilder<LoginCubit, LoginState>(
-              builder: (context, state) {
-                return Text(
-                  state is getUserDataSuccess ? state.user.name : "unknown",
-                  style: TextStyle(
-                      fontSize: size.height * 24 / 932,
-                      fontWeight: FontWeight.bold),
-                );
-              },
-            ),
-            SizedBox(
-              height: size.height * 5 / 932,
-            ),
-            BlocBuilder<LoginCubit, LoginState>(
-              builder: (context, state) {
-                return Text(
-                  state is getUserDataSuccess
-                      ? "${calculateAge(state.user.date_of_birth)} years old"
-                      : "unkonw years old",
-                  style: TextStyle(
-                      fontSize: size.height * 20 / 932,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xff757575)),
-                );
-              },
-            ),
-            SizedBox(
-              height: size.height * 30 / 932,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(children: [
-                  profileContainer(
-                    icon: Icons.arrow_forward_ios_outlined,
-                    color: Colors.white,
-                    text: "Settings",
-                    itemColor: Colors.black,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Setting()),
-                      );
-                    },
-                  ),
-                  profileContainer(
-                    icon: Icons.arrow_forward_ios_outlined,
-                    color: Colors.white,
-                    text: "Payment",
-                    itemColor: Colors.black,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Payment()),
-                      );
-                    },
-                  ),
-                  profileContainer(
-                    icon: Icons.arrow_forward_ios_outlined,
-                    color: Colors.white,
-                    text: "add schedule",
-                    itemColor: Colors.black,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AddSchedule()),
-                      );
-                    },
-                  ),
-                  profileContainer(
-                    icon: Icons.exit_to_app_outlined,
-                    color: const Color(0xffE6C9CE),
-                    text: "Logout",
-                    itemColor: const Color(0xffD23A2D),
-                    onTap: () {
-                      CacheHelper().removeData(key: "isDoctor");
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => const logIn()),
-                        (Route<dynamic> route) => false,
-                      );
-                    },
-                  ),
-                ]),
+              SizedBox(
+                height: size.height * 30 / 932,
               ),
-            )
-          ],
+              //mainPhoto
+              SizedBox(
+                height: size.height * 180 / 932,
+                width: size.height * 180 / 932,
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                        radius: size.height * 90 / 932,
+                        backgroundImage:
+                            const AssetImage("assets/photo/Mask group.png")),
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: MaterialButton(
+                            minWidth: size.height * 45 / 932,
+                            onPressed: () {},
+                            child: Container(
+                              height: size.height * 45 / 932,
+                              width: size.height * 45 / 932,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: const Icon(Icons.camera_alt_outlined),
+                            )))
+                  ],
+                ),
+              ),
+              BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  return Text(
+                    state is getUserDataSuccess
+                        ? state.user.name
+                        : "fetching...",
+                    style: TextStyle(
+                        fontSize: size.height * 24 / 932,
+                        fontWeight: FontWeight.bold),
+                  );
+                },
+              ),
+              SizedBox(
+                height: size.height * 5 / 932,
+              ),
+              BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  return Text(
+                    state is getUserDataSuccess
+                        ? "${calculateAge(state.user.date_of_birth)} years old"
+                        : "(fetching...) years old",
+                    style: TextStyle(
+                        fontSize: size.height * 20 / 932,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xff757575)),
+                  );
+                },
+              ),
+              SizedBox(
+                height: size.height * 30 / 932,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    profileContainer(
+                      icon: Icons.arrow_forward_ios_outlined,
+                      color: Colors.white,
+                      text: "Settings",
+                      itemColor: Colors.black,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Setting()),
+                        );
+                      },
+                    ),
+                    profileContainer(
+                      icon: Icons.arrow_forward_ios_outlined,
+                      color: Colors.white,
+                      text: "Payment",
+                      itemColor: Colors.black,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Payment()),
+                        );
+                      },
+                    ),
+                    profileContainer(
+                      icon: Icons.arrow_forward_ios_outlined,
+                      color: Colors.white,
+                      text: "add schedule",
+                      itemColor: Colors.black,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddSchedule()),
+                        );
+                      },
+                    ),
+                    BlocConsumer<LogoutCubit, LogoutState>(
+                      listener: (context, state) {
+                        if (state is LogoutSuccess) {
+                          print("logged out");
+                          CacheHelper().clearDataExceptIsVisited();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const logIn()),
+                            (Route<dynamic> route) => false,
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return state is LogoutLoading
+                            ? const CircularProgressIndicator()
+                            : profileContainer(
+                                icon: Icons.exit_to_app_outlined,
+                                color: const Color(0xffE6C9CE),
+                                text: "Logout",
+                                itemColor: const Color(0xffD23A2D),
+                                onTap: () {
+                                  context.read<LogoutCubit>().logout();
+                                },
+                              );
+                      },
+                    ),
+                  ]),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

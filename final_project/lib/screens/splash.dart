@@ -23,17 +23,23 @@ class _splashState extends State<splash> {
     bool isVisited = CacheHelper().getData(key: "isVisited") ?? false;
     if (isVisited == true) {
       Timer(const Duration(seconds: 2), () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-              builder: (context) => myNavBar(
-                    isDoctor: CacheHelper().getData(key: "isDoctorAsBool"),
-                  )),
-        );
+        if (CacheHelper().getData(key: "rememberMeValue") == true) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) => myNavBar(
+                      isDoctor: CacheHelper().getData(key: "isDoctorAsBool"),
+                    )),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const logIn()),
+          );
+        }
       });
     } else {
       Timer(const Duration(seconds: 2), () {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const logIn()),
+          MaterialPageRoute(builder: (context) => const onbording_screen()),
         );
       });
     }

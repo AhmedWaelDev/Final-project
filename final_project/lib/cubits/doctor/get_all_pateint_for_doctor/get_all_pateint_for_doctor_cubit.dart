@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:final_project/cache/cache_helper.dart';
 import 'package:final_project/cubits/endPoints.dart';
-
 part 'get_all_pateint_for_doctor_state.dart';
 
 class GetAllPateintForDoctorCubit extends Cubit<GetAllPateintForDoctorState> {
@@ -25,8 +24,7 @@ class GetAllPateintForDoctorCubit extends Cubit<GetAllPateintForDoctorState> {
       print(response.data);
 
       // Assuming the patients are inside the 'meta' key
-      final Map<String, dynamic> patientsMap = response.data['meta'];
-      final List<dynamic> patients = patientsMap.values.toList();
+      final List<dynamic> patients = response.data['meta'];
 
       emit(GetAllPateintForDoctorsuccess(patients: patients));
     } on DioException catch (e) {

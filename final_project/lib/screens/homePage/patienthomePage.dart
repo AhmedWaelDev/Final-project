@@ -36,6 +36,9 @@ class patienthomePagescreen extends StatelessWidget {
             ..fetchOnlineDoctorsBySpeciality(selectedSpecialtyIndex + 1),
         ),
         BlocProvider(
+          create: (context) => LoginCubit()..getUserProfile(),
+        ),
+        BlocProvider(
           create: (context) => UpComingCubit()..fetchUpUserAppointments(),
         ),
       ],
@@ -56,12 +59,14 @@ class patienthomePagescreen extends StatelessWidget {
                       ? myAppBar(
                           name: state.user.name,
                           isDoctor: false,
-                          image: 'assets/images/person.png',
+                          image: state.user.image!,
+                          api: true,
                         )
                       : const myAppBar(
-                          name: "unknow",
+                          name: ".......",
                           isDoctor: false,
-                          image: 'assets/images/person.png',
+                          image: 'assets/images/default-avatar.jpg',
+                          api: false,
                         );
                 },
               ),

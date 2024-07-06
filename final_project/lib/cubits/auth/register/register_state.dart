@@ -9,6 +9,8 @@ class RegisterSuccess extends RegisterState {}
 
 class RegisterLoading extends RegisterState {}
 
+class uploadProfilePicture extends RegisterState {}
+
 class RegisterFailure extends RegisterState {
   final String errMessage;
 

@@ -30,6 +30,9 @@ class doctorHomePage extends StatelessWidget {
           create: (context) =>
               GetAllPateintForDoctorCubit()..GetAllPateintForDoctor(),
         ),
+        BlocProvider(
+          create: (context) => LoginCubit()..getUserProfile(),
+        ),
         BlocProvider<GetPatientWithDateCubit>(
           create: (context) =>
               GetPatientWithDateCubit()..GetPateintWithDate((formated)),
@@ -52,7 +55,7 @@ class doctorHomePage extends StatelessWidget {
                   return myAppBar(
                     name: loginState is getUserDataSuccess
                         ? loginState.user.name
-                        : "unknown",
+                        : ".......",
                     isDoctor: true,
                     image: 'assets/images/person.png',
                   );

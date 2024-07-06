@@ -6,10 +6,12 @@ class myAppBar extends StatelessWidget {
     required this.name,
     required this.isDoctor,
     required this.image,
+    this.api,
   });
   final String name;
   final bool isDoctor;
   final String image;
+  final bool? api;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +27,41 @@ class myAppBar extends StatelessWidget {
                 isDoctor == false
                     ? Row(
                         children: [
-                          Padding(
-                            padding:
-                                EdgeInsets.only(right: size.height * 15 / 932),
-                            child: ClipOval(
-                              child: Image.asset(image),
-                            ),
-                          ),
+                          api == true
+                              ? Padding(
+                                  padding: EdgeInsets.only(
+                                      right: size.height * 15 / 932),
+                                  child: SizedBox(
+                                    width: size.height * 60 / 932,
+                                    height: size.height * 60 / 932,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        image,
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          // Fallback to default image if there's an error
+                                          return Image.asset(
+                                            'assets/images/default-avatar.jpg',
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ))
+                              : Padding(
+                                  padding: EdgeInsets.only(
+                                      right: size.height * 15 / 932),
+                                  child: SizedBox(
+                                    width: size.height * 60 / 932,
+                                    height: size.height * 60 / 932,
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        image,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  )),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
