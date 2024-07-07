@@ -9,10 +9,12 @@ class getAppointmentOtherDoctors extends StatelessWidget {
     required this.speciality,
     required this.rate,
     this.function,
+    required this.image,
   });
 
   final Size size;
   final String name;
+  final String image;
   final String speciality;
   final String rate;
   final VoidCallback? function;
@@ -33,12 +35,21 @@ class getAppointmentOtherDoctors extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             child: Row(
               children: [
-                ClipOval(
-                  child: Image.asset(
-                    'assets/images/drchat2.png',
-                    width: 60.0,
-                    height: 60.0,
-                    fit: BoxFit.cover,
+                SizedBox(
+                  width: size.width * 50 / 320,
+                  height: size.width * 50 / 320,
+                  child: ClipOval(
+                    child: Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        // Fallback to default image if there's an error
+                        return Image.asset(
+                          'assets/images/default-avatar.jpg',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(

@@ -7,6 +7,7 @@ class DoctorCard extends StatelessWidget {
   final VoidCallback onChatPressed;
   final VoidCallback onVideoCallPressed;
   final String video;
+  final String image;
 
   const DoctorCard({
     super.key,
@@ -16,6 +17,7 @@ class DoctorCard extends StatelessWidget {
     required this.onChatPressed,
     required this.onVideoCallPressed,
     required this.video,
+    required this.image,
   });
 
   @override
@@ -44,10 +46,22 @@ class DoctorCard extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                          backgroundImage: AssetImage(
-                              'assets/images/dr.jpg'), // تغيير المسار إلى مسار الصورة الخاصة بالطبيب
-                          radius: 25, // تحديد حجم الصورة
+                        SizedBox(
+                          height: size.height * 60 / 932,
+                          width: size.height * 60 / 932,
+                          child: ClipOval(
+                            child: Image.network(
+                              image,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                // Fallback to default image if there's an error
+                                return Image.asset(
+                                  'assets/images/default-avatar.jpg',
+                                  fit: BoxFit.cover,
+                                );
+                              },
+                            ), // تغيير المسار إلى مسار الصورة الخاصة بالطبيب
+                          ),
                         ),
                         SizedBox(
                             width: size.width *

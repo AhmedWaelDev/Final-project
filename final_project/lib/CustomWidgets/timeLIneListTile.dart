@@ -9,6 +9,7 @@ class doctorTimeLineTile extends StatelessWidget {
     required this.size,
     required this.isFirst,
     required this.isLast,
+    required this.image,
     this.name,
     this.startTIme,
     this.age,
@@ -19,6 +20,7 @@ class doctorTimeLineTile extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
   final String? name;
+  final String image;
   final String? startTIme;
   final String? age;
   @override
@@ -44,9 +46,22 @@ class doctorTimeLineTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
               color: isPast == true ? const Color(0xFF50B7C5) : Colors.white),
           child: ListTile(
-            leading: CircleAvatar(
-              radius: size.height * 30 / 932,
-              foregroundImage: const AssetImage("assets/images/dr.jpg"),
+            leading: SizedBox(
+              height: size.height * 40 / 932,
+              width: size.height * 40 / 932,
+              child: ClipOval(
+                child: Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    // Fallback to default image if there's an error
+                    return Image.asset(
+                      'assets/images/default-avatar.jpg',
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ),
             ),
             title: Text(
               name ?? "unknown",

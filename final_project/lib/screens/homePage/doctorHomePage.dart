@@ -51,14 +51,20 @@ class doctorHomePage extends StatelessWidget {
           child: Column(
             children: [
               BlocBuilder<LoginCubit, LoginState>(
-                builder: (context, loginState) {
-                  return myAppBar(
-                    name: loginState is getUserDataSuccess
-                        ? loginState.user.name
-                        : ".......",
-                    isDoctor: true,
-                    image: 'assets/images/person.png',
-                  );
+                builder: (context, state) {
+                  return state is getUserDataSuccess
+                      ? myAppBar(
+                          name: state.user.name,
+                          isDoctor: true,
+                          image: state.user.image!,
+                          api: true,
+                        )
+                      : const myAppBar(
+                          name: ".......",
+                          isDoctor: true,
+                          image: 'assets/images/default-avatar.jpg',
+                          api: false,
+                        );
                 },
               ),
               SizedBox(height: size.height * 20 / 932),
@@ -140,6 +146,8 @@ class doctorHomePage extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final patient = state.patients[index];
                                   return doctorTimeLineTile(
+                                    image:
+                                        "http://egyclinic.c1.is/items/image/${patient["patient"]["image"]}",
                                     name: patient["patient"]["name"],
                                     isPast: isBeforeCurrentTime(
                                         patient["appointmentTime"],

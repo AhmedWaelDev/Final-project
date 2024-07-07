@@ -243,6 +243,8 @@ class _DoctorsViewState extends State<DoctorsView> {
                                         itemBuilder: (context, index) {
                                           final doctor = state.doctors[index];
                                           return DoctorsAppoint(
+                                            image:
+                                                "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                             name: doctor['name'] ??
                                                 'No Name Available',
                                             onChatPressed: () {
@@ -251,6 +253,8 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         GetAppointment(
+                                                      image:
+                                                          "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                                       doctorId:
                                                           doctor["id"] ?? 0,
                                                       price:
@@ -344,6 +348,8 @@ class _DoctorsViewState extends State<DoctorsView> {
                                           final doctor =
                                               state.doctors[index]["doctor"];
                                           return DoctorsAppoint(
+                                            image:
+                                                "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                             name: doctor['name'] ??
                                                 'No Name Available',
                                             onChatPressed: () {
@@ -352,6 +358,8 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         GetAppointment(
+                                                      image:
+                                                          "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                                       doctorId:
                                                           doctor["id"] ?? 0,
                                                       price:

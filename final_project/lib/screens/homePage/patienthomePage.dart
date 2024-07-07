@@ -167,6 +167,8 @@ class patienthomePagescreen extends StatelessWidget {
                                               var appointment =
                                                   filteredAppointments[index];
                                               return upcomingForPatientContainer(
+                                                image:
+                                                    "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                                 startDate: appointment[
                                                     "appointmentDate"],
                                                 startTime: convertTimeFormat(
@@ -454,6 +456,8 @@ class patienthomePagescreen extends StatelessWidget {
                                                 final doctor = state
                                                     .doctors[index]["doctor"];
                                                 return DoctorsAppoint(
+                                                  image:
+                                                      "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                                   name: doctor['name'] ??
                                                       'No Name Available',
                                                   onChatPressed: () {
@@ -462,6 +466,8 @@ class patienthomePagescreen extends StatelessWidget {
                                                         MaterialPageRoute(
                                                           builder: (context) =>
                                                               GetAppointment(
+                                                            image:
+                                                                "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                                             doctorId:
                                                                 doctor["id"] ??
                                                                     0,

@@ -8,11 +8,13 @@ class upcomingForPatientContainer extends StatelessWidget {
     required this.startTime,
     required this.startDate,
     required this.status,
+    required this.image,
   });
   final String doctorName;
   final String startTime;
   final String startDate;
   final int status;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,19 @@ class upcomingForPatientContainer extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     child: Row(
                       children: [
-                        Image.asset(
-                          "assets/images/dr.jpg",
-                          scale: size.height * 3 / 932,
+                        SizedBox(
+                          width: size.height * 90 / 932,
+                          child: Image.network(
+                            image,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              // Fallback to default image if there's an error
+                              return Image.asset(
+                                'assets/images/default-avatar.jpg',
+                                fit: BoxFit.cover,
+                              );
+                            },
+                          ),
                         ),
                         SizedBox(
                           width: size.height * 20 / 932,

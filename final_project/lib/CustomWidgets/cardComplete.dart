@@ -4,6 +4,7 @@ class cardComplete extends StatefulWidget {
   final String name;
   final String rating;
   final String specialty;
+  final String image;
   final VoidCallback onChatPressed;
   final VoidCallback onVideoCallPressed;
 
@@ -14,6 +15,7 @@ class cardComplete extends StatefulWidget {
     required this.specialty,
     required this.onChatPressed,
     required this.onVideoCallPressed,
+    required this.image,
   });
 
   @override
@@ -47,10 +49,22 @@ class _cardCompleteState extends State<cardComplete> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                          backgroundImage: AssetImage(
-                              'assets/images/dr.jpg'), // تغيير المسار إلى مسار الصورة الخاصة بالطبيب
-                          radius: 25, // تحديد حجم الصورة
+                        SizedBox(
+                          height: size.height * 60 / 932,
+                          width: size.height * 60 / 932,
+                          child: ClipOval(
+                            child: Image.network(
+                              widget.image,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                // Fallback to default image if there's an error
+                                return Image.asset(
+                                  'assets/images/default-avatar.jpg',
+                                  fit: BoxFit.cover,
+                                );
+                              },
+                            ), // تغيير المسار إلى مسار الصورة الخاصة بالطبيب
+                          ),
                         ),
                         SizedBox(
                             width: size.width *

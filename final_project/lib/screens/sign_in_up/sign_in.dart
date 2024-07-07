@@ -34,7 +34,7 @@ class logIn extends StatelessWidget {
           CacheHelper().saveData(
               key: "isDoctorAsBool", value: state.user.isDoctorAsBool());
           // Navigate to the new screen
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) =>
                   myNavBar(isDoctor: state.user.isDoctorAsBool()),

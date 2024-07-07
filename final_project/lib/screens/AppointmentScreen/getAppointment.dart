@@ -19,13 +19,15 @@ class GetAppointment extends StatelessWidget {
       required this.ratingCOunt,
       required this.listIndex,
       required this.price,
-      required this.doctorId});
+      required this.doctorId,
+      required this.image});
   final String name;
   final String spciality;
   final int spcialityId;
   final int patientNumber;
   final int experiance;
   final String rating;
+  final String image;
   final int ratingCOunt;
   final int listIndex;
   final int price;
@@ -71,12 +73,22 @@ class GetAppointment extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ClipOval(
-                                  child: Image.network(
-                                    'https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-                                    width: size.width * 100 / 320,
-                                    height: size.width * 100 / 320,
-                                    fit: BoxFit.cover,
+                                SizedBox(
+                                  width: size.width * 100 / 320,
+                                  height: size.width * 100 / 320,
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      image,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        // Fallback to default image if there's an error
+                                        return Image.asset(
+                                          'assets/images/default-avatar.jpg',
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -297,12 +309,16 @@ class GetAppointment extends StatelessWidget {
                                         final doctor = state.doctors[index];
 
                                         return getAppointmentOtherDoctors(
+                                            image:
+                                                "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                             function: () {
                                               Navigator.pushReplacement(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         GetAppointment(
+                                                      image:
+                                                          "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                                       doctorId:
                                                           doctor["id"] ?? 0,
                                                       price:

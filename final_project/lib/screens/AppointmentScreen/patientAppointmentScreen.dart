@@ -171,6 +171,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   var doctor =
                                       state.appointments[index]["doctor"];
                                   return DoctorCard(
+                                    image:
+                                        "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                     name: doctor["name"],
                                     rating: doctor["stars"].toString(),
                                     specialty:
@@ -235,6 +237,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   var appointment =
                                       state.appointments[index]["doctor"];
                                   return cardComplete(
+                                    image:
+                                        "http://egyclinic.c1.is/items/image/${appointment["image"]}",
                                     name: appointment["name"],
                                     rating: appointment["stars"].toString(),
                                     specialty: specialties[

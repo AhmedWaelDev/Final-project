@@ -140,7 +140,27 @@ class _ProfileState extends State<Profile> {
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: const Icon(Icons.camera_alt_outlined),
-                            )))
+                            ))),
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          height: size.height * 45 / 932,
+                          width: size.height * 45 / 932,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: MaterialButton(
+                            minWidth: size.height * 45 / 932,
+                            onPressed: () {
+                              print("hello");
+                            },
+                            child: Icon(
+                              Icons.check_circle,
+                              color: const Color(0xFF50B7C5),
+                              size: size.height * 35 / 932,
+                            ),
+                          ),
+                        ))
                   ],
                 ),
               ),

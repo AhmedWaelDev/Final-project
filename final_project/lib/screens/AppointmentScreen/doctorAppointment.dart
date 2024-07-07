@@ -96,6 +96,8 @@ class doctorAppointment extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     final patient = state.patients[index];
                                     return doctorTimeLineTile(
+                                      image:
+                                          "http://egyclinic.c1.is/items/image/${patient["patient"]["image"]}",
                                       name: patient["patient"]["name"],
                                       isPast: isBeforeCurrentTime(
                                           patient["appointmentTime"],

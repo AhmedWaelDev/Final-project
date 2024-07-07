@@ -71,7 +71,7 @@ String calculateRemainingTime(String date, String time) {
   String dateTimeString = "$date $time";
 
   // Define the format of the input date and time strings
-  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd hh:mm:ss a");
 
   // Parse the combined string into a DateTime object
   DateTime appointmentDateTime = dateFormat.parse(dateTimeString);
@@ -82,9 +82,9 @@ String calculateRemainingTime(String date, String time) {
   // Calculate the difference
   Duration difference = appointmentDateTime.difference(now);
 
-  // If the appointment time is in the past, return "Time has passed"
+  // If the appointment time is in the past, return "OnGoing meeting"
   if (difference.isNegative) {
-    return "OnGoing meeting ";
+    return "OnGoing meeting";
   }
 
   // Convert the difference to a readable string
