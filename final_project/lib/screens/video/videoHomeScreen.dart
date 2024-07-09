@@ -1,5 +1,4 @@
 import 'package:final_project/CustomWidgets/screensappbar.dart';
-import 'package:final_project/CustomWidgets/timeLIneListTile.dart';
 import 'package:final_project/CustomWidgets/upcomingForPatientContainer.dart';
 import 'package:final_project/cubits/Appointment/up_coming/up_coming_cubit.dart';
 import 'package:final_project/cubits/doctor/get_patient_with_date/get_patient_with_date_cubit.dart';
@@ -224,8 +223,7 @@ Widget _doctorVideo(size) {
                                       ),
                                       Text(
                                         convertTimeFormat(
-                                                patient["appointmentTime"]) ??
-                                            "unknown",
+                                            patient["appointmentTime"]),
                                         style: TextStyle(
                                           fontSize: size.height * 20 / 932,
                                           color: Colors.black,
