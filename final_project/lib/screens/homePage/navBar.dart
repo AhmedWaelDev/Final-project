@@ -1,6 +1,7 @@
 import 'package:final_project/screens/Profile/doctorProfile.dart';
 import 'package:final_project/screens/chat/chatDoctor.dart';
 import 'package:final_project/screens/chat/chatuUsers.dart';
+import 'package:final_project/screens/video/videoHomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
@@ -214,7 +215,12 @@ class _myNavBarState extends State<myNavBar> {
                 color: const Color(0xFF50B7C5),
                 shape: const CircleBorder(),
                 onPressed: () {
-                  // Add your desired functionality here
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => Videohomescreen(
+                              isDoctor: widget.isDoctor,
+                            )),
+                  );
                 },
                 child: Padding(
                   padding: EdgeInsets.all(size.width * 0.05),

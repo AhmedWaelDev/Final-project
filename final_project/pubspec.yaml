@@ -59,6 +59,8 @@ dependencies:
   cloud_firestore: ^5.0.2
   firebase_storage: ^12.1.0
   cached_network_image: ^3.0.0
+  agora_rtc_engine: ^5.0.0
+  permission_handler: ^10.2.0 
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"

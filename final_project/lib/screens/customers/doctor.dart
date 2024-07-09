@@ -271,8 +271,8 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                       patientNumber:
                                                           doctor['p_counter'] ??
                                                               0,
-                                                      rating: doctor["stars"]
-                                                          .toString(),
+                                                      rating:
+                                                          "${doctor["stars"] ?? "0"}",
                                                       spciality: doctor[
                                                                   'specialtyId'] !=
                                                               null
@@ -286,7 +286,7 @@ class _DoctorsViewState extends State<DoctorsView> {
                                                     ),
                                                   ));
                                             },
-                                            rating: doctor["stars"].toString(),
+                                            rating: "${doctor["stars"] ?? 0}",
                                             specialty: doctor['specialtyId'] !=
                                                     null
                                                 ? specialties[

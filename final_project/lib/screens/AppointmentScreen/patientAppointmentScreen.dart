@@ -1,6 +1,8 @@
 import 'package:final_project/cubits/Appointment/up_coming/up_coming_cubit.dart';
 import 'package:final_project/models/Helper.dart';
+import 'package:final_project/screens/AppointmentScreen/getAppointment.dart';
 import 'package:final_project/screens/chat/chatScreen.dart';
+import 'package:final_project/screens/video/viedoScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +16,7 @@ class AppointmentScreen extends StatefulWidget {
 }
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   late UpComingCubit _upcomingCubit;
 
   @override
@@ -22,12 +24,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     super.initState();
     _upcomingCubit = UpComingCubit();
     _upcomingCubit
-        .fetchUpUpcomingAppointments(); // Fetch the upcoming appointments initially
+        .fetchUpCompleteAppointments(); // Fetch the upcoming appointments initially
   }
 
   @override
   void dispose() {
-    // _upcomingCubit.close();
     super.dispose();
   }
 
@@ -36,7 +37,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       _selectedIndex = index;
     });
     if (index == 0) {
-      _upcomingCubit.fetchUpUpcomingAppointments();
+      _upcomingCubit.fetchUpUserAppointments();
     } else if (index == 1) {
       _upcomingCubit.fetchUpCompleteAppointments();
     }
@@ -45,12 +46,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<UpComingCubit>.value(
-          value: _upcomingCubit,
-        ),
-      ],
+    return BlocProvider<UpComingCubit>.value(
+      value: _upcomingCubit,
       child: Scaffold(
         backgroundColor: const Color(0xffe5e9f0),
         appBar: AppBar(
@@ -152,25 +149,49 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               if (_selectedIndex == 0)
                 BlocBuilder<UpComingCubit, UpComingState>(
                   builder: (context, state) {
-                    if (state is fetchUpUpcomingAppointmentsLoading) {
+                    if (state is fetchUpUserDataLoading) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
-                    } else if (state is fetchUpUpcomingAppointmentsSuccess) {
-                      return state.appointments.isEmpty
+                    } else if (state is fetchUpUserDataSuccess) {
+                      return state.appointments
+                              .where((appointment) =>
+                                  appointment["status"]["original"]["status"] !=
+                                  3)
+                              .isEmpty
                           ? const Center(
-                              child: Text("No Upcoming Appointments"),
+                              child: Text("No upcoming appointments"),
                             )
                           : SizedBox(
                               width: size.width * 360 / 430,
                               child: ListView.builder(
-                                itemCount: state.appointments.length,
+                                itemCount: state.appointments
+                                    .where((appointment) =>
+                                        appointment["status"]["original"]
+                                                ["status"] ==
+                                            1 ||
+                                        appointment["status"]["original"]
+                                                ["status"] ==
+                                            2)
+                                    .length,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
+                                  var filteredAppointments = state.appointments
+                                      .where((appointment) =>
+                                          appointment["status"]["original"]
+                                                  ["status"] ==
+                                              1 ||
+                                          appointment["status"]["original"]
+                                                  ["status"] ==
+                                              2)
+                                      .toList();
+
                                   var doctor =
-                                      state.appointments[index]["doctor"];
+                                      filteredAppointments[index]["doctor"];
                                   return DoctorCard(
+                                    status: filteredAppointments[index]
+                                        ["status"]["original"]["status"],
                                     image:
                                         "http://egyclinic.c1.is/items/image/${doctor["image"]}",
                                     name: doctor["name"],
@@ -189,7 +210,38 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                         ),
                                       );
                                     },
-                                    onVideoCallPressed: () {},
+                                    onVideoCallPressed: () {
+                                      if (filteredAppointments[index]["status"]
+                                              ["original"]["status"] ==
+                                          1) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const VideoScreen(),
+                                          ),
+                                        );
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Alert'),
+                                              content: Text(
+                                                  'you can join after : ${calculateRemainingTime(filteredAppointments[index]["appointmentDate"], convertTimeFormat(filteredAppointments[index]["appointmentTime"]))}'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('Close'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
                                     video: 'Video call',
                                   );
                                 },
@@ -256,7 +308,42 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                         ),
                                       );
                                     },
-                                    onVideoCallPressed: () {},
+                                    onVideoCallPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                GetAppointment(
+                                              image:
+                                                  "http://egyclinic.c1.is/items/image/${appointment["image"]}",
+                                              doctorId: appointment["id"] ?? 0,
+                                              price: appointment["price"] ?? 0,
+                                              listIndex: index,
+                                              spcialityId:
+                                                  appointment["specialtyId"] ??
+                                                      1,
+                                              name:
+                                                  "${appointment['name'] ?? 'unKown'}",
+                                              experiance:
+                                                  appointment['experience'] ??
+                                                      0,
+                                              patientNumber:
+                                                  appointment['p_counter'] ?? 0,
+                                              rating: appointment["stars"]
+                                                  .toString(),
+                                              spciality:
+                                                  appointment['appointment'] !=
+                                                          null
+                                                      ? specialties[appointment[
+                                                              'specialtyId'] -
+                                                          1]
+                                                      : 'Unknown Specialty',
+                                              ratingCOunt: appointment[
+                                                      "ratings_count"] ??
+                                                  0,
+                                            ),
+                                          ));
+                                    },
                                   );
                                 },
                               ),
@@ -285,23 +372,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class Characters {
-  final String id; // Define id as a String
-  final String name;
-
-  Characters({
-    required this.id,
-    required this.name,
-  });
-
-  factory Characters.fromJson(Map<String, dynamic> json) {
-    return Characters(
-      id: json['id'].toString(), // Convert id to String during parsing
-      name: json['name'],
     );
   }
 }

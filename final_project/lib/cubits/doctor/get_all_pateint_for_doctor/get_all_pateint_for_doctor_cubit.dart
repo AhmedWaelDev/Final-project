@@ -21,10 +21,9 @@ class GetAllPateintForDoctorCubit extends Cubit<GetAllPateintForDoctorState> {
       );
 
       // Print the response data to understand its structure
-      print(response.data);
 
       // Assuming the patients are inside the 'meta' key
-      final List<dynamic> patients = response.data['meta'];
+      final List<dynamic> patients = response.data['patients'];
 
       emit(GetAllPateintForDoctorsuccess(patients: patients));
     } on DioException catch (e) {

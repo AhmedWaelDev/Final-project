@@ -1,4 +1,5 @@
 import 'package:final_project/models/Helper.dart';
+import 'package:final_project/screens/video/viedoScreen.dart';
 import 'package:flutter/material.dart';
 
 class upcomingForPatientContainer extends StatelessWidget {
@@ -120,34 +121,45 @@ class upcomingForPatientContainer extends StatelessWidget {
                           )
                         ],
                       )),
-                      Flexible(
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                              width: size.width * 100 / 320,
-                              height: size.height * 50 / 932,
-                              decoration: BoxDecoration(
-                                  color: const Color(0xFF50B7C5),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(size.height * 25 / 932))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.video_camera_front_rounded,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    "Join Call",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: size.height * 15 / 932),
-                                  )
-                                ],
-                              )),
-                        ),
-                      )
+                      status == 1
+                          ? Flexible(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const VideoScreen()),
+                                  );
+                                },
+                                child: Container(
+                                    width: size.width * 100 / 320,
+                                    height: size.height * 50 / 932,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF50B7C5),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                size.height * 25 / 932))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.video_camera_front_rounded,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          "Join Call",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: size.height * 15 / 932),
+                                        )
+                                      ],
+                                    )),
+                              ),
+                            )
+                          : Container()
                     ],
                   )
                 ],

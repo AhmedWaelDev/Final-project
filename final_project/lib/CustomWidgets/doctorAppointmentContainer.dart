@@ -6,9 +6,11 @@ class doctorAppointContainer extends StatelessWidget {
       this.name,
       this.age,
       required this.onChatPressed,
-      required this.onvedioPressed});
+      required this.onvedioPressed,
+      required this.image});
   final String? name;
   final String? age;
+  final String image;
   final VoidCallback onChatPressed;
   final VoidCallback onvedioPressed;
 
@@ -31,9 +33,22 @@ class doctorAppointContainer extends StatelessWidget {
         color: Colors.white,
       ),
       child: ListTile(
-        leading: CircleAvatar(
-          radius: size.height * 30 / 932,
-          foregroundImage: const AssetImage("assets/images/dr.jpg"),
+        leading: SizedBox(
+          width: size.height * 60 / 932,
+          height: size.height * 60 / 932,
+          child: ClipOval(
+            child: Image.network(
+              image,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                // Fallback to default image if there's an error
+                return Image.asset(
+                  'assets/images/default-avatar.jpg',
+                  fit: BoxFit.cover,
+                );
+              },
+            ),
+          ),
         ),
         title: Text(
           name == null ? "unkown" : name!,
@@ -59,23 +74,6 @@ class doctorAppointContainer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: size.width * 5 / 932,
-          ),
-          InkWell(
-            onTap: onvedioPressed,
-            child: Container(
-              height: size.height * 40 / 932,
-              width: size.height * 50 / 932,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(size.height * 15 / 932),
-                  color: const Color(0xFF50B7C5)),
-              child: const Icon(
-                Icons.call_outlined,
-                color: Colors.white,
-              ),
-            ),
-          )
         ]),
       ),
     );

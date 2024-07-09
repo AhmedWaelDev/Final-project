@@ -33,6 +33,7 @@ class getAppointmentOtherDoctors extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(25))),
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 SizedBox(
@@ -58,13 +59,16 @@ class getAppointmentOtherDoctors extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontSize: size.height * 19 / 932,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: size.width * 90 / 320,
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: size.height * 19 / 932,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis, // Handle overflow
                       ),
-                      overflow: TextOverflow.ellipsis, // Handle overflow
                     ),
                     Text(
                       speciality,

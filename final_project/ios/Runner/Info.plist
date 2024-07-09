@@ -47,5 +47,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera for video calls.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone for audio during video calls.</string>
+
+
 </dict>
 </plist>

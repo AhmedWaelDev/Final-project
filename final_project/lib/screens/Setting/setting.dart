@@ -95,9 +95,31 @@ class _SettingState extends State<Setting> {
                             ? const CircularProgressIndicator()
                             : settingsContainer(
                                 function: () {
-                                  context
-                                      .read<DeleteAccountCubit>()
-                                      .deleteAccount();
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: const Text('Are you sure?'),
+                                      content: const Text(
+                                          'Are you sure you want to delete your account?'),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text('No'),
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: const Text('Yes'),
+                                          onPressed: () {
+                                            context
+                                                .read<DeleteAccountCubit>()
+                                                .deleteAccount();
+                                            Navigator.of(ctx).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 },
                                 color: const Color(0xffC00000),
                                 icon: Icons.delete,

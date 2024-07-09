@@ -152,7 +152,7 @@ class _cardCompleteState extends State<cardComplete> {
                               color: const Color(
                                 0xff50B7C5,
                               ),
-                              onPressed: widget.onChatPressed,
+                              onPressed: widget.onVideoCallPressed,
                               child: Center(
                                   child: Text(
                                 "Rebooking",

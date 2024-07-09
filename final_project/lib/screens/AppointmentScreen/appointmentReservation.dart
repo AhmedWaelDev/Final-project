@@ -18,10 +18,12 @@ class appointmentReservation extends StatefulWidget {
       required this.name,
       required this.speciality,
       required this.price,
-      required this.doctorID})
+      required this.doctorID,
+      required this.image})
       : super(key: key);
   final String name;
   final String speciality;
+  final String image;
   final int price;
   final int doctorID;
 
@@ -75,12 +77,22 @@ class _AppointmentReservationState extends State<appointmentReservation> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                ClipOval(
-                                  child: Image.network(
-                                    'https://images.unsplash.com/photo-1575936123452-b67c3203c357?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-                                    width: size.width * 100 / 320,
-                                    height: size.width * 100 / 320,
-                                    fit: BoxFit.cover,
+                                SizedBox(
+                                  width: size.width * 100 / 320,
+                                  height: size.width * 100 / 320,
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      widget.image,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        // Fallback to default image if there's an error
+                                        return Image.asset(
+                                          'assets/images/default-avatar.jpg',
+                                          fit: BoxFit.cover,
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                                 SizedBox(

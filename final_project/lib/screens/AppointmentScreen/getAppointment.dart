@@ -386,6 +386,7 @@ class GetAppointment extends StatelessWidget {
                                 doctorID: doctorId,
                                 price: price,
                                 speciality: spciality,
+                                image: image,
                               )),
                     );
                   },

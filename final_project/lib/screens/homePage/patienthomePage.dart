@@ -143,24 +143,32 @@ class patienthomePagescreen extends StatelessWidget {
                                             itemCount: state.appointments
                                                 .where((appointment) =>
                                                     appointment["status"]
-                                                            ["original"]
-                                                        ["status"] !=
-                                                    3)
-                                                .length,
+                                                                ["original"]
+                                                            ["status"] ==
+                                                        1 ||
+                                                    appointment["status"]
+                                                                ["original"]
+                                                            ["status"] ==
+                                                        2)
+                                                .length, // Filter to include only appointments with status == 1 or 2
                                             itemHeight: size.height * 200 / 932,
                                             itemWidth: double.infinity,
                                             duration: 300,
-                                            loop: false,
+                                            loop: true,
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               var filteredAppointments = state
                                                   .appointments
                                                   .where((appointment) =>
                                                       appointment["status"]
-                                                              ["original"]
-                                                          ["status"] !=
-                                                      3)
-                                                  .toList();
+                                                                  ["original"]
+                                                              ["status"] ==
+                                                          1 ||
+                                                      appointment["status"]
+                                                                  ["original"]
+                                                              ["status"] ==
+                                                          2)
+                                                  .toList(); // Filter to include only appointments with status == 1 or 2
                                               var doctor =
                                                   filteredAppointments[index]
                                                       ["doctor"];
@@ -484,8 +492,7 @@ class patienthomePagescreen extends StatelessWidget {
                                                                     'p_counter'] ??
                                                                 0,
                                                             rating:
-                                                                doctor["stars"]
-                                                                    .toString(),
+                                                                "${doctor['stars'] ?? 0}",
                                                             spciality: doctor[
                                                                         'specialtyId'] !=
                                                                     null
@@ -502,7 +509,7 @@ class patienthomePagescreen extends StatelessWidget {
                                                           ),
                                                         ));
                                                   },
-                                                  rating: doctor["stars"]
+                                                  rating: "${doctor['stars'] ?? 0}"
                                                       .toString(), // Replace with actual rating data
                                                   specialty: doctor[
                                                               'specialtyId'] !=

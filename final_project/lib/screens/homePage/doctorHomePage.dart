@@ -222,6 +222,8 @@ class doctorHomePage extends StatelessWidget {
                                 final patient = state.patients[index];
                                 return doctorAppointContainer(
                                   name: patient["name"],
+                                  image:
+                                      "http://egyclinic.c1.is/items/image/${patient["image"]}",
                                   onChatPressed: () {
                                     Navigator.push(
                                       context,

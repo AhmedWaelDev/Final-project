@@ -8,6 +8,7 @@ class DoctorCard extends StatelessWidget {
   final VoidCallback onVideoCallPressed;
   final String video;
   final String image;
+  final int status;
 
   const DoctorCard({
     super.key,
@@ -18,6 +19,7 @@ class DoctorCard extends StatelessWidget {
     required this.onVideoCallPressed,
     required this.video,
     required this.image,
+    required this.status,
   });
 
   @override
@@ -93,6 +95,16 @@ class DoctorCard extends StatelessWidget {
                                     color: Colors.grey,
                                   ),
                                 ),
+                                SizedBox(width: size.width * 10 / 430),
+                                Container(
+                                  height: size.height * 15 / 932,
+                                  width: size.height * 15 / 932,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: status == 2
+                                          ? const Color(0xff757575)
+                                          : Colors.green),
+                                ),
                               ],
                             ),
                           ],
@@ -147,7 +159,7 @@ class DoctorCard extends StatelessWidget {
                             height: size.height * 40 / 932,
                             child: MaterialButton(
                               color: const Color(0xffa9ecf8),
-                              onPressed: onChatPressed,
+                              onPressed: onVideoCallPressed,
                               child: Row(
                                 children: [
                                   Icon(Icons.videocam_outlined,

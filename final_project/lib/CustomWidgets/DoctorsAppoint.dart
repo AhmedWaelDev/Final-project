@@ -66,11 +66,15 @@ class _cardCompleteState extends State<DoctorsAppoint> {
               ),
               Column(
                 children: [
-                  Text(
-                    widget.name,
-                    style: TextStyle(
-                      fontSize: size.width * 16 / 430,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: size.width * 90 / 320,
+                    child: Text(
+                      widget.name,
+                      style: TextStyle(
+                        fontSize: size.width * 16 / 430,
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                   SizedBox(height: size.height * 10 / 932),
