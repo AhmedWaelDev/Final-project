@@ -19,6 +19,16 @@ final class UpdateuserInformationFailure extends UpdateInformationState {
   const UpdateuserInformationFailure(this.message);
 }
 
+final class UpdateuserImageSuccess extends UpdateInformationState {}
+
+final class UpdateuserImageLoading extends UpdateInformationState {}
+
+final class UpdateuserImageFailure extends UpdateInformationState {
+  final String message;
+
+  const UpdateuserImageFailure(this.message);
+}
+
 final class UpdateDoctorInformationSuccess extends UpdateInformationState {}
 
 final class UpdateDoctorInformationLoading extends UpdateInformationState {}

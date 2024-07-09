@@ -1,5 +1,7 @@
 import 'package:final_project/cubits/auth/Logout/cubit/logout_cubit.dart';
 import 'package:final_project/cubits/auth/login/login_cubit.dart';
+import 'package:final_project/cubits/profile/cubit/photo_state.dart';
+import 'package:final_project/cubits/update_information/update_information_cubit.dart';
 import 'package:final_project/models/Helper.dart';
 import 'package:final_project/screens/Payment/payment.dart';
 import 'package:final_project/cache/cache_helper.dart';
@@ -12,6 +14,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../CustomWidgets/profileContainer.dart';
 import '../Setting/setting.dart';
 import 'package:final_project/cubits/profile/cubit/photo_cubit.dart';
+
+FileImage? myImage;
 
 class doctorProfile extends StatefulWidget {
   const doctorProfile({super.key});
@@ -113,22 +117,85 @@ class _DoctorProfileState extends State<doctorProfile> {
                 width: size.height * 180 / 932,
                 child: Stack(
                   children: [
-                    CircleAvatar(
-                        radius: size.height * 90 / 932,
-                        backgroundImage:
-                            const AssetImage("assets/photo/Mask group.png")),
+                    BlocBuilder<PhotoCubit, PhotoState>(
+                      builder: (context, state) {
+                        if (state is PhotoLoaded) {
+                          myImage = FileImage(state.image);
+                          return CircleAvatar(
+                            radius: size.height * 90 / 932,
+                            backgroundImage: FileImage(state.image),
+                          );
+                        } else {
+                          return BlocBuilder<LoginCubit, LoginState>(
+                            builder: (context, state) {
+                              return state is getUserDataSuccess
+                                  ? SizedBox(
+                                      width: size.height * 200 / 932,
+                                      height: size.height * 200 / 932,
+                                      child: ClipOval(
+                                        child: Image.network(
+                                          state.user.image!,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            // Fallback to default image if there's an error
+                                            return Image.asset(
+                                              'assets/images/default-avatar.jpg',
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      width: size.height * 200 / 932,
+                                      height: size.height * 200 / 932,
+                                      child: ClipOval(
+                                        child: Image.asset(
+                                          "assets/images/default-avatar.jpg",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                            },
+                          );
+                        }
+                      },
+                    ),
                     Align(
                         alignment: Alignment.bottomRight,
                         child: MaterialButton(
                             minWidth: size.height * 45 / 932,
-                            onPressed: () {},
+                            onPressed: () => _showPicker(context),
                             child: Container(
                               height: size.height * 45 / 932,
                               width: size.height * 45 / 932,
                               decoration: const BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                               child: const Icon(Icons.camera_alt_outlined),
-                            )))
+                            ))),
+                    Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          height: size.height * 45 / 932,
+                          width: size.height * 45 / 932,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: MaterialButton(
+                            minWidth: size.height * 45 / 932,
+                            onPressed: () {
+                              context
+                                  .read<UpdateInformationCubit>()
+                                  .UpdateuserImage(myImage!);
+                            },
+                            child: Icon(
+                              Icons.check_circle,
+                              color: const Color(0xFF50B7C5),
+                              size: size.height * 35 / 932,
+                            ),
+                          ),
+                        ))
                   ],
                 ),
               ),

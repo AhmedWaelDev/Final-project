@@ -72,6 +72,39 @@ class UpdateInformationCubit extends Cubit<UpdateInformationState> {
     }
   }
 
+  Future<void> UpdateuserImage(FileImage image) async {
+    try {
+      emit(UpdateuserImageLoading());
+
+      // Convert FileImage to MultipartFile
+      final multipartFile =
+          await MultipartFile.fromFile(image.file.path, filename: 'upload.jpg');
+
+      final formData = FormData.fromMap({"image": multipartFile});
+
+      final response = await Dio().post(
+        '$baseUrl/users/updateInfo/${CacheHelper().getData(key: "id")}',
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${CacheHelper().getData(key: "token")}',
+          },
+        ),
+      );
+
+      emit(UpdateuserImageSuccess());
+
+      print("success");
+    } on DioException catch (e) {
+      print("failed with error: ${e.response?.data}");
+      emit(UpdateuserImageFailure(
+          e.response?.data["message"] ?? "Unknown error"));
+    } catch (e) {
+      print("failed with error: $e");
+      emit(UpdateuserImageFailure(e.toString()));
+    }
+  }
+
   Future<void> UpdatedoctorInformation() async {
     if (speciality == "") {
       finalSpecialtyId =
